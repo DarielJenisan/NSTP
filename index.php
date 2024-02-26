@@ -23,7 +23,7 @@ require_once 'connection.php';
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-2">
         <a class="navbar-brand ps-2" href="#">
             <img src="assets/img/nbsclogo.png" style="height: 0.3in;">
-            Sample s</a>
+            Sample ssasa</a>
         </button>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="true">
             <span class="navbar-toggler-icon"></span>
