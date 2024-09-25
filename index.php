@@ -1,66 +1,99 @@
 <?php
-require_once 'connection.php';
+session_start();
+$_SESSION['userid'] = 1;
+$_SESSION['deptid'] = 2;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-   <meta charset="utf-8" />
-   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-   <meta name="description" content="" />
-   <meta name="author" content="" />
-   <title>Sample Template</title>
-   <link href="css/styles.css" rel="stylesheet" />
-   <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
-   <script src="js/all.js" crossorigin="anonymous"></script>
-   <link href="assets/img/nbsclogo.png" rel="icon">
-   <script src="js/jquery-3.6.0.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>NBSC Integrated System</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="assets/img/nbsclogo.png" rel="icon">
 </head>
 
-<body class="sb-nav-fixed">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-2">
-        <a class="navbar-brand ps-2" href="#">
-            <img src="assets/img/nbsclogo.png" style="height: 0.3in;">
-            Sample ssasa</a>
-        </button>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="true">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse hide" id="main_nav">
-            <div class="navbar-collapse flex-grow-1 text-right" id="sampleid" style="padding-left: 20px">
-                    <?php include 'nav/nav_main.php' ?>
-            </div>
-        </div> 
-    </nav>
-
-    <div>
-        <div>
-            <main>
-                <div id="maincontent" class="container-fluid px-2">
-                    <!-- LOAD MAIN DATA HERE -->
-                    <div class="row">
-                        <div class="col-12" style="text-align: -webkit-center;">
-                            <img src="assets/img/nbsclogo.png" style="height: 1.5in; margin-top:100px; font-family: fantasy;color: #002d54 !important;">
+<body>
+    <main class="d-flex w-100">
+        <div class="container d-flex flex-column">
+            <div class="row vh-100">
+                <div class="col-sm-5 col-md-5 col-lg-4 mx-auto d-table h-100">
+                    <div class="d-table-cell align-middle">
+                        <div class="text-center my-4">
+                            <h5 class="mb-0">Northern Bukidnon State College</h5>
+                            <h6 class="text-muted">Integrated System</h6>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h3 class="mb-0" style="font-size: 50px;font-family: fantasy;color: #002d54 !important;">Northern Bukidnon State College</h3>
-                            <h5 class="mb-0" style="color: #d18b00;">Creando Futura, Transformationis Vitae, Ductae a Deo</h5>
+                        <div class="card shadow">
+                            <div class="card-body py-4">
+                                <div class="py-4 pt-2">
+                                    <div class="text-center">
+                                        <img src="assets/img/nbsclogo.png" alt="NBSC Logo" class="img-fluid " width="100" height="132" />
+                                    </div>
+                                    <form id="frmnbsclogin">
+                                        <div class="mb-2">
+                                            <label>Username</label>
+                                            <input id="inloginemail" class="form-control form-control-sm" type="text" placeholder="Username your email" required />
+                                        </div>
+                                        <div class="mb-4">
+                                            <label>Password</label>
+                                            <input id="inloginpass" class="form-control form-control-sm" type="password" placeholder="Enter your password" required />
+                                        </div>
+
+                                        <div class="text-center mt-3">
+                                            <button id="btnsubmitlogin" type="submit" class="btn btn-sm btn-primary rounded w-100">Login</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
-    </div>
-    <?php include 'assets/global/modals.php' ?>
-    <script src="js/jquery.dataTables.min.js"></script>
+    </main>
+    <script src="js/jquery-3.6.0.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/global/global_script.js"></script>
     <script>
-        clickSubModule('panel/todolist/todolist_main.php')
+        $(document).ready(function() {
+            $('#frmnbsclogin').submit(function(e) {
+                e.preventDefault();
+                btnDisable('#btnsubmitlogin', true);
+                loginAction();
+            });
+        });
+
+        function loginAction() {
+            $.post("assets/components/login_action.php", {
+                username: $('#inloginemail').val(),
+                pass: $('#inloginpass').val(),
+            }, function(data) {
+                // Assume the server returns a response with user type (admin or student)
+                // Example response: { status: "success", role: "admin" } or { status: "success", role: "student" }
+                const response = JSON.parse(data);
+                
+                if (response.status === 'success') {
+                    if (response.role === 'admin') {
+                        alert('Admin Login Successfully');
+                        window.location.href = "admin/index.php";
+                    } else if (response.role === 'student') {
+                        alert('Login Successfully');
+                        window.location.href = "student/index.php"; // Redirect to student page
+                    }
+                } else {
+                    alert(response.message || 'Login failed');
+                    btnDisable('#btnsubmitlogin', false);
+                }
+            });
+        }
+
+        function btnDisable(element, type) {
+            $(element).prop('disabled', type);
+        }
     </script>
 </body>
 

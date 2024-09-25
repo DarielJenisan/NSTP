@@ -1,0 +1,109 @@
+<?php 
+require_once '../../../connection.php';
+
+$student_id = $_POST['student_id'];
+$lastname = $_POST['lastname'];
+$firstname = $_POST['firstname'];
+$middlename = $_POST['middlename'];
+$suffixname = $_POST['suffixname'];
+$gender = $_POST['gender'];
+$semester1 = $_POST['semester1'];
+$school1 = $_POST['school1'];
+$academicyear1 = $_POST['academicyear1'];
+$sectioncode1 = $_POST['sectioncode1'];
+$semester2 = $_POST['semester2'];
+$school2 = $_POST['school2'];
+$academicyear2 = $_POST['academicyear2'];
+$sectioncode2 = $_POST['sectioncode2'];
+$serialnumber = $_POST['serialnumber'];
+$remarks = $_POST['remarks'];
+$awardyear = $_POST['awardyear'];
+$component = $_POST['component'];
+$birthday = $_POST['birthday'];
+$barangay = $_POST['barangay'];
+$municipality = $_POST['municipality'];
+$province = $_POST['province'];
+$school2 = $_POST['school2'];
+$institutioncode = $_POST['institutioncode'];
+$agencytype = $_POST['agencytype'];
+$program = $_POST['program'];
+$major = $_POST['major'];
+$email = $_POST['email'];
+$contactnumber = $_POST['contactnumber'];
+
+try {
+    $conn->beginTransaction();
+
+    // Prepare the update query without the password
+    $updateQry = $conn->prepare("UPDATE studentInformation_view
+     SET 
+    lastname = ?, 
+    firstname = ?,
+    middlename = ?, 
+    suffixname = ?, 
+    gender = ?, 
+    semester1 = ?, 
+    school1 = ?
+    academicyear1 = ?, 
+    sectioncode1 = ?,
+    semester2 = ?, 
+    school2 = ?, 
+    academicyear2 = ?, 
+    sectioncode2 = ?, 
+    serialnumber = ?
+    remarks = ?, 
+    awardyear = ?,
+    component = ?, 
+    birthday = ?, 
+    barangay = ?, 
+    municipality = ?, 
+    province = ?
+    serialnumber = ?
+    school2 = ?, 
+    institutioncode = ?,
+    agencytype = ?, 
+    program = ?, 
+    major = ?, 
+    email = ?, 
+    contactnumber = ?
+    WHERE student_id = ?");
+    $updateQry->execute([
+    $lastname, 
+    $firstname, 
+    $middlename, 
+    $suffixname, 
+    $gender, 
+    $semester1, 
+    $school1, 
+    $academicyear1, 
+    $sectioncode1, 
+    $semester2, 
+    $school2, 
+    $academicyear2, 
+    $sectioncode2, 
+    $serialnumber, 
+    $remarks, 
+    $awardyear, 
+    $component, 
+    $birthday, 
+    $barangay, 
+    $municipality, 
+    $province, 
+    $serialnumber, 
+    $school2, 
+    $institutioncode, 
+    $agencytype,
+    $program, 
+    $major, 
+    $email, 
+    $contactnumber,  
+    $admin_id]);
+    
+    echo 'success';
+    $conn->commit();
+} catch (\Throwable $th) {
+    $conn->rollBack();
+    echo $th;
+}
+?>
+here's my current update_student.php

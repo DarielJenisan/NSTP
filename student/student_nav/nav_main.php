@@ -10,11 +10,7 @@
                 <div>
                     <div class="dropdown-header py-0">Settings</div>
                     <a class="dropdown-item py-0" href="index.php">Dashboard</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/userreg/userreg_main.php')">Manage User</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/student_list/student_list.php')">Student List</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/create_masterlist/list_columns.php')">Create Master List</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/analytic_report/summary_report.php')">Analytic Reports</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/certificate/certificates.php')">Certificates</a> 
+                    <a class="dropdown-item py-0" onclick="clickSubModule('../student/student_nav/studentreg/student.php')">NSTP Pre-enrollment</a>
 
                 </div>
                 <!--<div>
@@ -50,7 +46,7 @@
             <li>
                 <hr class="dropdown-divider" />
             </li>
-            <li><a class="dropdown-item" onclick="logout()">Logout</a></li>
+            <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
         </ul>
     </li>
 </ul>
@@ -70,7 +66,8 @@
         // console.log(1)
     }
 
-   // Fetch logged-in user details from the backend
+    
+     // Fetch logged-in user details from the backend
    function fetchUserDetails() {
         fetch('../assets/components/get_user_details.php') // Replace with the correct path
             .then((response) => response.json())
