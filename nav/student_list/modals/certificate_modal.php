@@ -103,108 +103,12 @@
     .coordinator {
         position: absolute;
         bottom: 60px;
-        left: 150px;
+        left: 95px;
         font-family: "Times New Roman", Times, serif;
         font-size: 16px;
         color: #002F6C;
         text-align: center;
     }
-        .slip-container {
-        width: 900px; /* Adjust the width */
-        height: 615px; /* Adjust the height */
-        background-color: #FBE9B5;
-        border: 10px solid #1d1d8f;
-        background-size: 900px 600px;
-        background-position: center;
-        position: relative;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border: 1px solid #ddd;
-        margin-top: 5px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        margin: 0 auto; /* Center horizontally if needed */
-        margin-top: 15px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .left-logo {
-           width: 100px; /* Set logo width */
-           height: auto; /* Maintain aspect ratio */
-           margin-left: 20px; /* Space between images and text */
-        }
-        
-        .right-logo {
-          width: 150px; /* Set logo width */
-          height: auto; /* Maintain aspect ratio */
-          margin-right: 20px; /* Space between images and text */
-        }
-
-        .header .text {
-            flex: 1;
-        }
-
-        .header h2 {
-            font-size: 24px;
-            margin: 0;
-            color: #000;
-        }
-
-        .header h3 {
-            font-size: 18px;
-            margin: 0;
-            color: #000;
-            font-weight: normal;
-        }
-
-        .title-2 {
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .title-2 h1 {
-            font-size: 36px;
-            color: #1d1d8f;
-            margin: 0;
-            font-weight: bold;
-        }
-
-        .title-2 h2 {
-            font-size: 24px;
-            color: #c41e3a;
-            margin: 0;
-            font-weight: bold;
-        }
-
-        .academic-year {
-            text-align: center;
-            margin: 10px 0;
-            font-size: 18px;
-            font-weight: normal;
-        }
-
-        .fields {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-
-        .fields p {
-            margin: 20px 0;
-            font-weight: bold;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 16px;
-            font-weight: bold;
-        }
 </style>
 
     <!-- CWTS Certificate Modal -->
@@ -216,7 +120,7 @@
       </div>
       <div class="modal-body centered-content" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
         <div class="certificate-container" id="modalCWTSCertificate" style="background-image: url('../assets/img/cwtscert.png');">
-          <img src="qr_code.png" alt="QR Code" class="qr-code">
+          <img src="../assets/img/nstplogo.png" alt="QR Code" class="qr-code">
           <div class="text-container title">
               Republic of the Philippines<br>
               <strong style="font-family: Times New Roman, Times, serif; color:  #002F6C; font-size: 20px;">NORTHERN BUKIDNON STATE COLLEGE</strong><br>
@@ -277,7 +181,7 @@
       </div>
       <div class="modal-body centered-content" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
         <div class="certificate-container" style="background-image: url('../assets/img/rotccert.png');" id="modalROTCCertificate">
-          <img src="qr_code.png" alt="QR Code" class="qr-code">
+          <img src="../assets/img/nstplogo.png" alt="QR Code" class="qr-code">
           <div class="text-container title">
               Republic of the Philippines<br>
               <strong style="font-family: Times New Roman, Times, serif; color:  #002F6C; font-size: 20px;">NORTHERN BUKIDNON STATE COLLEGE</strong><br>
