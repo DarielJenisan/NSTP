@@ -34,14 +34,9 @@
             
      
             <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
-    <!-- Import Button -->
-    <button type="button" id="importButton" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#ImportModal">
-    <i class="fas fa-file-import"></i>
-</button>
-
     <!-- Print Button -->
     <button id="printButton" class="btn btn-outline-primary" style="margin-left: 20px;" onclick="printTable()">
-        <i class="fas fa-print"></i>
+        <i class="fas fa-print"></i> Print
     </button>
 </div>
 
@@ -72,6 +67,8 @@
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Serial Number</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Remarks</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Edit</th>
+                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Import</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -116,7 +113,7 @@ $(document).ready(function() {
         var value = $(this).val().toLowerCase();
 
         $("#tblmasterlist tbody tr").filter(function() {
-            var student_id = $(this).find("td:eq(2)").text().toLowerCase(); // Column index for 'Student ID'
+            var student_id = $(this).find("td:eq(1)").text().toLowerCase(); // Column index for 'Student ID'
             var firstname = $(this).find("td:eq(4)").text().toLowerCase(); // Column index for 'First Name'
             var middlename = $(this).find("td:eq(5)").text().toLowerCase(); // Column index for 'Middle Name'
             var lastname = $(this).find("td:eq(3)").text().toLowerCase(); // Column index for 'Last Name'
@@ -182,147 +179,103 @@ $(document).ready(function() {
 </script>
 
 <script>
-    function importData() {
-    const fileInput = document.getElementById('fileInput');
-    fileInput.click();
-
-    fileInput.onchange = async function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-            const response = await fetch('../nav/student_list/components/import_data.php', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                alert('Data imported successfully!');
-                // Optionally refresh the table or perform other actions
-                // loadData(); // Call your function to reload the data table
-            } else {
-                alert('Error importing data: ' + result.message);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error importing data. Please try again.');
-        }
-    };
-}
-
-</script>
-
-
-<script>
 $(document).ready(function() {
     // Trigger the print function on button click
     $('.btn-outline-primary').click(function() {
         openPrintWindow(); // Call the function to open the print window
     });
-
-    // Function to open the print window with formatted content
     function openPrintWindow() {
-        var tableHeaders = document.querySelector('#tblmasterlist thead').innerHTML; 
-        var rows = document.querySelectorAll('#tblmasterlist tbody tr');
-        var newTableBody = '';
-        var headerHtml = '';
+    var tableHeaders = document.querySelector('#tblmasterlist thead').innerHTML; 
+    var rows = document.querySelectorAll('#tblmasterlist tbody tr');
+    var newTableBody = '';
+    var headerHtml = '';
 
-        // Create updated headers excluding "View Profile", "No.", and "Edit" columns
-        var headerCells = document.querySelectorAll('#tblmasterlist thead th');
-        headerCells.forEach((cell, index) => {
-            if (index > 1 && index !== headerCells.length - 1) { // Skip the "View Profile", "No.", and "Edit" columns
-                headerHtml += cell.outerHTML;
-            }
-        });
-
-        // Create updated body with row numbers and excluding "View Profile", "No.", and "Edit" columns
-        rows.forEach((row, rowIndex) => {
-            var cells = row.children;
-            newTableBody += `<tr>`;
-            newTableBody += `<td style="border: 1px solid black; padding: 8px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
-            for (var i = 2; i < cells.length - 1; i++) { // Skip "View Profile", "No.", and "Edit" columns
-                newTableBody += `<td style="border: 1px solid black; padding: 8px;">${cells[i].innerHTML}</td>`;
-            }
-            newTableBody += `</tr>`;
-        });
-
-        // Prepare the content to be printed
-        var printContents = `
-           <head>
-    <title>Print NSTP Master List</title>
-    <style>
-        @page { 
-            size: portrait; 
-            margin: 10mm; 
+    // Create updated headers excluding "No.", "Edit", and "Import" columns
+    var headerCells = document.querySelectorAll('#tblmasterlist thead th');
+    headerCells.forEach((cell, index) => {
+        if (index > 1 && index < headerCells.length - 2) { // Skip the "No.", "Edit", and "Import" columns
+            headerHtml += cell.outerHTML;
         }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
+    });
+
+    // Create updated body with row numbers and excluding "No.", "Edit", and "Import" columns
+    rows.forEach((row, rowIndex) => {
+        var cells = row.children;
+        newTableBody += `<tr>`;
+        newTableBody += `<td style="border: 1px solid black; padding: 8px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
+        for (var i = 2; i < cells.length - 2; i++) { // Skip "No.", "Edit", and "Import" columns
+            newTableBody += `<td style="border: 1px solid black; padding: 8px;">${cells[i].innerHTML}</td>`;
         }
-        th, td { 
-            border: 1px solid black; 
-            padding: 8px; 
-            text-align: left; 
-        }
-        th { 
-            text-align: center; 
-        }
-        .print-button {
-                        position: fixed;
-                        bottom: 20px;
-                        right: 20px;
-                        background-color: #28a745;
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        border-radius: 5px;
-                        font-size: 16px;
-                        cursor: pointer;
-                    }
-    </style>
-    <!-- Include Font Awesome for the print icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
+        newTableBody += `</tr>`;
+    });
 
-<!-- Updated button with print icon -->
-<body>
-    <div style="text-align: center;">
-        <h2>NSTP Master List</h2>
-        <!-- Add your logo or any additional content here -->
-    </div>
-   <button onclick="window.print()" class="print-button">🖨️ Print Report</button>
-    <table>
-        <thead>
-            <tr>
-                <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2; text-align: center;">No.</th> <!-- Add "No." column header -->
-                ${headerHtml} <!-- Updated headers without "View Profile", "No.", and "Edit" columns -->
-            </tr>
-        </thead>
-        <tbody>
-            ${newTableBody}
-        </tbody>
-    </table>
-</body>
-        `;
+    // Prepare the content to be printed
+    var printContents = `
+       <head>
+            <title>Print NSTP Master List</title>
+            <style>
+                @page { 
+                    size: portrait; 
+                    margin: 10mm; 
+                }
+                table { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                }
+                th, td { 
+                    border: 1px solid black; 
+                    padding: 8px; 
+                    text-align: left; 
+                }
+                th { 
+                    text-align: center; 
+                }
+                .print-button {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background-color: #28a745;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+            </style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        </head>
 
-        // Open a new window and write the content to it
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write(printContents);
-        printWindow.document.close();
-        printWindow.focus();
+        <body>
+            <div style="text-align: center;">
+                <h2>NSTP Master List</h2>
+            </div>
+            <button onclick="window.print()" class="print-button">🖨️ Print Report</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2; text-align: center;">No.</th>
+                        ${headerHtml} <!-- Updated headers without "No.", "Edit", and "Import" columns -->
+                    </tr>
+                </thead>
+                <tbody>
+                    ${newTableBody}
+                </tbody>
+            </table>
+        </body>
+    `;
 
-        // Optional: Close the window after printing
-        printWindow.onafterprint = function() {
-            printWindow.close();
-        };
-    }
+    // Open a new window and write the content to it
+    var printWindow = window.open('', '_blank');
+    printWindow.document.write(printContents);
+    printWindow.document.close();
+    printWindow.focus();
 
-    // Attach the function to the global window object to be accessible
-    window.openPrintWindow = openPrintWindow;
+    // Optional: Close the window after printing
+    printWindow.onafterprint = function() {
+        printWindow.close();
+    };
+}
+
 });
-
 </script>
