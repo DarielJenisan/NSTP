@@ -159,17 +159,14 @@
                     onblur="resetDefaultCoordinator()">
             </div>
             <div class="d-flex flex-column align-items-center">
-            <button id="printButton" class="btn btn-outline-primary w-100 btn-block mt-2" onclick="printTable()">
-        <i class="fas fa-print"></i> Print
-    </button>
-</div>
+                <button class="btn btn-outline-primary w-100 btn-block mt-2"><i class="fa fa-print"></i> Print</button>
                 <button class="btn btn-outline-success w-100 btn-block mt-2"><i class="fa fa-download"></i> Download</button>
             </div>
         </div>
     </div>
 </div>
 
-            <div class="certificates" style="margin-left: 250px;">
+            <div class="certificates" style="margin-left: 150px;">
     <div id="certificates-container"></div> <!-- Container for multiple certificates -->
 </div>
 
@@ -388,103 +385,188 @@ generateCertificates();
 </script>
 
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
     // Trigger the print function on button click
     $('.btn-outline-primary').click(function() {
         openPrintWindow(); // Call the function to open the print window
     });
+
     function openPrintWindow() {
-    var tableHeaders = document.querySelector('#tblmasterlist thead').innerHTML; 
-    var rows = document.querySelectorAll('#tblmasterlist tbody tr');
-    var newTableBody = '';
-    var headerHtml = '';
+        var certificatesContainer = document.getElementById("certificates-container");
+        var certificateHTML = certificatesContainer.innerHTML;
 
-    // Create updated headers excluding "No.", "Edit", and "Import" columns
-    var headerCells = document.querySelectorAll('#tblmasterlist thead th');
-    headerCells.forEach((cell, index) => {
-        if (index > 1 && index < headerCells.length - 2) { // Skip the "No.", "Edit", and "Import" columns
-            headerHtml += cell.outerHTML;
-        }
-    });
+        // Prepare the content to be printed in a new window
+        var printContents = `
+            <head>
+                <title>Print Certificates</title>
+                <style>
+                    @page { 
+                        size: portrait; 
+                        margin: 10mm; /* Adjust page margins */
+                    }
+                    body {
+                        -webkit-print-color-adjust: exact; /* Ensure that background colors/images are printed */
+                        print-color-adjust: exact;
+                    }
+                    .certificate-wrapper {
+                        width: 100%;
+                        page-break-inside: avoid; /* Prevents splitting certificates across pages */
+                        margin-bottom: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
 
-    // Create updated body with row numbers and excluding "No.", "Edit", and "Import" columns
-    rows.forEach((row, rowIndex) => {
-        var cells = row.children;
-        newTableBody += `<tr>`;
-        newTableBody += `<td style="border: 1px solid black; padding: 8px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
-        for (var i = 2; i < cells.length - 2; i++) { // Skip "No.", "Edit", and "Import" columns
-            newTableBody += `<td style="border: 1px solid black; padding: 8px;">${cells[i].innerHTML}</td>`;
-        }
-        newTableBody += `</tr>`;
-    });
+                    .certificate-container {
+                        width: 900px; /* Adjust the width */
+                        height: 600px; /* Adjust the height */
+                        background-color: white;
+                        background-image: url('../assets/img/cwtscert.png');
+                        background-size: 900px 600px;
+                        background-position: center;
+                        position: relative;
+                        padding: 20px;
+                        border: 1px solid #ddd;
+                        margin: 0 auto; /* Center horizontally */
+                        box-sizing: border-box;
+                    }
 
-    // Prepare the content to be printed
-    var printContents = `
-       <head>
-            <title>Print NSTP Master List</title>
-            <style>
-                @page { 
-                    size: portrait; 
-                    margin: 10mm; 
-                }
-                table { 
-                    width: 100%; 
-                    border-collapse: collapse; 
-                }
-                th, td { 
-                    border: 1px solid black; 
-                    padding: 8px; 
-                    text-align: left; 
-                }
-                th { 
-                    text-align: center; 
-                }
-                .print-button {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background-color: #28a745;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    font-size: 16px;
-                    cursor: pointer;
-                }
-            </style>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        </head>
+                    /* ROTC specific background */
+                    .rotc-bg {
+                        background-image: url('../assets/img/rotccert.png');
+                    }
 
-        <body>
-            <div style="text-align: center;">
-                <h2>NSTP Master List</h2>
-            </div>
-            <button onclick="window.print()" class="print-button">🖨️ Print Report</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2; text-align: center;">No.</th>
-                        ${headerHtml} <!-- Updated headers without "No.", "Edit", and "Import" columns -->
-                    </tr>
-                </thead>
-                <tbody>
-                    ${newTableBody}
-                </tbody>
-            </table>
-        </body>
-    `;
+                    .qr-code {
+                        position: absolute;
+                        bottom: 40px;
+                        right: 60px;
+                        width: 100px;
+                        height: 100px;
+                    }
 
-    // Open a new window and write the content to it
-    var printWindow = window.open('', '_blank');
-    printWindow.document.write(printContents);
-    printWindow.document.close();
-    printWindow.focus();
+                    .text-container {
+                        position: absolute;
+                        text-align: center;
+                        width: 100%;
+                        left: -100px;
+                    }
 
-    // Optional: Close the window after printing
-    printWindow.onafterprint = function() {
-        printWindow.close();
-    };
-}
+                    .title {
+                        top: 6px;
+                        font-family: "Times New Roman", Times, serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        color: black;
+                        text-align: center;
+                        line-height: 1.25;
+                    }
 
+                    .subtitle {
+                        top: 100px;
+                        font-size: 26px;
+                        font-family: "Times New Roman", Times, serif;
+                        font-weight: bold;
+                        color: #1a1a1a;
+                        text-align: center;
+                        line-height: 1;
+                    }
+
+                    .completion-text {
+                        top: 200px;
+                        font-size: 20px;
+                        font-weight: normal;
+                        color: #002F6C; /* Blue color for 'Completion' */
+                        font-family: "Times New Roman", Times, serif;
+                        text-align: left;
+                        margin-left: 20%;
+                        line-height: 0.25;
+                    }
+
+                    .recipient-name {
+                        top: 260px;
+                        font-size: 28px;
+                        font-weight: bold;
+                        color: #002F6C;
+                        text-align: center;
+                        text-decoration: underline;
+                    }
+
+                    .serial-number {
+                        top: 305px;
+                        font-family: "Times New Roman", Times, serif;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #002F6C;
+                        text-align: center;
+                    }
+
+                    .details {
+                        top: 340px;
+                        font-family: "Times New Roman", Times, serif;
+                        font-size: 16px;
+                        color: #002F6C;
+                        text-align: center;
+                        line-height: 1; /* Adjust line height for spacing */
+                    }
+
+                    .coordinator {
+                        position: absolute;
+                        bottom: 60px;
+                        left: 95px;
+                        font-family: "Times New Roman", Times, serif;
+                        font-size: 16px;
+                        color: #002F6C;
+                        text-align: center;
+                    }
+
+                    .print-button {
+                        position: fixed;
+                        bottom: 20px;
+                        right: 20px;
+                        background-color: #28a745;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        cursor: pointer;
+                    }
+
+                    /* Ensure two certificates fit on one page */
+                    .certificate-wrapper:nth-child(odd) {
+                        margin-bottom: 20px; /* Add space between certificates */
+                    }
+
+                    /* Hide the print button during printing */
+                    @media print {
+                        .print-button {
+                            display: none;
+                        }
+
+                        .certificate-wrapper {
+                            margin-bottom: 5px; /* Ensure no margin when printing */
+                        }
+                    }
+                </style>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+            </head>
+
+            <body>
+                <button onclick="window.print()" class="print-button">🖨️ Print Certificates</button>
+                ${certificateHTML}
+            </body>
+        `;
+
+        // Open a new window and write the content to it
+        var printWindow = window.open('', '_blank');
+        printWindow.document.write(printContents);
+        printWindow.document.close();
+        printWindow.focus();
+
+        // Optional: Close the window after printing
+        printWindow.onafterprint = function() {
+            printWindow.close();
+        };
+    }
 });
+
 </script>
