@@ -2,45 +2,34 @@
 require_once '../../../connection.php';
 
 try {
-    // Fetch the latest academic year
-    $latestYearQuery = "
-        SELECT DISTINCT academicyear1 AS academic_year
-        FROM tblnstp
-        ORDER BY academicyear1 DESC
-        LIMIT 1
-    ";
-    $stmt = $conn->prepare($latestYearQuery);
-    $stmt->execute();
-    $latestAcademicYear = $stmt->fetchColumn();
+    // Get the selected year and semester from query parameters
+    $selectedYear = $_GET['year'] ?? null; // Default to null if not provided
+    $selectedSemester = $_GET['semester'] ?? 'First'; // Default to 'First' if not provided
 
-    // Fetch the latest semester data
-    $latestSemesterQuery = "
-        SELECT DISTINCT semester1, semester2
-        FROM tblnstp
-        WHERE academicyear1 = :latestYear OR academicyear2 = :latestYear
-    ";
-    $stmt = $conn->prepare($latestSemesterQuery);
-    $stmt->execute(['latestYear' => $latestAcademicYear]);
-    $semesters = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Determine the latest semester
-    $selectedSemester = 'First'; // Default to 'First'
-    if (!empty($semesters['semester2'])) {
-        $selectedSemester = 'Second'; // Use 'Second' if available
+    // Validate that the selected year is provided
+    if (!$selectedYear) {
+        throw new Exception("Academic year is required.");
     }
 
-    // Modify the query to fetch total students enrolled in ROTC and CWTS for each program based on the latest year and semester
+    // Modify the query to fetch total students enrolled in ROTC and CWTS for each program based on the selected year and semester
     $query = $conn->prepare("
         SELECT 
             program, 
             SUM(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
             SUM(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
         FROM studentInformation_view
-        WHERE (semester1 IN ('ROTC1', 'CWTS1') OR semester2 IN ('ROTC2', 'CWTS2'))
-        AND (academicyear1 = :latestYear OR academicyear2 = :latestYear)
+        WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
+        AND (
+            (semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
+            (semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
+        )
         GROUP BY program
     ");
-    $query->execute(['latestYear' => $latestAcademicYear]);
+
+    $query->execute([
+        'selectedYear' => $selectedYear,
+        'semester' => $selectedSemester
+    ]);
 
     $data = [];
 
@@ -58,5 +47,7 @@ try {
     echo json_encode($data);
 } catch (PDOException $e) {
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(['error' => $e->getMessage()]);
 }
 ?>
