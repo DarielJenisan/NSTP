@@ -83,7 +83,6 @@ foreach ($stmt->fetchAll() as $row): ?>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['barangay']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['municipality']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['province']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['component']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['institutioncode']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['agencytype']?></td>

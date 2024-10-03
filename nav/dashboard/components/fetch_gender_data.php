@@ -3,14 +3,21 @@ require_once '../../../connection.php';
 
 header('Content-Type: application/json');
 
-// Fetch the latest academic year from the database
-$yearQuery = $conn->query("SELECT MAX(academicyear1) AS latest_year FROM studentinformation_view");
-$latestYearRow = $yearQuery->fetch(PDO::FETCH_ASSOC);
-$academicYear = $latestYearRow['latest_year'] ?? null; // Use the latest year or null if not found
+// Get the academic year and semester from the POST request
+$requestPayload = file_get_contents('php://input');
+$data = json_decode($requestPayload, true);
+$selectedAcademicYear = $data['academicYear'] ?? null;
+$selectedSemester = strtolower($data['semester']) ?? null; // 'first' or 'second'
 
-// If no academic year is found, you can decide how to handle it
-if (!$academicYear) {
-    // Handle the case where no academic year is available
+// If no academic year is selected, fetch the latest academic year from the database
+if (!$selectedAcademicYear) {
+    $yearQuery = $conn->query("SELECT MAX(academicyear1) AS latest_year FROM studentinformation_view");
+    $latestYearRow = $yearQuery->fetch(PDO::FETCH_ASSOC);
+    $selectedAcademicYear = $latestYearRow['latest_year'] ?? null;
+}
+
+// If no academic year is found, handle it gracefully
+if (!$selectedAcademicYear) {
     echo json_encode(['error' => 'No academic year available.']);
     exit;
 }
@@ -22,72 +29,48 @@ $programMap = [
     'Teacher Education Program' => 'TEP'
 ];
 
-// Initialize the totals for each program, semester, and gender
+// Initialize totals for each program, gender, and semester
 $totals = [
-    'BSBA' => ['semester1' => ['MALE' => 0, 'FEMALE' => 0], 'semester2' => ['MALE' => 0, 'FEMALE' => 0]],
-    'BSIT' => ['semester1' => ['MALE' => 0, 'FEMALE' => 0], 'semester2' => ['MALE' => 0, 'FEMALE' => 0]],
-    'TEP'  => ['semester1' => ['MALE' => 0, 'FEMALE' => 0], 'semester2' => ['MALE' => 0, 'FEMALE' => 0]]
+    'BSBA' => ['MALE' => 0, 'FEMALE' => 0],
+    'BSIT' => ['MALE' => 0, 'FEMALE' => 0],
+    'TEP'  => ['MALE' => 0, 'FEMALE' => 0]
 ];
 
-// Query the database to get gender counts per program, academic year, and semester
-$query = $conn->prepare("SELECT program, gender, semester1, semester2
+// Construct the semester column dynamically based on the selected semester
+$semesterColumn = $selectedSemester === 'second' ? 'semester2' : 'semester1';
+
+// Query the database for gender counts based on the selected academic year and semester
+$query = $conn->prepare("SELECT program, gender, $semesterColumn AS semester
                          FROM studentinformation_view
                          WHERE academicyear1 = :academicYear OR academicyear2 = :academicYear");
-$query->bindParam(':academicYear', $academicYear);
+$query->bindParam(':academicYear', $selectedAcademicYear);
 $query->execute();
 
-// Process the query results and accumulate totals based on semesters
+// Process the results and accumulate totals
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
     $program = $row['program'];
     $gender = strtoupper($row['gender']); // Normalize gender to uppercase
 
-    if (isset($programMap[$program])) {
+    if (isset($programMap[$program]) && !empty($row['semester'])) {
         $programAbbr = $programMap[$program];
-
-        // Count for the first semester if present
-        if (!empty($row['semester1'])) {
-            $totals[$programAbbr]['semester1'][$gender]++;
-        }
-
-        // Count for the second semester if present
-        if (!empty($row['semester2'])) {
-            $totals[$programAbbr]['semester2'][$gender]++;
-        }
+        $totals[$programAbbr][$gender]++;
     }
 }
 
-// Calculate grand totals for both semesters across all programs
+// Calculate grand totals across all programs for the selected semester
 $grandTotals = [
-    'semester1' => [
-        'MALE' => $totals['BSBA']['semester1']['MALE'] + $totals['BSIT']['semester1']['MALE'] + $totals['TEP']['semester1']['MALE'],
-        'FEMALE' => $totals['BSBA']['semester1']['FEMALE'] + $totals['BSIT']['semester1']['FEMALE'] + $totals['TEP']['semester1']['FEMALE']
-    ],
-    'semester2' => [
-        'MALE' => $totals['BSBA']['semester2']['MALE'] + $totals['BSIT']['semester2']['MALE'] + $totals['TEP']['semester2']['MALE'],
-        'FEMALE' => $totals['BSBA']['semester2']['FEMALE'] + $totals['BSIT']['semester2']['FEMALE'] + $totals['TEP']['semester2']['FEMALE']
-    ]
+    'MALE' => $totals['BSBA']['MALE'] + $totals['BSIT']['MALE'] + $totals['TEP']['MALE'],
+    'FEMALE' => $totals['BSBA']['FEMALE'] + $totals['BSIT']['FEMALE'] + $totals['TEP']['FEMALE']
 ];
 
-// Determine the latest semester (if data exists in both semesters, consider both)
-$latestData = [];
-if (array_sum($grandTotals['semester2']) > 0) {
-    // Both semesters exist, so return the second semester data
-    $latestData = [
-        'all' => ['male' => $grandTotals['semester2']['MALE'], 'female' => $grandTotals['semester2']['FEMALE']],
-        'bsit' => ['male' => $totals['BSIT']['semester2']['MALE'], 'female' => $totals['BSIT']['semester2']['FEMALE']],
-        'bsba' => ['male' => $totals['BSBA']['semester2']['MALE'], 'female' => $totals['BSBA']['semester2']['FEMALE']],
-        'tep' => ['male' => $totals['TEP']['semester2']['MALE'], 'female' => $totals['TEP']['semester2']['FEMALE']]
-    ];
-} else {
-    // Only the first semester data is present
-    $latestData = [
-        'all' => ['male' => $grandTotals['semester1']['MALE'], 'female' => $grandTotals['semester1']['FEMALE']],
-        'bsit' => ['male' => $totals['BSIT']['semester1']['MALE'], 'female' => $totals['BSIT']['semester1']['FEMALE']],
-        'bsba' => ['male' => $totals['BSBA']['semester1']['MALE'], 'female' => $totals['BSBA']['semester1']['FEMALE']],
-        'tep' => ['male' => $totals['TEP']['semester1']['MALE'], 'female' => $totals['TEP']['semester1']['FEMALE']]
-    ];
-}
+// Prepare the data to return as JSON
+$responseData = [
+    'all' => ['male' => $grandTotals['MALE'], 'female' => $grandTotals['FEMALE']],
+    'bsit' => ['male' => $totals['BSIT']['MALE'], 'female' => $totals['BSIT']['FEMALE']],
+    'bsba' => ['male' => $totals['BSBA']['MALE'], 'female' => $totals['BSBA']['FEMALE']],
+    'tep' => ['male' => $totals['TEP']['MALE'], 'female' => $totals['TEP']['FEMALE']]
+];
 
-// Return the data in JSON format for the chart
-echo json_encode($latestData);
+// Return the data as JSON
+echo json_encode($responseData);
 ?>
