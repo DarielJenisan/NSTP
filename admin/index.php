@@ -10,9 +10,12 @@
     <title>Sample Template</title>
     <link href="../css/styles.css" rel="stylesheet" />
     <link href="../css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script src="../js/all.js" crossorigin="anonymous"></script>
     <link href="../assets/img/nbsclogo.png" rel="icon">
     <script src="../js/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
    
 </head>
 
@@ -58,44 +61,59 @@
 </div>
 
 
-         <div class="col-sm-3">
-    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;">
-        <div class="card-body">
-            <h3 class="card-title" id="total-enrolled">2023-2024 - First Semester Enrolled</h3>
-            <p class="card-text" id="academic-year">300</p>
-            <a href="#" class="card-text" onclick="clickSubModule('../nav/userreg/student_list.php')">Total Students</a>
-        </div>
-    </div>
-</div>
 <div class="col-sm-3">
-    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;">
-        <div class="card-body">
-            <h3 class="card-title" id="bsit-enrolled"></h3>
-            <p class="card-text">BSIT Enrolled</p>
-            <a href="#" class="card-text">Total Students</a>
+    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; position: relative; overflow: hidden;">
+        <div class="card-body" style="position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3 class="card-title" id="total-enrolled"></h3>
+                <p class="card-text" id="academic-year">BSIT Enrolled</p>
+            </div>
+            <!-- Icon on the right side -->
+            <i class="fas fa-user-friends" style="font-size: 2.5rem; color: rgba(0, 0, 0, 0.5);"></i>
+        </div>
+        <!-- Faded background image -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)), url('../assets/img/nstp.png'); background-size: cover; background-position: center; z-index: 1; opacity: 0.9;">
         </div>
     </div>
 </div>
 
 <div class="col-sm-3">
-    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;">
-        <div class="card-body">
+    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; position: relative; overflow: hidden;">
+        <div class="card-body" style="position: relative; z-index: 2;">
+            <h3 class="card-title" id="bsit-enrolled"></h3>
+            <p class="card-text">BSIT Enrolled</p>
+        </div>
+        <!-- Faded background image -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)), url('../assets/img/bsit.jpg'); background-size: cover; background-position: center; z-index: 1; opacity: 0.9;">
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-3">
+    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; position: relative; overflow: hidden;">
+        <div class="card-body" style="position: relative; z-index: 2;">
             <h3 class="card-title" id="bsba-enrolled"></h3>
             <p class="card-text">BSBA Enrolled</p>
-            <a href="#" class="card-text">Total Students</a>
+        </div>
+        <!-- Faded background image -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)), url('../assets/img/bsba.jpg'); background-size: cover; background-position: center; z-index: 1; opacity: 0.9;">
         </div>
     </div>
 </div>
+
 <div class="col-sm-3">
-    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;">
-        <div class="card-body">
+    <div class="card shadow" style="margin-top: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; position: relative; overflow: hidden;">
+        <div class="card-body" style="position: relative; z-index: 2;">
             <h3 class="card-title" id="tep-enrolled"></h3>
             <p class="card-text">TEP Enrolled</p>
-            <a href="#" class="card-text">Total Students</a>
+        </div>
+        <!-- Faded background image -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)), url('../assets/img/tep.jpg'); background-size: cover; background-position: center; z-index: 1; opacity: 0.9;">
         </div>
     </div>
 </div>
- 
+
+
 <div style="display: flex; flex-direction: row; gap: 10px; padding: 20px;">
         <!-- Left Section with two stacked cards -->
         <div style="display: flex; flex-direction: column; gap: 10px; width: 50%;">
@@ -106,7 +124,7 @@
             </div>
             <div class="card shadow" style="background-color: white; padding: 20px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); height: 400px;">
                 <div class="card-body text-center">
-                    <div id="piechart" style="width: 600px; height: 400px;"></div>
+                    <div id="cakechart" style="width: 600px; height: 400px;"></div>
                 </div>
             </div>
         </div>
@@ -162,238 +180,212 @@
 
 <!--Fetches all the Enrolled student in the nstp according to the Program and Semester year-->
 <script>
-    // Function to update displayed data based on selected academic year and semester
-    function fetchData() {
-        const selectedYear = document.getElementById("selectAY").value;
-        const selectedSemester = document.getElementById("selectSemester").value;
+    // Load Google Charts for Bar, Pie, and Donut charts
+google.charts.load('current', { packages: ['bar', 'corechart'] });
+google.charts.setOnLoadCallback(init);
 
-        // Fetch academic year and total enrolled data based on selections
-        fetch(`../nav/dashboard/components/fetch_academic_data.php?year=${selectedYear}&semester=${selectedSemester}`)
-            .then(response => response.json())
-            .then(data => {
-                updateAcademicYear(data, selectedYear, selectedSemester);
-            })
-            .catch(error => {
-                console.error('Error fetching academic year data:', error);
-            });
+// Initialize the dashboard by populating academic years and fetching initial data
+function init() {
+    populateAcademicYears(); // Populate academic years on load
+}
 
-        // Fetch enrollment data for each program
-        fetch(`../nav/dashboard/components/fetch_program_enrollment.php?year=${selectedYear}&semester=${selectedSemester}`)
-            .then(response => response.json())
-            .then(data => {
-                updateProgramEnrollment(data);
-            })
-            .catch(error => {
-                console.error('Error fetching enrollment data:', error);
-            });
-    }
-
-    // Function to update the academic year display
-    function updateAcademicYear(data, selectedYear, selectedSemester) {
-        const academicYearElement = document.getElementById("academic-year");
-        const totalEnrolledElement = document.getElementById("total-enrolled");
-
-        // Set the display values based on the selected year and semester
-        academicYearElement.textContent = `${selectedYear} - ${selectedSemester} Semester`;
-        totalEnrolledElement.textContent = data.total_enrolled || 0; // Ensure this key exists in your response
-    }
-
-    // Function to update the enrollment counts for each program
-    function updateProgramEnrollment(data) {
-        document.getElementById("bsit-enrolled").textContent = data.bsit_enrolled || 0;
-        document.getElementById("bsba-enrolled").textContent = data.bsba_enrolled || 0;
-        document.getElementById("tep-enrolled").textContent = data.tep_enrolled || 0;
-    }
-
-    // Fetch the academic years for the dropdown on page load and select the latest year and semester
-    function populateAcademicYears() {
-        fetch('../nav/dashboard/components/fetch_academic_years.php')
-            .then(response => response.json())
-            .then(data => {
-                const selectAY = document.getElementById("selectAY");
-                selectAY.innerHTML = ''; // Clear existing options
-
-                // Populate the academic years dropdown
-                data.academic_years.forEach(year => {
-                    const option = document.createElement("option");
-                    option.value = year;
-                    option.textContent = year;
-                    selectAY.appendChild(option);
-                });
-
-                // Automatically select the latest academic year
-                const latestYear = data.academic_years[0]; // Assuming the first year is the latest
-                selectAY.value = latestYear;
-
-                // Automatically select the latest semester (based on server response)
-                const selectSemester = document.getElementById("selectSemester");
-                const latestSemester = data.latest_semester || 'First'; // Default to 'First' if not provided
-                selectSemester.value = latestSemester;
-
-                // Trigger data fetch with the latest values
-                fetchData();
-            })
-            .catch(error => {
-                console.error('Error fetching academic years:', error);
-            });
-    }
-
-    // Fetch data when the page loads
-    window.onload = () => {
-        populateAcademicYears(); // Populate the dropdown and automatically fetch the latest year and semester
-    };
-</script>
-
-
-<!--Bar Chart-->
-<script>
-     google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        // Use fetch to call your PHP file that returns the gender data as JSON
-        fetch('../nav/dashboard/components/fetch_gender_data.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                academicYear: '2023-2024' // Example: You can change this dynamically
-            })
-        })
+// Function to populate academic years and automatically select the latest academic year and semester
+function populateAcademicYears() {
+    fetch('../nav/dashboard/components/fetch_academic_years.php')
         .then(response => response.json())
         .then(data => {
-            // Dynamically construct the chart data from the server response
-            const chartData = google.visualization.arrayToDataTable([
-                ['Department', 'Male', 'Female'],
-                ['All', data.all.male, data.all.female],
-                ['BSIT', data.bsit.male, data.bsit.female],
-                ['BSBA', data.bsba.male, data.bsba.female],
-                ['TEP', data.tep.male, data.tep.female]
-            ]);
+            const selectAY = document.getElementById('selectAY');
+            const selectSemester = document.getElementById('selectSemester');
 
-            var options = {
-                chart: {
-                    title: 'Total Male and Female Enrolled',
-                    subtitle: 'All, BSIT, BSBA, TEP',
-                },
-                bars: 'vertical', // Required for Material Bar Charts.
-                height: 400,
-                colors: ['#1b9e77', '#d95f02']
-            };
+            selectAY.innerHTML = ''; // Clear existing options
 
-            var chart = new google.charts.Bar(document.getElementById('barchart'));
-            chart.draw(chartData, google.charts.Bar.convertOptions(options));
+            // Populate the academic years dropdown
+            data.academic_years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                selectAY.appendChild(option);
+            });
+
+            // Automatically select the latest academic year and semester
+            const latestYear = data.academic_years[0]; // Assuming the first year is the latest
+            const latestSemester = data.latest_semester || 'First'; // Default to 'First' if not provided
+            selectAY.value = latestYear;
+            selectSemester.value = latestSemester;
+
+            // Trigger data fetch with the latest values
+            fetchData();
         })
         .catch(error => {
-            console.error('Error fetching gender data:', error);
+            console.error('Error fetching academic years:', error);
         });
-    }
-</script>
+}
 
-<!--3D Pie Chart-->
-<script>
-    // Load Google Charts
-    google.charts.load("current", { packages: ["corechart"] });
-    
-    // Set a callback function to fetch data and draw the chart when the chart library is loaded
-    google.charts.setOnLoadCallback(fetchEnrollmentData);
+// Function to fetch and update displayed data based on selected academic year and semester
+function fetchData() {
+    const selectedYear = document.getElementById("selectAY").value;
+    const selectedSemester = document.getElementById("selectSemester").value;
 
-    // Function to fetch enrollment data from the server
-    function fetchEnrollmentData() {
-        fetch('../nav/dashboard/components/fetch_program_enrollment.php')
-            .then(response => response.json())
-            .then(data => {
-                drawChart(data); // Pass the fetched data to the drawChart function
-            })
-            .catch(error => {
-                console.error('Error fetching enrollment data:', error);
-            });
-    }
+    // Fetch academic year and total enrolled data
+    fetch(`../nav/dashboard/components/fetch_academic_data.php?year=${selectedYear}&semester=${selectedSemester}`)
+        .then(response => response.json())
+        .then(data => {
+            updateAcademicYear(data, selectedYear, selectedSemester);
+        })
+        .catch(error => {
+            console.error('Error fetching academic year data:', error);
+        });
 
-    // Function to draw the Google pie chart
-    function drawChart(enrollmentData) {
-        // Create a data table using the fetched enrollment data
-        var data = google.visualization.arrayToDataTable([
-            ['Department', 'Total Students'],
-            ['BSIT', enrollmentData.bsit_enrolled || 0], // Use fetched BSIT total
-            ['BSBA', enrollmentData.bsba_enrolled || 0], // Use fetched BSBA total
-            ['TEP', enrollmentData.tep_enrolled || 0]   // Use fetched TEP total
+    // Fetch enrollment data for each program and update the pie chart
+    fetch(`../nav/dashboard/components/fetch_program_enrollment.php?year=${selectedYear}&semester=${selectedSemester}`)
+        .then(response => response.json())
+        .then(data => {
+            updateProgramEnrollment(data);
+            drawEnrollmentPieChart(data, selectedYear, selectedSemester);  // Update pie chart
+        })
+        .catch(error => {
+            console.error('Error fetching enrollment data:', error);
+        });
+
+    // Fetch and update the bar chart based on gender data
+    fetchGenderData(selectedYear, selectedSemester);
+
+    // Fetch ROTC vs CWTS component data for another pie chart
+    fetch(`../nav/dashboard/components/fetch_component_data.php?year=${selectedYear}&semester=${selectedSemester}`)
+        .then(response => response.json())
+        .then(data => {
+            drawComponentPieChart(data, selectedYear, selectedSemester); // Pass selectedYear and selectedSemester
+        })
+        .catch(error => {
+            console.error('Error fetching component data:', error);
+        });
+
+    // Fetch and update the donut chart with department component data (ROTC vs CWTS)
+    fetch(`../nav/dashboard/components/fetch_department_component_data.php?year=${selectedYear}&semester=${selectedSemester}`)
+        .then(response => response.json())
+        .then(data => {
+            drawDonutChart(data, selectedYear, selectedSemester); // Pass selectedYear and selectedSemester
+        })
+        .catch(error => {
+            console.error('Error fetching department component data:', error);
+        });
+}
+
+// Function to update the academic year display
+function updateAcademicYear(data, selectedYear, selectedSemester) {
+    const academicYearElement = document.getElementById("academic-year");
+    const totalEnrolledElement = document.getElementById("total-enrolled");
+
+    // Set the display values based on the selected year and semester
+    academicYearElement.textContent = `${selectedYear} - ${selectedSemester} Semester`;
+    totalEnrolledElement.textContent = data.total_enrolled || 0; // Ensure this key exists in your response
+}
+
+// Function to update the enrollment counts for each program
+function updateProgramEnrollment(data) {
+    document.getElementById("bsit-enrolled").textContent = data.bsit_enrolled || 0;
+    document.getElementById("bsba-enrolled").textContent = data.bsba_enrolled || 0;
+    document.getElementById("tep-enrolled").textContent = data.tep_enrolled || 0;
+}
+
+// Function to fetch and update the bar chart based on gender data
+function fetchGenderData(academicYear, semester) {
+    fetch('../nav/dashboard/components/fetch_gender_data.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            academicYear: academicYear,
+            semester: semester
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Construct chart data
+        const chartData = google.visualization.arrayToDataTable([
+            ['Department', 'Male', 'Female'],
+            ['All', data.all.male || 0, data.all.female || 0],
+            ['BSIT', data.bsit.male || 0, data.bsit.female || 0],
+            ['BSBA', data.bsba.male || 0, data.bsba.female || 0],
+            ['TEP', data.tep.male || 0, data.tep.female || 0]
         ]);
 
-        // Pie chart options
-        var options = {
-            title: 'NSTP Enrollment by Department',
-            is3D: true,
-            colors: ['#1E5128', '#DE970B', '#03346E'],
+        const options = {
+            chart: {
+                title: 'Total Male and Female Enrolled',
+                subtitle: `${academicYear} - ${semester} Semester`,
+            },
+            bars: 'vertical',
+            height: 400,
+            colors: ['#1b9e77', '#d95f02']
         };
 
-        // Create and draw the chart inside the div with id "piechart_3d"
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-    }
+        const chart = new google.charts.Bar(document.getElementById('barchart'));
+        chart.draw(chartData, google.charts.Bar.convertOptions(options));
+    })
+    .catch(error => {
+        console.error('Error fetching gender data:', error);
+    });
+}
+
+// Function to draw the enrollment pie chart (for BSIT, BSBA, TEP)
+function drawEnrollmentPieChart(enrollmentData, academicYear, semester) {
+    var data = google.visualization.arrayToDataTable([
+        ['Department', 'Total Students'],
+        ['BSIT', enrollmentData.bsit_enrolled || 0],
+        ['BSBA', enrollmentData.bsba_enrolled || 0],
+        ['TEP', enrollmentData.tep_enrolled || 0]
+    ]);
+
+    var options = {
+        title: `NSTP Enrollment by Department - ${academicYear} - ${semester} Semester`,
+        is3D: true,
+        colors: ['#1E5128', '#DE970B', '#03346E'],
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+}
+
+// Function to draw the ROTC vs CWTS component pie chart
+function drawComponentPieChart(data, academicYear, semester) {
+    var data = google.visualization.arrayToDataTable([
+        ['Components', 'Total Students'],
+        ['ROTC', data.total_rotc || 0],
+        ['CWTS', data.total_cwts || 0]
+    ]);
+
+    var options = {
+        title: `ROTC vs CWTS Enrollment - ${academicYear} - ${semester} Semester`, // Fixed title
+        is3D: true,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
+    chart.draw(data, options);
+}
+
+// Function to draw the Department ROTC vs CWTS donut chart
+function drawDonutChart(data, academicYear, semester) {
+    const chartData = new google.visualization.DataTable();
+    chartData.addColumn('string', 'Department');
+    chartData.addColumn('number', 'Total Students');
+    chartData.addRows(data);
+
+    const options = {
+        title: `Department ROTC vs CWTS - ${academicYear} - ${semester} Semester`, // Fixed title
+        pieHole: 0.4,
+    };
+
+    const chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(chartData, options);
+}
+
+// On page load, initialize the dashboard
+window.onload = init;
+
 </script>
 
-<!--Pie Chart-->
-<script>
-    // Load Google Charts
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(pieChart);
-
-    function pieChart() {
-      // Fetch data using AJAX from the PHP page
-      fetch('../nav/dashboard/components/fetch_component_data.php')
-        .then(response => response.json())  // Parse the JSON response
-        .then(data => {
-          // Prepare data for the pie chart
-          var chartData = google.visualization.arrayToDataTable([
-            ['Components', 'Total Students'],
-            ['ROTC', data.total_rotc],
-            ['CWTS', data.total_cwts]
-          ]);
-
-          // Define chart options
-          var options = {
-            title: 'ROTC vs CWTS' // Optional: For a donut chart style
-          };
-
-          // Draw the pie chart
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-          chart.draw(chartData, options);
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    }
-  </script>
-
-    <!--Domut Chart-->
-    <script>
-        google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(donutChart);
-
-    function donutChart() {
-        // Use AJAX to fetch data from the PHP file
-        fetch('../nav/dashboard/components/fetch_department_component_data.php')
-        .then(response => response.json())
-        .then(data => {
-            // Insert the fetched data into the chart
-            var chartData = new google.visualization.DataTable();
-            chartData.addColumn('string', 'Department');
-            chartData.addColumn('number', 'Total Students');
-            chartData.addRows(data);
-
-            var options = {
-                title: 'Department ROTC v.s CWTS',
-                pieHole: 0.4,
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-            chart.draw(chartData, options);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-    }
-    </script>
 
 </body>
 

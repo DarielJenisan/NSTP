@@ -81,7 +81,9 @@ foreach ($stmt->fetchAll() as $row): ?>
          <i class="fas fa-user-edit"></i>
             </button>
             <ul class="dropdown-menu">
-            <li><a class="dropdown-item" onclick="loadUpdateStudent(
+
+            <li>
+                <a class="dropdown-item" onclick="loadUpdateStudent(
             '<?php echo $row['student_id'] ?>',
             '<?php echo $row['lastname'] ?>',
             '<?php echo $row['firstname'] ?>',
@@ -110,8 +112,11 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['major'] ?>',
             '<?php echo $row['email'] ?>',
             '<?php echo $row['contactnumber'] ?>'
-        )"><i class="fa fa-edit"></i> Edit</a></li>
-           <li><a class="dropdown-item" onclick="loadCertificate(
+        )">
+        <i class="fa fa-edit"></i> Edit</a></li>
+
+           <li>
+            <a class="dropdown-item" onclick="loadCertificate(
             '<?php echo $row['lastname']; ?>',
             '<?php echo $row['firstname']; ?>',
             '<?php echo $row['middlename']; ?>',
@@ -122,9 +127,12 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['semester2']; ?>',
             '<?php echo $row['daterelease']; ?>',
             '<?php echo $row['coordinator']; ?>'
-        )"><i class="fa fa-qrcode"></i> Certificate</a></li>
+        )">
+        <i class="fa fa-qrcode"></i> Certificate</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" onclick="loadStudentProfile(
+
+            <li>
+                <a class="dropdown-item" onclick="loadStudentProfile(
             '<?php echo $row['student_id']; ?>',
             '<?php echo $row['firstname']; ?>',
             '<?php echo $row['middlename']; ?>',
@@ -146,7 +154,8 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['semester2']; ?>',
             '<?php echo $row['academicyear2']; ?>',
             '<?php echo $row['school2']; ?>'
-        )"><i class="fa fa-user"></i> View Profile</a></li>
+        )">
+        <i class="fa fa-user"></i> View Profile</a></li>
          </ul>
          </td>
     </tr>
