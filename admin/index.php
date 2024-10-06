@@ -66,10 +66,10 @@
         <div class="card-body" style="position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <h3 class="card-title" id="total-enrolled"></h3>
-                <p class="card-text" id="academic-year">BSIT Enrolled</p>
+                <p class="card-text" id="academic-year">Total Enrolled</p>
             </div>
             <!-- Icon on the right side -->
-            <i class="fas fa-user-friends" style="font-size: 2.5rem; color: rgba(0, 0, 0, 0.5);"></i>
+            <a onclick="clickSubModule('../nav/student_list/student_list.php')"><i class="fas fa-user-friends" style="font-size: 2.5rem; color: rgba(0, 0, 0, 0.5);"></i></a>
         </div>
         <!-- Faded background image -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)), url('../assets/img/nstp.png'); background-size: cover; background-position: center; z-index: 1; opacity: 0.9;">

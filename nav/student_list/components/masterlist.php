@@ -108,12 +108,29 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['province'] ?>',
             '<?php echo $row['institutioncode'] ?>',
             '<?php echo $row['agencytype'] ?>',
+            '<?php echo $row['yearlevel'] ?>',
             '<?php echo $row['program'] ?>',
             '<?php echo $row['major'] ?>',
             '<?php echo $row['email'] ?>',
             '<?php echo $row['contactnumber'] ?>'
         )">
         <i class="fa fa-edit"></i> Edit</a></li>
+
+        <li>
+            <a class="dropdown-item" onclick="loadSlip(
+            '<?php echo $row['semester1']; ?>',
+            '<?php echo $row['semester2']; ?>',
+            '<?php echo $row['student_id']; ?>',
+            '<?php echo $row['firstname']; ?>',
+            '<?php echo $row['middlename']; ?>',
+            '<?php echo $row['lastname']; ?>',
+            '<?php echo $row['suffixname']; ?>',
+            '<?php echo $row['yearlevel']; ?>',
+            '<?php echo $row['program']; ?>',
+            '<?php echo $row['academicyear1']; ?>',
+            '<?php echo $row['academicyear2']; ?>'
+        )">
+        <i class="fas fa-file-alt"></i> Slip</a></li>
 
            <li>
             <a class="dropdown-item" onclick="loadCertificate(
@@ -129,6 +146,7 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['coordinator']; ?>'
         )">
         <i class="fa fa-qrcode"></i> Certificate</a></li>
+
             <li><hr class="dropdown-divider"></li>
 
             <li>

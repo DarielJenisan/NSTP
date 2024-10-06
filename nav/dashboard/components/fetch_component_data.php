@@ -16,16 +16,24 @@ function getRotcCwtsTotals($conn, $academicYear, $semester) {
     // Bind parameters for academic year and semester
     $query->bindParam(':academicYear', $academicYear);
     $query->bindParam(':semester', $semester);
-    $query->execute();
-    return $query->fetch(PDO::FETCH_ASSOC);
+    
+    // Execute the query and handle errors
+    try {
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        return [
+            'error' => 'Database error: ' . $e->getMessage()
+        ];
+    }
 }
 
 // Get parameters from the request
 $academicYear = isset($_GET['year']) ? $_GET['year'] : null;
 $semester = isset($_GET['semester']) ? $_GET['semester'] : null;
 
-// If parameters are provided, fetch the totals; otherwise, return an error message
-if ($academicYear && $semester) {
+// Validate parameters
+if ($academicYear && ($semester === 'First' || $semester === 'Second')) {
     $result = getRotcCwtsTotals($conn, $academicYear, $semester);
     echo json_encode([
         'total_rotc' => $result['total_rotc'] ?? 0,
@@ -33,6 +41,6 @@ if ($academicYear && $semester) {
     ]);
 } else {
     echo json_encode([
-        'error' => 'Missing academic year or semester parameter'
+        'error' => 'Missing or invalid academic year or semester parameter'
     ]);
 }

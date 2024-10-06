@@ -11,7 +11,7 @@ if (isset($_SESSION['admin_id'])) {
 
     if ($admin) {
         echo json_encode([
-            'name' => $admin['lastname'] . ', ' . $admin['firstname'] . ' ' . $admin['middlename'], 
+            'name' => $admin['firstname'] . ' ' . $admin['middlename'] . ' ' . $admin['lastname'], 
             'schoolId' => $admin['school_id'],
             'role' => 'admin'
         ]);

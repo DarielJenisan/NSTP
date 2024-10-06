@@ -70,23 +70,25 @@
         // console.log(1)
     }
 
-   // Fetch logged-in user details from the backend
-   function fetchUserDetails() {
-        fetch('../assets/components/get_user_details.php') // Replace with the correct path
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status === 'error') {
-                    console.error(data.message);
-                    return;
-                }
+ // Fetch logged-in user details from the backend
+function fetchUserDetails() {
+    fetch('../assets/components/get_user_details.php') // Replace with the correct path
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'error') {
+                console.error(data.message);
+                // Optionally handle UI for logged-out state or show error message
+                return;
+            }
 
-                // Update the dropdown with the fetched user details
-                document.getElementById('userName').textContent = data.name;
-                document.getElementById('userSchoolId').textContent = `ID: ${data.schoolId}`;
-            })
-            .catch((error) => console.error('Error fetching user details:', error));
-    }
+            // Update the dropdown with the fetched user details
+            document.getElementById('userName').textContent = data.name;
+            document.getElementById('userSchoolId').textContent = `ID: ${data.schoolId}`;
+        })
+        .catch((error) => console.error('Error fetching user details:', error));
+}
 
-    // Call the function when the page loads
-    document.addEventListener('DOMContentLoaded', fetchUserDetails);
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', fetchUserDetails);
+
 </script>

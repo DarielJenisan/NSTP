@@ -92,6 +92,7 @@
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">HEI Name</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Institution Code</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Type of Agency</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Year Level</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Program</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Major</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Main Program</th>
@@ -160,12 +161,13 @@
                             <label><input type="checkbox" class="column-checkbox" value="24"> Institution Code</label>
 
                             <label><input type="checkbox" class="column-checkbox" value="25"> Type of Agency</label>
-                            <label><input type="checkbox" class="column-checkbox" value="26"> Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="27"> Major</label>
-                            <label><input type="checkbox" class="column-checkbox" value="28"> Main Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="29"> Email</label>
-
-                            <label><input type="checkbox" class="column-checkbox" value="30"> Contact Number</label>
+                            <label><input type="checkbox" class="column-checkbox" value="26"> Year Level</label>
+                            <label><input type="checkbox" class="column-checkbox" value="27"> Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="28"> Major</label>
+                            <label><input type="checkbox" class="column-checkbox" value="29"> Main Program</label>
+                            
+                            <label><input type="checkbox" class="column-checkbox" value="30"> Email</label>
+                            <label><input type="checkbox" class="column-checkbox" value="31"> Contact Number</label>
                         </div>
                     </div>
                 </form>

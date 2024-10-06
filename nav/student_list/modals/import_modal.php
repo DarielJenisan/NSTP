@@ -28,7 +28,7 @@
                                 <li><strong>middlename</strong> (Middle Name)</li>
                                 <li><strong>lastname</strong> (Last Name)</li>
                                 <li><strong>suffixname</strong> (Suffix/Extension Name)</li>
-                                <li><strong>birthday</strong> (Date of Birth)</li>
+                                <li><strong>birthday</strong> (Date of Birth <YYYY-MM-DD>)</li>
                             </ol>
                         </div>
                         <div class="col-md-4">
@@ -68,6 +68,7 @@
                                 <li><strong>institutioncode</strong> (Institution Code)</li>
                                 <li><strong>agencytype</strong> (Type of Agency)</li>
                                 <li><strong>remarks</strong> (Remarks)</li>
+                                <li><strong>yearlevel</strong> (Year Level)</li>
                             </ol>
                         </div>
                         <br> <h6>Example: </h6>
@@ -103,9 +104,18 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
     var fileInput = document.getElementById('fileInput');
     var file = fileInput.files[0];
 
-    // Validate file type
+    // Validate if file is selected
     if (!file) {
         alert("Please select a file.");
+        importButton.disabled = false;
+        importButton.textContent = 'Import';
+        return;
+    }
+
+    // Validate file type (optional, depending on the format you accept)
+    var validFileTypes = ['application/vnd.ms-excel', 'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+    if (!validFileTypes.includes(file.type)) {
+        alert("Invalid file type. Please select a CSV or Excel file.");
         importButton.disabled = false;
         importButton.textContent = 'Import';
         return;
@@ -131,7 +141,7 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
         });
     })
     .then(data => {
-        if (data.success) {
+        if (data.status === 'success') {
             alert('Student data imported successfully.');
             $('#ImportModal').modal('hide'); // Close the modal on success
             // Optionally, you can reload the page or update the UI to reflect the changes

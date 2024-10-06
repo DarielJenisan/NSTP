@@ -86,6 +86,7 @@ foreach ($stmt->fetchAll() as $row): ?>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['institutioncode']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['agencytype']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['yearlevel']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['program']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['major']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['program'] . ' (' . $row['major'] . ')';?></td>

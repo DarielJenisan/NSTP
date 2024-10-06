@@ -87,6 +87,7 @@
 <?php include '../../nav/student_list/modals/certificate_modal.php' ?>
 <?php include '../../nav/student_list/modals/student_profile_modal.php' ?>
 <?php include '../../nav/student_list/modals/import_modal.php' ?>
+<?php include '../../nav/student_list/modals/slip_modal.php' ?>
 
 <script>
 $(document).ready(function() {
