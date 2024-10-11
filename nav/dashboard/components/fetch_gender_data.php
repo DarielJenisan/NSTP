@@ -22,14 +22,14 @@ if (!$selectedAcademicYear) {
     exit;
 }
 
-// Mapping program names to abbreviations
-$programMap = [
+// Mapping department names to abbreviations
+$departmentMap = [
     'Bachelor of Science in Information Technology' => 'BSIT',
     'Bachelor of Science in Business Administration' => 'BSBA',
     'Teacher Education Program' => 'TEP'
 ];
 
-// Initialize totals for each program, gender, and semester
+// Initialize totals for each department, gender, and semester
 $totals = [
     'BSBA' => ['MALE' => 0, 'FEMALE' => 0],
     'BSIT' => ['MALE' => 0, 'FEMALE' => 0],
@@ -40,7 +40,7 @@ $totals = [
 $semesterColumn = $selectedSemester === 'second' ? 'semester2' : 'semester1';
 
 // Query the database for gender counts based on the selected academic year and semester
-$query = $conn->prepare("SELECT program, gender, $semesterColumn AS semester
+$query = $conn->prepare("SELECT department, gender, $semesterColumn AS semester
                          FROM studentinformation_view
                          WHERE academicyear1 = :academicYear OR academicyear2 = :academicYear");
 $query->bindParam(':academicYear', $selectedAcademicYear);
@@ -48,16 +48,16 @@ $query->execute();
 
 // Process the results and accumulate totals
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-    $program = $row['program'];
+    $department = $row['department'];
     $gender = strtoupper($row['gender']); // Normalize gender to uppercase
 
-    if (isset($programMap[$program]) && !empty($row['semester'])) {
-        $programAbbr = $programMap[$program];
-        $totals[$programAbbr][$gender]++;
+    if (isset($departmentMap[$department]) && !empty($row['semester'])) {
+        $departmentAbbr = $departmentMap[$department];
+        $totals[$departmentAbbr][$gender]++;
     }
 }
 
-// Calculate grand totals across all programs for the selected semester
+// Calculate grand totals across all departments for the selected semester
 $grandTotals = [
     'MALE' => $totals['BSBA']['MALE'] + $totals['BSIT']['MALE'] + $totals['TEP']['MALE'],
     'FEMALE' => $totals['BSBA']['FEMALE'] + $totals['BSIT']['FEMALE'] + $totals['TEP']['FEMALE']

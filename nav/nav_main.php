@@ -36,14 +36,14 @@
             </div>
         </div>
     </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" active="false" aria-selected="false">
+    <li class="nav-item dropdown" onclick="clickSubModule('../nav/Approval/approval_request.php')">
+        <a class="nav-link">
             Approval
         </a>
     </li>
 
     <li class="nav-item dropdown" style="padding-top: 0px;">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li>
                 <div class="dropdown-account" id="userName">SAMPLE NAME</div>
@@ -76,7 +76,7 @@
 
  // Fetch logged-in user details from the backend
 function fetchUserDetails() {
-    fetch('../assets/components/get_user_details.php') // Replace with the correct path
+    fetch('../assets/components/get_user_details.php') // Make sure the path is correct
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 'error') {
@@ -94,5 +94,6 @@ function fetchUserDetails() {
 
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', fetchUserDetails);
+
 
 </script>

@@ -118,7 +118,7 @@
                 <!-- Text Section -->
                 <div class="text">
                     <h2 style="font-family: Times New Roman, Times, serif; font-size: 32px; color: #002F6C; font-weight: bold;">Northern Bukidnon State College</h2>
-                    <h3 style="font-family: Times New Roman, Times, serif; font-size: 22px; color: #002F6C;">National Service Training Program</h3>
+                    <h3 style="font-family: Times New Roman, Times, serif; font-size: 22px; color: #002F6C;">National Service Training Department</h3>
                 </div>
 
                 <!-- Right Logo -->
@@ -141,7 +141,7 @@
             <div class="fields">
                 <p>  Student ID No.:    <small id="cwts_slipstudentID" style="text-decoration: underline; font-size: 22px;"></small></p>
                 <p> Name of Student:    <small id="cwts_slipstudentname" style="text-decoration: underline; font-size: 22px;"></small></p>
-                <p>Year and Program:    <small id="cwts_slipyearprogram" style="text-decoration: underline; font-size: 22px;"></small></p>
+                <p>Year and Department:    <small id="cwts_slipyearDepartment" style="text-decoration: underline; font-size: 22px;"></small></p>
             </div>
 
             <!-- Footer Section -->
@@ -178,7 +178,7 @@
                         <!-- Text Section -->
                         <div class="text">
                             <h2 style="font-family: Times New Roman, Times, serif; font-size: 32px; color: #002F6C; font-weight: bold;">Northern Bukidnon State College</h2>
-                            <h3 style="font-family: Times New Roman, Times, serif; font-size: 22px; color: #002F6C;">National Service Training Program</h3>
+                            <h3 style="font-family: Times New Roman, Times, serif; font-size: 22px; color: #002F6C;">National Service Training Department</h3>
                         </div>
                         <!-- Right Logo -->
                         <img src="../assets/img/rotclogo.png" alt="Right Logo" class="right-logo">
@@ -197,7 +197,7 @@
                     <div class="fields">
                         <p>  Student ID No.: <small id="rotc_slipstudentID" style="text-decoration: underline; font-size: 22px;"></small></p>
                         <p> Name of Student: <small id="rotc_slipstudentname" style="text-decoration: underline; font-size: 22px;"></small></p>
-                        <p>Year and Program: <small id="rotc_slipyearprogram" style="text-decoration: underline; font-size: 22px;"></small></p>
+                        <p>Year and Department: <small id="rotc_slipyearDepartment" style="text-decoration: underline; font-size: 22px;"></small></p>
                     </div>
                     <!-- Footer Section -->
                     <div class="footer">
@@ -219,9 +219,9 @@
 <<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
- function loadSlip(semester1, semester2, student_id, firstname, middlename, lastname, suffixname, yearlevel, program, academicyear1, academicyear2) {
+ function loadSlip(semester1, semester2, student_id, firstname, middlename, lastname, suffixname, yearlevel, department, academicyear1, academicyear2) {
     const fullName = firstname + ' ' + (middlename ? middlename + ' ' : '') + lastname + ' ' + (suffixname ? suffixname : '');
-    const yearProgram = yearlevel + ' - ' + program;
+    const yearDepartment = yearlevel + ' - ' + department;
 
     // Fetch the logged-in admin's name using AJAX
     fetchAdminDetails();
@@ -241,7 +241,7 @@
             $('#cwts_slipsemester').text(displayedSemester);
             $('#cwts_slipstudentID').text(student_id);
             $('#cwts_slipstudentname').text(fullName);
-            $('#cwts_slipyearprogram').text(yearProgram);
+            $('#cwts_slipyearDepartment').text(yearDepartment);
             $('#cwtsSlipModal').modal('show'); // Show CWTS modal
         }
 
@@ -251,7 +251,7 @@
             $('#rotc_slipsemester').text(displayedSemester);
             $('#rotc_slipstudentID').text(student_id);
             $('#rotc_slipstudentname').text(fullName);
-            $('#rotc_slipyearprogram').text(yearProgram);
+            $('#rotc_slipyearDepartment').text(yearDepartment);
             $('#rotcSlipModal').modal('show'); // Show ROTC modal
         }
     }
@@ -268,7 +268,7 @@
             $('#cwts_slipsemester').text(displayedSemester);
             $('#cwts_slipstudentID').text(student_id);
             $('#cwts_slipstudentname').text(fullName);
-            $('#cwts_slipyearprogram').text(yearProgram);
+            $('#cwts_slipyearDepartment').text(yearDepartment);
             $('#cwtsSlipModal').modal('show'); // Show CWTS modal
         }
 
@@ -278,7 +278,7 @@
             $('#rotc_slipsemester').text(displayedSemester);
             $('#rotc_slipstudentID').text(student_id);
             $('#rotc_slipstudentname').text(fullName);
-            $('#rotc_slipyearprogram').text(yearProgram);
+            $('#rotc_slipyearDepartment').text(yearDepartment);
             $('#rotcSlipModal').modal('show'); // Show ROTC modal
         }
     }

@@ -39,6 +39,7 @@ try {
     $institutioncode = isset($_POST['institutioncode']) ? sanitize($_POST['institutioncode']) : '';
     $agencytype      = isset($_POST['agencytype']) ? sanitize($_POST['agencytype']) : '';
     $yearlevel       = isset($_POST['yearlevel']) ? sanitize($_POST['yearlevel']) : '';
+    $department         = isset($_POST['department']) ? sanitize($_POST['department']) : '';
     $program         = isset($_POST['program']) ? sanitize($_POST['program']) : '';
     $major           = isset($_POST['major']) ? sanitize($_POST['major']) : '';
     $email           = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : '';
@@ -63,7 +64,7 @@ try {
             municipality = :municipality,
             province = :province,
             yearlevel = :yearlevel,
-            program = :program,
+            department = :department,
             major = :major,
             serialnumber = :serialnumber,
             contactnumber = :contactnumber
@@ -81,7 +82,7 @@ try {
         ':municipality'  => $municipality,
         ':province'      => $province,
         ':yearlevel'     => $yearlevel,
-        ':program'       => $program,
+        ':department'       => $department,
         ':major'         => $major,
         ':serialnumber'  => $serialnumber,
         ':contactnumber' => $contactnumber,
@@ -103,6 +104,7 @@ try {
             component = :component,
             institutioncode = :institutioncode,
             agencytype = :agencytype,
+            program = :program,
             remarks = :remarks
         WHERE student_id = :student_id
     ");
@@ -119,6 +121,7 @@ try {
         ':component'     => $component,
         ':institutioncode' => $institutioncode,
         ':agencytype'    => $agencytype,
+        ':program'    => $program,
         ':remarks'       => $remarks,
         ':student_id'    => $student_id
     ]);

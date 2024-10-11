@@ -22,10 +22,10 @@
                 <option>CWTS</option>
             </select>
 
-            <label for="selectProgram" style="margin: 5px;">
+            <label for="selectDepartment" style="margin: 5px;">
                 <h6>Department: </h6>
             </label>
-            <select class="select-year-center" id="selectProgram" style="width: 150px; height: 30px;">
+            <select class="select-year-center" id="selectDepartment" style="width: 150px; height: 30px;">
                 <option class="text-center">--All Program--</option>
                 <option>Bachelor of Science in Information Technology</option>
                 <option>Bachelor of Science in Business Administration</option>
@@ -170,13 +170,13 @@ $(document).ready(function() {
     function applyFilters() {
         var academicYear = $('#selectAY').val();
         var component = $('#selectComponent').val();
-        var program = $('#selectProgram').val();
+        var department = $('#selectDepartment').val();
 
         // Adjusting filter values based on user selection
         var filters = {
             academicYear: academicYear === '-All Academic Year-' ? 'All' : academicYear,
             component: component === '--All Component--' ? 'All' : component,
-            program: program === '--All Program--' ? 'All' : program
+            department: department === '--All Program--' ? 'All' : department
         };
 
         // Reload the master list based on applied filters
@@ -184,7 +184,7 @@ $(document).ready(function() {
     }
 
     // Trigger filter application on dropdown change
-    $('#selectAY, #selectComponent, #selectProgram').change(function() {
+    $('#selectAY, #selectComponent, #selectDepartment').change(function() {
         applyFilters();
     });
 

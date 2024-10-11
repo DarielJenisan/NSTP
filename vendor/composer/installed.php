@@ -3,10 +3,14 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+< pre-enrollment
+        'reference' => 'b9b174d4a61554265e65a5f538416088d6649255',
+=======
 < downloadslip
         'reference' => 'ea6991c7473ccfd5afcb0d9f57458de158fb4d1d',
 =======
         'reference' => '581112a71c14a2cf65b7d33cfa9cdbbad93b2620',
+> main
 > main
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
@@ -17,13 +21,44 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+< pre-enrollment
+            'reference' => 'b9b174d4a61554265e65a5f538416088d6649255',
+=======
 < downloadslip
             'reference' => 'ea6991c7473ccfd5afcb0d9f57458de158fb4d1d',
 =======
             'reference' => '581112a71c14a2cf65b7d33cfa9cdbbad93b2620',
 > main
+> main
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'bacon/bacon-qr-code' => array(
+            'pretty_version' => 'v3.0.1',
+            'version' => '3.0.1.0',
+            'reference' => 'f9cc1f52b5a463062251d666761178dbdb6b544f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bacon/bacon-qr-code',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'dasprid/enum' => array(
+            'pretty_version' => '1.0.6',
+            'version' => '1.0.6.0',
+            'reference' => '8dfd07c6d2cf31c8da90c53b83c026c7696dda90',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../dasprid/enum',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'endroid/qr-code' => array(
+            'pretty_version' => '5.1.0',
+            'version' => '5.1.0.0',
+            'reference' => '393fec6c4cbdc1bd65570ac9d245704428010122',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../endroid/qr-code',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

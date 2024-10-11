@@ -134,8 +134,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="program">Program</label>
-                <select class="form-control" id="program" onchange="filterData()">
+                <label for="department">Program</label>
+                <select class="form-control" id="department" onchange="filterData()">
                     <option value="All">--All Program--</option>
                     <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
                     <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
@@ -257,7 +257,7 @@ async function generateCertificates() {
 
     const selectedComponent = document.getElementById("components").value; // Get selected component
     const selectedAY = document.getElementById("selectAY").value; // Get selected Academic Year
-    const selectedProgram = document.getElementById("program").value; // Get selected program
+    const selectedDepartment = document.getElementById("department").value; // Get selected department
     const students = await fetchStudents(); // Fetch student data
 
     // Get the date of release and coordinator from the inputs
@@ -272,7 +272,7 @@ async function generateCertificates() {
 
         // Check if the selected academic year matches or if 'All' is selected
         if ((selectedAY === "-All Academic Year-" || student.academicyear2 === selectedAY) &&
-            (selectedProgram === "All" || student.program === selectedProgram)) {
+            (selectedDepartment === "All" || student.department === selectedDepartment)) {
 
             // CWTS Certificate Condition
             if (student.semester1 === "CWTS1" && student.semester2 === "CWTS2") {
@@ -373,10 +373,10 @@ async function generateCertificates() {
 }
 
 
-// Event listener for both components, Academic Year, and program dropdown
+// Event listener for both components, Academic Year, and department dropdown
 document.getElementById("components").addEventListener("change", generateCertificates);
 document.getElementById("selectAY").addEventListener("change", generateCertificates);
-document.getElementById("program").addEventListener("change", generateCertificates);
+document.getElementById("department").addEventListener("change", generateCertificates);
 
 
 // Initial call to generate certificates on page load
