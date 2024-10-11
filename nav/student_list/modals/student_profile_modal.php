@@ -194,7 +194,7 @@ th, td {
               <div id="StudentID" class="static-text">123456</div>
             </div>
             <div class="photo-box border p-3 text-center">
-              <img id="studentPhoto" src="../assets/img/default-photo.png" alt="Student Photo">
+              <img id="studentPhoto" src="../assets/img/nstplogo.png" alt="Student Photo">
             </div>
           </div>
 
@@ -308,7 +308,7 @@ th, td {
 <script>
     // Function to load student data into the modal
     function loadStudentProfile(student_id, firstname, middlename, lastname, suffixname, serialnumber, birthday, gender, barangay, municipality, province,
-      program, major, contactnumber, email, semester1, academicyear1, school1, semester2, academicyear2, school2) {
+      department, major, contactnumber, email, semester1, academicyear1, school1, semester2, academicyear2, school2) {
 
     $('#StudentID').text(student_id);
     $('#fullname').text(firstname + ' ' + (middlename ? middlename + ' ' : '') + lastname + ' ' + suffixname);
@@ -316,7 +316,7 @@ th, td {
     $('#serialNo').text(serialnumber);
     $('#sex').text(gender);
     $('#address').text(barangay + ', ' + municipality + ', ' + province);
-    $('#course').text(program);
+    $('#course').text(department);
     $('#coursemajor').text(major);
     $('#contactNo').text(contactnumber);
     $('#emailAddress').text(email);
@@ -511,6 +511,9 @@ th, td {
               .print-button {
                 display: none;
               }
+                 .qr-code-box {
+        display: none;
+    }
             }
           </style>
         </head>

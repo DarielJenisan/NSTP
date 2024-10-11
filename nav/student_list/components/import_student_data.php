@@ -70,16 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (($yearlevelIndex = array_search('yearlevel', $headers)) !== false) {
                     $updateData['yearlevel'] = $row[$yearlevelIndex];
                 }
-                if (($programIndex = array_search('program', $headers)) !== false) {
-                    $updateData['program'] = $row[$programIndex];
-                }
                 if (($majorIndex = array_search('major', $headers)) !== false) {
                     $updateData['major'] = $row[$majorIndex];
                 }
                 if (($serialnumberIndex = array_search('serialnumber', $headers)) !== false) {
                     $updateData['serialnumber'] = $row[$serialnumberIndex];
                 }
-
+                 if (($departmentIndex = array_search('department', $headers)) !== false) {
+                $updateData['department'] = $row[$departmentIndex];
+                }
+ 
                 // Check if student already exists in the database
                 $checkQuery = "SELECT COUNT(*) FROM tblstudent WHERE student_id = :student_id";
                 $checkStmt = $conn->prepare($checkQuery);
@@ -152,6 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 if (($remarksIndex = array_search('remarks', $headers)) !== false) {
                     $updateNstpData['remarks'] = $row[$remarksIndex];
+                }
+                if (($programIndex = array_search('program', $headers)) !== false) {
+                    $updateData['program'] = $row[$programIndex];
                 }
 
                 // Dynamically build the query for tblnstp

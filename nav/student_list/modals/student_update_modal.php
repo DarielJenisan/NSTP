@@ -70,8 +70,8 @@
                 <input type="text" class="form-control" id="yearlevel" name="yearlevel">
               </div>
               <div class="form-group">
-                <label for="program">Program</label>
-                <input type="text" class="form-control" id="program" name="program">
+                <label for="department">Department</label>
+                <input type="text" class="form-control" id="department" name="department">
               </div>
               <div class="form-group">
                 <label for="major">Major</label>
@@ -161,6 +161,10 @@
                 <label for="agencyType">Agency Type</label>
                 <input type="text" class="form-control" id="agencyType" name="agencyType">
               </div>
+              <div class="form-group">
+                <label for="program">Program</label>
+                <input type="text" class="form-control" id="program" name="program">
+              </div>
             </div>
           </div>
         </form>
@@ -177,7 +181,7 @@
      // Function to load student data into the modal
   function loadUpdateStudent(student_id, lastname, firstname, middlename, suffixname, gender, semester1, school1,
       academicyear1, sectioncode1, semester2, school2, academicyear2, sectioncode2, serialnumber, remarks, awardyear,
-      component, birthday, barangay, municipality, province, institutioncode, agencytype, yearlevel, program, major, 
+      component, birthday, barangay, municipality, province, institutioncode, agencytype, department, yearlevel, major, program, 
       email, contactnumber) {
       
         $('#studentID').val(student_id);
@@ -205,8 +209,9 @@
     $('#institutionCode').val(institutioncode);
     $('#agencyType').val(agencytype);
     $('#yearlevel').val(yearlevel);
-    $('#program').val(program);
+    $('#department').val(department);
     $('#major').val(major);
+    $('#program').val(program);
     $('#email').val(email);
     $('#contactNumber').val(contactnumber);
       
@@ -247,8 +252,9 @@
           institutioncode: $('#institutionCode').val(),
           agencytype: $('#agencyType').val(),
           yearlevel: $('#yearlevel').val(),
-          program: $('#program').val(),
+          department: $('#department').val(),
           major: $('#major').val(),
+          program: $('#program').val(),
           email: $('#email').val(),
           contactnumber: $('#contactNumber').val()
       })

@@ -4,7 +4,7 @@ require_once '../../../connection.php';
 // Retrieve filter values from POST request
 $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : 'All';
 $component = isset($_POST['component']) ? $_POST['component'] : 'All';
-$program = isset($_POST['program']) ? $_POST['program'] : 'All';
+$department = isset($_POST['department']) ? $_POST['department'] : 'All';
 
 // Build the query with filters
 $query = "SELECT * FROM studentInformation_view WHERE 1=1";
@@ -22,9 +22,9 @@ if ($component !== 'All') {
     }
 }
 
-// Adjust program filter to handle multiple possible values
-if ($program !== 'All') {
-    $query .= " AND (program = :programFull OR program = :programShort)";
+// Adjust department filter to handle multiple possible values
+if ($department !== 'All') {
+    $query .= " AND (department = :departmentFull OR department = :departmentShort)";
 }
 
 // Add the ORDER BY clause for sorting by academic year, last name, and first name
@@ -37,20 +37,20 @@ if ($academicYear !== 'All') {
     $stmt->bindParam(':academicYear', $academicYear);
 }
 
-if ($program !== 'All') {
-    // Define program mappings
-    $programMap = [
+if ($department !== 'All') {
+    // Define department mappings
+    $departmentMap = [
         'BSIT' => 'Bachelor of Science in Information Technology',
         'BSBA' => 'Bachelor of Science in Business Administration',
-        'TEP' => 'Teacher Education Program'
+        'TEP' => 'Teacher Education department'
     ];
 
-    $programFull = isset($programMap[$program]) ? $programMap[$program] : $program;
-    $programShort = array_search($programFull, $programMap) ?: $program;
+    $departmentFull = isset($departmentMap[$department]) ? $departmentMap[$department] : $department;
+    $departmentShort = array_search($departmentFull, $departmentMap) ?: $department;
 
     // SELECT * FROM tblnstp1 a WHERE a.semester1 like 'value'
-    $stmt->bindParam(':programFull', $programFull);
-    $stmt->bindParam(':programShort', $programShort);
+    $stmt->bindParam(':departmentFull', $departmentFull);
+    $stmt->bindParam(':departmentShort', $departmentShort);
 }
 
 $stmt->execute();
@@ -87,9 +87,10 @@ foreach ($stmt->fetchAll() as $row): ?>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['institutioncode']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['agencytype']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['yearlevel']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['program']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['department']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['major']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['program'] . ' (' . $row['major'] . ')';?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['program']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['department'] . ' (' . $row['major'] . ')';?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['email']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['contactnumber']?></td>   
     </tr>

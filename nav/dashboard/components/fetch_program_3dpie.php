@@ -41,7 +41,7 @@ try {
     $bsitQuery = "
         SELECT COUNT(DISTINCT student_id) AS total
         FROM tblstudent
-        WHERE program IN ('Bachelor of Science in Information Technology', 'BSIT') 
+        WHERE department IN ('Bachelor of Science in Information Technology', 'BSIT') 
           AND student_id IN (
             SELECT student_id 
             FROM tblnstp 
@@ -57,7 +57,7 @@ try {
     $bsbaQuery = "
         SELECT COUNT(DISTINCT student_id) AS total
         FROM tblstudent
-        WHERE program IN ('Bachelor of Science in Business Administration', 'BSBA')
+        WHERE department IN ('Bachelor of Science in Business Administration', 'BSBA')
           AND student_id IN (
             SELECT student_id 
             FROM tblnstp 
@@ -73,7 +73,7 @@ try {
     $tepQuery = "
         SELECT COUNT(DISTINCT student_id) AS total
         FROM tblstudent
-        WHERE program IN ('Teacher Education Program', 'TEP')
+        WHERE department IN ('Teacher Education Program', 'TEP')
           AND student_id IN (
             SELECT student_id 
             FROM tblnstp 

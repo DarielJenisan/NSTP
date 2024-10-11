@@ -27,11 +27,11 @@
                 <option>CWTS</option>
             </select>
 
-            <label for="selectProgram" style="margin: 5px;">
+            <label for="selectDepartment" style="margin: 5px;">
                 <h6>Department: </h6>
             </label>
-            <select class="select-year-center" id="selectProgram" style="width: 150px; height: 30px;">
-                <option class="text-center">--All Program--</option>
+            <select class="select-year-center" id="selectDepartment" style="width: 150px; height: 30px;">
+                <option class="text-center">--All Department--</option>
                 <option>Bachelor of Science in Information Technology</option>
                 <option>Bachelor of Science in Business Administration</option>
                 <option>Teacher Education Program</option>
@@ -93,8 +93,9 @@
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Institution Code</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Type of Agency</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Year Level</th>
-                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Program</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Department</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Major</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Program</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Main Program</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Email</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Contact Number</th>
@@ -162,12 +163,13 @@
 
                             <label><input type="checkbox" class="column-checkbox" value="25"> Type of Agency</label>
                             <label><input type="checkbox" class="column-checkbox" value="26"> Year Level</label>
-                            <label><input type="checkbox" class="column-checkbox" value="27"> Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="27"> Department</label>
                             <label><input type="checkbox" class="column-checkbox" value="28"> Major</label>
-                            <label><input type="checkbox" class="column-checkbox" value="29"> Main Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="29"> Program</label>
                             
-                            <label><input type="checkbox" class="column-checkbox" value="30"> Email</label>
-                            <label><input type="checkbox" class="column-checkbox" value="31"> Contact Number</label>
+                            <label><input type="checkbox" class="column-checkbox" value="30"> Main Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="31"> Email</label>
+                            <label><input type="checkbox" class="column-checkbox" value="32"> Contact Number</label>
                         </div>
                     </div>
                 </form>
@@ -290,13 +292,13 @@ $(document).ready(function() {
     function applyFilters() {
         var academicYear = $('#selectAY').val();
         var component = $('#selectComponent').val();
-        var program = $('#selectProgram').val();
+        var department = $('#selectDepartment').val();
 
         // Adjusting filter values based on user selection
         var filters = {
             academicYear: academicYear === '-All Academic Year-' ? 'All' : academicYear,
             component: component === '--All Component--' ? 'All' : component,
-            program: program === '--All Program--' ? 'All' : program
+            department: department === '--All Department--' ? 'All' : department
         };
 
         // Reload the master list based on applied filters
@@ -341,7 +343,7 @@ $(document).ready(function() {
     });
 
     // Trigger filter application on dropdown change
-    $('#selectAY, #selectComponent, #selectProgram').change(function() {
+    $('#selectAY, #selectComponent, #selectDepartment').change(function() {
         applyFilters();
     });
 });

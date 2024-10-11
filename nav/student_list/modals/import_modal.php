@@ -28,7 +28,7 @@
                                 <li><strong>middlename</strong> (Middle Name)</li>
                                 <li><strong>lastname</strong> (Last Name)</li>
                                 <li><strong>suffixname</strong> (Suffix/Extension Name)</li>
-                                <li><strong>birthday</strong> (Date of Birth <YYYY-MM-DD>)</li>
+                                <li><strong>birthday</strong> (Date of Birth (YYYY-MM-DD))</li>
                             </ol>
                         </div>
                         <div class="col-md-4">
@@ -44,7 +44,7 @@
                         <div class="col-md-4">
                             <ol start="13">
                                 <li><strong>contactnumber</strong> (Contact Number)</li>
-                                <li><strong>program</strong> (Program)</li>
+                                <li><strong>department</strong> (Department)</li>
                                 <li><strong>major</strong> (Major)</li>
                                 <li><strong>serialnumber</strong> (Serial Number)</li>
                                 <li><strong>semester1</strong> (NSTP 1)</li>
@@ -69,6 +69,7 @@
                                 <li><strong>agencytype</strong> (Type of Agency)</li>
                                 <li><strong>remarks</strong> (Remarks)</li>
                                 <li><strong>yearlevel</strong> (Year Level)</li>
+                                <li><strong>program</strong> (Program)</li>
                             </ol>
                         </div>
                         <br> <h6>Example: </h6>

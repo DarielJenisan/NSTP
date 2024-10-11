@@ -4,24 +4,24 @@ header('Content-Type: application/json'); // Set content type to JSON
 include '../../../connection.php'; // Include your database connection
 
 try {
-    // Retrieve the selected program from the query parameters (if provided)
-    $selectedProgram = isset($_GET['program']) ? $_GET['program'] : 'All';
+    // Retrieve the selected department from the query parameters (if provided)
+    $selectedDeparment = isset($_GET['department']) ? $_GET['department'] : 'All';
 
     // Prepare the base SQL query
     $sql = "SELECT firstname, middlename, lastname, suffixname, serialnumber, academicyear2, daterelease, 
-            coordinator, semester1, semester2, program 
+            coordinator, semester1, semester2, department 
             FROM studentinformation_view";
 
-    // Modify SQL query if a specific program is selected
-    if ($selectedProgram !== 'All') {
-        $sql .= " WHERE program = :program"; // Add WHERE clause to filter by program
+    // Modify SQL query if a specific department is selected
+    if ($selectedDeparment !== 'All') {
+        $sql .= " WHERE department = :department"; // Add WHERE clause to filter by department
     }
 
     $stmt = $conn->prepare($sql);
 
-    // Bind the program parameter if filtering by program
-    if ($selectedProgram !== 'All') {
-        $stmt->bindParam(':program', $selectedProgram, PDO::PARAM_STR);
+    // Bind the department parameter if filtering by department
+    if ($selectedDeparment !== 'All') {
+        $stmt->bindParam(':department', $selectedDeparment, PDO::PARAM_STR);
     }
 
     $stmt->execute();
@@ -41,7 +41,7 @@ try {
             'coordinator'  => $student['coordinator'] ?? '',
             'semester1'    => $student['semester1'] ?? '',
             'semester2'    => $student['semester2'] ?? '',
-            'program'      => $student['program'] ?? '',
+            'department'      => $student['department'] ?? '',
         ];
     }, $students);
 
