@@ -1,59 +1,87 @@
 <!-- Import Modal -->
 <div class="modal fade" id="ImportModal" tabindex="-1" aria-labelledby="ImportModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="ImportModalLabel">Import Excel Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-      <form id="frminput_position" enctype="multipart/form-data">
-    <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: show;" />
-    <button type="button" id="importButton" class="btn btn-outline-success" onclick="importData()">
-        <i class="fas fa-file-import"></i> Import
-    </button>
-</form>
-
-      </div>
-      <div class="modal-footer">
-       
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ImportModalLabel">Import Student Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="importForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="fileInput" name="file" accept=".csv, .xlsx" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
 <script>
-    function importData() {
+document.getElementById('importForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
     const fileInput = document.getElementById('fileInput');
-    fileInput.click();
+    const file = fileInput.files[0];
 
-    fileInput.onchange = async function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+    if (!file) {
+        alert("Please select a file to upload.");
+        return;
+    }
 
-        const formData = new FormData();
-        formData.append('file', file);
+    const reader = new FileReader();
 
-        try {
-            const response = await fetch('../nav/student_list/components/import_data.php', {
-                method: 'POST',
-                body: formData,
-            });
+    reader.onload = function(event) {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
 
-            const result = await response.json();
-            if (result.success) {
-                alert('Data imported successfully!');
-                // Optionally refresh the table or perform other actions
-                // loadData(); // Call your function to reload the data table
-            } else {
-                alert('Error importing data: ' + result.message);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error importing data. Please try again.');
-        }
-    };
-}
+        // Assuming you want to read the first sheet
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
+        // Prepare the data for sending to the server
+        const studentsData = jsonData.map(row => {
+            return {
+                firstname: row[0], // Adjust indices based on your Excel structure
+                middlename: row[1],
+                lastname: row[2],
+                suffixname: row[3],
+                gender: row[4],
+                email: row[5],
+                // Add other fields based on your Excel structure
+            };
+        });
+
+        // Send the data to your PHP script
+        fetch('../nav/student_list/components/upload_excel.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(studentsData),
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success > 0) {
+        alert(`${data.success} records successfully imported.`);
+    }
+    if (data.errors > 0) {
+        alert(`${data.errors} records failed to import.`);
+    }
+})
+.catch((error) => {
+    console.error('Error:', error);
+    alert('An error occurred during the import process.');
+});
+
+    reader.readAsArrayBuffer(file); // Read the file as an array buffer
+});
 </script>
