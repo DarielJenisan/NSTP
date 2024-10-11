@@ -198,6 +198,7 @@
             "install-path": "../markbaker/matrix"
         },
         {
+< downloadslip
             "name": "phpmailer/phpmailer",
             "version": "v6.9.1",
             "version_normalized": "6.9.1.0",
@@ -282,6 +283,8 @@
             "install-path": "../phpmailer/phpmailer"
         },
         {
+=======
+> main
             "name": "phpoffice/phpspreadsheet",
             "version": "2.2.2",
             "version_normalized": "2.2.2.0",

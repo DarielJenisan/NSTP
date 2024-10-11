@@ -66,10 +66,17 @@
         <div class="card-body" style="position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <h3 class="card-title" id="total-enrolled"></h3>
+< downloadslip
                 <p class="card-text" id="academic-year">Total Enrolled</p>
             </div>
             <!-- Icon on the right side -->
             <a onclick="clickSubModule('../nav/student_list/student_list.php')"><i class="fas fa-user-friends" style="font-size: 2.5rem; color: rgba(0, 0, 0, 0.5);"></i></a>
+=======
+                <p class="card-text" id="academic-year">BSIT Enrolled</p>
+            </div>
+            <!-- Icon on the right side -->
+            <i class="fas fa-user-friends" style="font-size: 2.5rem; color: rgba(0, 0, 0, 0.5);"></i>
+> main
         </div>
         <!-- Faded background image -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95)), url('../assets/img/nstp.png'); background-size: cover; background-position: center; z-index: 1; opacity: 0.9;">
@@ -196,9 +203,15 @@ function populateAcademicYears() {
         .then(data => {
             const selectAY = document.getElementById('selectAY');
             const selectSemester = document.getElementById('selectSemester');
+<downloadslip
 
             selectAY.innerHTML = ''; // Clear existing options
 
+=======
+
+            selectAY.innerHTML = ''; // Clear existing options
+
+> main
             // Populate the academic years dropdown
             data.academic_years.forEach(year => {
                 const option = document.createElement('option');
@@ -350,7 +363,11 @@ function drawEnrollmentPieChart(enrollmentData, academicYear, semester) {
 
 // Function to draw the ROTC vs CWTS component pie chart
 function drawComponentPieChart(data, academicYear, semester) {
+< downloadslip
     var data = google.visualization.arrayToDataTable([
+=======
+    var chartData = google.visualization.arrayToDataTable([
+> main
         ['Components', 'Total Students'],
         ['ROTC', data.total_rotc || 0],
         ['CWTS', data.total_cwts || 0]
@@ -358,11 +375,18 @@ function drawComponentPieChart(data, academicYear, semester) {
 
     var options = {
         title: `ROTC vs CWTS Enrollment - ${academicYear} - ${semester} Semester`, // Fixed title
+< downloadslip
         is3D: true,
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
     chart.draw(data, options);
+=======
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
+    chart.draw(chartData, options);
+> main
 }
 
 // Function to draw the Department ROTC vs CWTS donut chart
