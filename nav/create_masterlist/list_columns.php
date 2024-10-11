@@ -3,47 +3,47 @@
         <h1 class="d-inline mb-0">NSTP Create Master List</h1>
         <div class="card shadow" style="max-height: 100vh; overflow: hidden;">
             
-        <div colspan="13" class="school-year text-end" style="margin-top: 20px; margin-right: 20px;">
-            <label for="searchInput" style="margin: 5px;">
-                <i class="fa fa-search" style="font-size: 17px;"></i>
-                <input type="text" id="searchInput" class="school-year" placeholder="🔍 Search..." aria-label="Search">
-            </label>
-
+        <div colspan="13" class="school-year" style="margin-top: 20px; margin-right: 20px;">
             <!-- Select Column Button -->
-            <button id="selectColumn" class="btn btn-outline-success" style="margin-left: 10px;">
-                <i class="fas fa-table"></i> Columns
+            <button id="selectColumn" class="btn" style="margin-left: 20px; background: transparent; border: none; color: green;" >
+                <i class="fas fa-table" style="font-size: 1.5em;"></i> Columns
             </button>
-
+            <label for="selectAY" style="margin: 5px;">
+            <input type="text" id="searchInput" class="school-year" placeholder="🔍 Search..." aria-label="Search"></input>
+            </label>
             <label for="selectAY" style="margin: 5px;">
                 <h6>SY: </h6>
             </label>
-            <select class="select-year-center" id="selectAY" style="width: 150px; height: 30px;" onchange="filterData()">
+            <select class="select-year-center" id="selectAY" style="width: 150px; height: 30px;">
                 <!-- Options will be populated dynamically via AJAX -->
             </select>
 
             <label for="selectComponent" style="margin: 5px;">
                 <h6>Component: </h6>
             </label>
-            <select class="select-year-center" id="selectComponent" style="width: 150px; height: 30px;" onchange="filterData()">
+            <select class="select-year-center" id="selectComponent" style="width: 150px; height: 30px;">
                 <option class="text-center">--All Component--</option>
-                <option class="text-center">ROTC</option>
-                <option class="text-center">CWTS</option>
+                <option>ROTC</option>
+                <option>CWTS</option>
             </select>
 
             <label for="selectProgram" style="margin: 5px;">
                 <h6>Department: </h6>
             </label>
-            <select class="select-year-center" id="selectProgram" style="width: 150px; height: 30px;" onchange="filterData()">
+            <select class="select-year-center" id="selectProgram" style="width: 150px; height: 30px;">
                 <option class="text-center">--All Program--</option>
-                <option class="text-center">BSIT</option>
-                <option class="text-center">BSBA</option>
-                <option class="text-center">TEP</option>
+                <option>Bachelor of Science in Information Technology</option>
+                <option>Bachelor of Science in Business Administration</option>
+                <option>Teacher Education Program</option>
             </select>
-
-            <!-- Print Button -->
-            <button id="printButton" class="btn btn-outline-primary" style="margin-left: 20px;" onclick="printTable()">
-                <i class="fas fa-print"></i> Print
-            </button>
+            
+     
+            <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
+    <!-- Print Button -->
+    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;"  onclick="printTable()">
+        <i class="fas fa-print" style="font-size: 1.5em;"></i>
+    </button>
+</div>
         </div>
 
             <div class="card-body table-responsive px-2 pt-1" style="overflow-x: auto; overflow-y: auto; max-height: 75vh; margin-top: 10px;">
@@ -92,9 +92,9 @@
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">HEI Name</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Institution Code</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Type of Agency</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Year Level</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Program</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Major</th>
-                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Component</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Main Program</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Email</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Contact Number</th>
@@ -118,7 +118,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="columnSelectModalLabel">Select Columns</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -161,18 +161,19 @@
                             <label><input type="checkbox" class="column-checkbox" value="24"> Institution Code</label>
 
                             <label><input type="checkbox" class="column-checkbox" value="25"> Type of Agency</label>
-                            <label><input type="checkbox" class="column-checkbox" value="26"> Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="27"> Major</label>
-                            <label><input type="checkbox" class="column-checkbox" value="28"> Main Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="29"> Email</label>
-
-                            <label><input type="checkbox" class="column-checkbox" value="30"> Contact Number</label>
+                            <label><input type="checkbox" class="column-checkbox" value="26"> Year Level</label>
+                            <label><input type="checkbox" class="column-checkbox" value="27"> Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="28"> Major</label>
+                            <label><input type="checkbox" class="column-checkbox" value="29"> Main Program</label>
+                            
+                            <label><input type="checkbox" class="column-checkbox" value="30"> Email</label>
+                            <label><input type="checkbox" class="column-checkbox" value="31"> Contact Number</label>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="applyColumnSelection">Apply</button>
             </div>
         </div>
@@ -351,7 +352,7 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     // Trigger the print function on button click
-    $('.btn-outline-primary').click(function() {
+    $('.btn-print').click(function() {
         openPrintWindow(); // Call the function to open the print window
     });
 

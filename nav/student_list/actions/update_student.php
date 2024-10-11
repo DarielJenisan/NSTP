@@ -38,6 +38,7 @@ try {
     $province        = isset($_POST['province']) ? sanitize($_POST['province']) : '';
     $institutioncode = isset($_POST['institutioncode']) ? sanitize($_POST['institutioncode']) : '';
     $agencytype      = isset($_POST['agencytype']) ? sanitize($_POST['agencytype']) : '';
+    $yearlevel       = isset($_POST['yearlevel']) ? sanitize($_POST['yearlevel']) : '';
     $program         = isset($_POST['program']) ? sanitize($_POST['program']) : '';
     $major           = isset($_POST['major']) ? sanitize($_POST['major']) : '';
     $email           = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : '';
@@ -61,6 +62,7 @@ try {
             barangay = :barangay,
             municipality = :municipality,
             province = :province,
+            yearlevel = :yearlevel,
             program = :program,
             major = :major,
             serialnumber = :serialnumber,
@@ -78,15 +80,16 @@ try {
         ':barangay'      => $barangay,
         ':municipality'  => $municipality,
         ':province'      => $province,
+        ':yearlevel'     => $yearlevel,
         ':program'       => $program,
         ':major'         => $major,
         ':serialnumber'  => $serialnumber,
-        ':contactnumber'  => $contactnumber,
+        ':contactnumber' => $contactnumber,
         ':student_id'    => $student_id
     ]);
 
-    // 2. Update tblnstp for Semester 1
-    $updateNstp1Qry = $conn->prepare("
+    // 2. Update tblnstp for Semester 1 and Semester 2 (Update single record for both semesters)
+    $updateNstpQry = $conn->prepare("
         UPDATE tblnstp SET
             semester1 = :semester1,
             sectioncode1 = :sectioncode1,
@@ -95,12 +98,15 @@ try {
             semester2 = :semester2,
             sectioncode2 = :sectioncode2,
             school2 = :school2,
-            academicyear2 = :academicyear2
-        WHERE student_id = :student_id AND nstp_id = (
-            SELECT nstp_id FROM tblnstp WHERE student_id = :student_id LIMIT 1
-        )
+            academicyear2 = :academicyear2,
+            awardyear = :awardyear,
+            component = :component,
+            institutioncode = :institutioncode,
+            agencytype = :agencytype,
+            remarks = :remarks
+        WHERE student_id = :student_id
     ");
-    $updateNstp1Qry->execute([
+    $updateNstpQry->execute([
         ':semester1'     => $semester1,
         ':sectioncode1'  => $sectioncode1,
         ':school1'       => $school1,
@@ -109,50 +115,13 @@ try {
         ':sectioncode2'  => $sectioncode2,
         ':school2'       => $school2,
         ':academicyear2' => $academicyear2,
+        ':awardyear'     => $awardyear,
+        ':component'     => $component,
+        ':institutioncode' => $institutioncode,
+        ':agencytype'    => $agencytype,
+        ':remarks'       => $remarks,
         ':student_id'    => $student_id
     ]);
-
-
-    // 4. Update tblreport
-    // Check if a report exists for the student
-    $checkReportQry = $conn->prepare("SELECT report_id FROM tblreport WHERE student_id = :student_id");
-    $checkReportQry->execute([':student_id' => $student_id]);
-    $report = $checkReportQry->fetch(PDO::FETCH_ASSOC);
-
-    if ($report) {
-        // Update existing report
-        $updateReportQry = $conn->prepare("
-            UPDATE tblreport SET
-                awardyear = :awardyear,
-                component = :component,
-                institutioncode = :institutioncode,
-                agencytype = :agencytype,
-                remarks = :remarks
-            WHERE report_id = :report_id
-        ");
-        $updateReportQry->execute([
-            ':awardyear'       => $awardyear,
-            ':component'       => $component,
-            ':institutioncode' => $institutioncode,
-            ':agencytype'      => $agencytype,
-            ':remarks'         => $remarks,
-            ':report_id'       => $report['report_id']
-        ]);
-    } else {
-        // Insert new report if none exists
-        $insertReportQry = $conn->prepare("
-            INSERT INTO tblreport (awardyear, component, institutioncode, agencytype, remarks, student_id)
-            VALUES (:awardyear, :component, :institutioncode, :agencytype, :remarks, :student_id)
-        ");
-        $insertReportQry->execute([
-            ':awardyear'       => $awardyear,
-            ':component'       => $component,
-            ':institutioncode' => $institutioncode,
-            ':agencytype'      => $agencytype,
-            ':remarks'         => $remarks,
-            ':student_id'      => $student_id
-        ]);
-    }
 
     // Commit Transaction
     $conn->commit();

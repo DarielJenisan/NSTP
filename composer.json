@@ -1,5 +1,10 @@
 {
     "require": {
+<downloadslip
+        "phpoffice/phpspreadsheet": "^2.2",
+        "phpmailer/phpmailer": "^6.9"
+=======
         "phpoffice/phpspreadsheet": "^2.2"
+> main
     }
 }

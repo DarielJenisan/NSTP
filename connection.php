@@ -2,7 +2,7 @@
 $host = 'localhost'; 
 $username = 'root'; 
 $password = ''; 
-$database1 = 'nstp_system'; 
+$database1 = 'db_nstp'; 
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$database1;charset=utf8mb4", $username, $password);

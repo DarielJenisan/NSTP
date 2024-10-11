@@ -220,7 +220,7 @@ $(document).ready(function() {
     function loadReportData(filters = {}) {
         // Load enrollment data
         $.ajax({
-            url: "../nav/analytic_report/components/report_enrollment.php",
+            url: "../nav/summary_report/components/report_enrollment.php",
             method: "POST",
             data: filters,
             success: function(data) {
@@ -233,7 +233,7 @@ $(document).ready(function() {
 
         // Load graduates data
         $.ajax({
-            url: "../nav/analytic_report/components/report_graduates.php",
+            url: "../nav/summary_report/components/report_graduates.php",
             method: "POST",
             data: filters,
             success: function(data) {
@@ -247,7 +247,7 @@ $(document).ready(function() {
 
     // Load available academic years and set the latest academic year
     $.ajax({
-        url: "../nav/analytic_report/components/fetch_academic_years.php",
+        url: "../nav/summary_report/components/fetch_academic_years.php",
         method: "GET",
         success: function(data) {
             const years = JSON.parse(data);
