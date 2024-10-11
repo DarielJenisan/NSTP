@@ -159,8 +159,7 @@
                     onblur="resetDefaultCoordinator()">
             </div>
             <div class="d-flex flex-column align-items-center">
-                <button class="btn btn-outline-primary w-100 btn-block mt-2"><i class="fa fa-print"></i> Print</button>
-                <button class="btn btn-outline-success w-100 btn-block mt-2"><i class="fa fa-download"></i> Download</button>
+                <button class="btn btn-primary w-100 btn-block mt-2"><i class="fa fa-print"></i> Print</button>
             </div>
         </div>
     </div>
@@ -387,7 +386,7 @@ generateCertificates();
 <script>
     $(document).ready(function() {
     // Trigger the print function on button click
-    $('.btn-outline-primary').click(function() {
+    $('.btn-primary').click(function() {
         openPrintWindow(); // Call the function to open the print window
     });
 
@@ -483,7 +482,7 @@ generateCertificates();
 
                     .recipient-name {
                         top: 260px;
-                        font-size: 28px;
+                        font-size: 24px;
                         font-weight: bold;
                         color: #002F6C;
                         text-align: center;
