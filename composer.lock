@@ -4,7 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+< pre-enrollment
     "content-hash": "4c4750092fd10de2aa08a69c1c759a81",
+=======
+< downloadslip
+    "content-hash": "27b25bbd76436b2d76e4c2de4f2db3ce",
+=======
+    "content-hash": "a41da3e3be9e5d05b86d8a6c746ff796",
+> main
+> main
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -371,6 +379,7 @@
             "time": "2022-12-02T22:17:43+00:00"
         },
         {
+< downloadslip
             "name": "phpmailer/phpmailer",
             "version": "v6.9.1",
             "source": {
@@ -452,6 +461,8 @@
             "time": "2023-11-25T22:23:28+00:00"
         },
         {
+=======
+> main
             "name": "phpoffice/phpspreadsheet",
             "version": "2.2.2",
             "source": {
