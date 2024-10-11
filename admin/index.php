@@ -10,9 +10,12 @@
     <title>Sample Template</title>
     <link href="../css/styles.css" rel="stylesheet" />
     <link href="../css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <script src="../js/all.js" crossorigin="anonymous"></script>
     <link href="../assets/img/nbsclogo.png" rel="icon">
     <script src="../js/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
    
 </head>
 
