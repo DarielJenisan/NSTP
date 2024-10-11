@@ -26,6 +26,7 @@
                                 <th>Last Name</th>
                                 <th>First Name</th>
                                 <th>Middle Name</th>
+                                <th>Extension Name</th>
                                 <th>Email</th>
                                 <th>Username</th>
                                 <th>Password</th>
@@ -68,6 +69,9 @@
                         </div><div class="col-12">
                             <label>Last Name</label>
                             <input id="inuserreg_lastname" class="form-control form-control-sm" type="text" required>
+                        </div>
+                            <label>Extension Name</label>
+                            <input id="inuserreg_suffixname" class="form-control form-control-sm" type="text" required>
                         </div>
                         <div class="col-12">
                             <label>Email</label>
@@ -126,6 +130,10 @@
                         <div class="col-12">
                             <label>Last Name</label>
                             <input id="upduserreg_lastname" class="form-control form-control-sm" type="text" required>
+                        </div>
+                        <div class="col-12">
+                            <label>Extension Name</label>
+                            <input id="upduserreg_suffixname" class="form-control form-control-sm" type="text" required>
                         </div>
                         <div class="col-12">
                             <label>Email</label>
@@ -188,6 +196,7 @@
             firstname : $('#inuserreg_firstname').val(), //The val() method returns or sets the value attribute of the selected elements.
             middlename : $('#inuserreg_middlename').val(), //The val() method returns or sets the value attribute of the selected elements.
             lastname : $('#inuserreg_lastname').val(), //The val() method returns or sets the value attribute of the selected elements.
+            lastname : $('#inuserreg_suffixname').val(), //The val() method returns or sets the value attribute of the selected elements.
             email : $('#inuserreg_email').val(), //The val() method returns or sets the value attribute of the selected elements.
             role : $('#inuserreg_role').val(), //The val() method returns or sets the value attribute of the selected elements.
             username : $('#inuserreg_username').val(), //The val() method returns or sets the value attribute of the selected elements.
@@ -218,12 +227,13 @@
     }
 
     //UPDATE USER FUNCTION
-    function loadUserData(admin_id, school_id, firstname, middlename, lastname, email, role, username) {
-    $('#update_userid').val(admim_id);
+    function loadUserData(admin_id, school_id, firstname, middlename, lastname, suffixname, email, role, username) {
+    $('#update_userid').val(admin_id);
     $('#upduserreg_school_id').val(school_id);
     $('#upduserreg_firstname').val(firstname);
     $('#upduserreg_middlename').val(middlename);
     $('#upduserreg_lastname').val(lastname);
+    $('#upduserreg_suffixname').val(lastname);
     $('#upduserreg_email').val(email);
     $('#upduserreg_role').val(role);
     $('#upduserreg_username').val(username);
@@ -242,6 +252,7 @@ function updateUser() {
         firstname: $('#upduserreg_firstname').val(),
         middlename: $('#upduserreg_middlename').val(),
         lastname: $('#upduserreg_lastname').val(),
+        lastname: $('#upduserreg_suffixname').val(),
         email: $('#upduserreg_email').val(),
         role: $('#upduserreg_role').val(),
         username: $('#upduserreg_username').val(),
