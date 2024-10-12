@@ -11,7 +11,6 @@ $selUser = $conn->query("SELECT * from tbladmin order by admin_id")
         <td><?php echo $row['lastname']?></td>
         <td><?php echo $row['firstname']?></td>
         <td><?php echo $row['middlename']?></td>
-        <td><?php echo $row['suffixname']?></td>
         <td><?php echo $row['email']?></td>
         <td><?php echo $row['username']?></td>
         <td><?php echo $row['password']?></td>
@@ -26,7 +25,6 @@ $selUser = $conn->query("SELECT * from tbladmin order by admin_id")
             '<?php echo $row['firstname'] ?>',
             '<?php echo $row['middlename'] ?>',
             '<?php echo $row['lastname'] ?>',
-            '<?php echo $row['suffixname'] ?>',
             '<?php echo $row['email'] ?>',
             '<?php echo $row['role'] ?>',
             '<?php echo $row['username'] ?>'

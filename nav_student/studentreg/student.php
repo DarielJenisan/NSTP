@@ -91,15 +91,17 @@
         }
     }
 </style>
-<!-- View content -->
-<div class="profile-button-container" style="float:left; margin: 20px;">
-    <button class="btn btn-primary" type="button" id="profileBtn" onclick="loadStudentProfile()">
-        Profile
+<!-- Dropdown container -->
+<div class="dropdown profile-button-container" style="float:left; margin: 20px;">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        View
     </button>
-    <button class="btn btn-primary" type="button" id="slipBtn" onclick="loadStudentSlip()">
-        Student Slip
-    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#" onclick="loadStudentProfile()">Profile</a></li>
+        <li><a class="dropdown-item" href="#" onclick="loadStudentSlip()">Student Slip</a></li>
+    </ul>
 </div>
+
 
 
 <div class="nstp-container">
