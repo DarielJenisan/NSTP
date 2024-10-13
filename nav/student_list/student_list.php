@@ -44,7 +44,8 @@
         <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
     </button>
 <!-- Export Button -->
-<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" onclick="exportVisibleTableToExcel('tblmasterlist', 'tblstudentlist')">
+<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
+    onclick="exportVisibleTableToExcel()">
     <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
 </button>
     <!-- Print Button -->
@@ -67,6 +68,26 @@
                 <table id="tblmasterlist" class="table table-sm" style="font-size: 10px; table-layout: fixed;">
                     <thead>
                         <tr>
+
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">No.</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">ID</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Last Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">First Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Middle Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Suffix Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Gender</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">NSTP1</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">NSTP2</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Serial Number</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Remarks</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Edit</th>
+
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">No.</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">ID</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Last Name</th>
@@ -85,10 +106,9 @@
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Serial Number</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Remarks</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Edit</th>
-< downloadslip
-=======
+
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Import</th>
-> main
+
                             
                         </tr>
                     </thead>
@@ -104,26 +124,26 @@
                   <form id="frminput_position">
                   <thead>
                         <tr>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">No.</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">ID</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Award Year</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Component</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Region</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Serial Number</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Last Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">First Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Suffix Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Middle Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Date of Birth</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Gender</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Brg./ Municipality / Province</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Institution Code</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Type of Agency</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Program</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Main Program</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Email</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Contact Number</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">No.</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">ID</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Award Year</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Component</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Region</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Serial Number</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Last Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">First Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Suffix Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Middle Name</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Date of Birth</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Gender</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Brg./ Municipality / Province</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Institution Code</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Type of Agency</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Program</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Main Program</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Email</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Contact Number</th>
                             
                         </tr>
                     </thead>
@@ -190,10 +210,10 @@ $(document).ready(function() {
         // Search within tblmasterlist rows
         $("#tblmasterlist tbody tr").filter(function() {
             var student_id = $(this).find("td:eq(1)").text().toLowerCase();
-            var firstname = $(this).find("td:eq(4)").text().toLowerCase();
-            var middlename = $(this).find("td:eq(5)").text().toLowerCase();
-            var lastname = $(this).find("td:eq(3)").text().toLowerCase();
-            var suffixname = $(this).find("td:eq(6)").text().toLowerCase();
+            var firstname = $(this).find("td:eq(3)").text().toLowerCase();
+            var middlename = $(this).find("td:eq(4)").text().toLowerCase();
+            var lastname = $(this).find("td:eq(2)").text().toLowerCase();
+            var suffixname = $(this).find("td:eq(5)").text().toLowerCase();
 
             var fullName = firstname + ' ' + middlename + ' ' + lastname + ' ' + suffixname; 
             var fullNameAlt1 = firstname + ' ' + lastname + ' ' + middlename + ' ' + suffixname; 
@@ -300,49 +320,55 @@ $(document).ready(function() {
 });
     </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script>
-    function exportVisibleTable(tblmasterlistID, tblstudentlistID) {
-        // Get the table elements
-        var tblmasterlist = document.getElementById(tblmasterlistID);
-        var tblstudentlist = document.getElementById(tblstudentlistID);
+ function exportVisibleTableToExcel() {
+    // Check which table is currently visible
+    let table, filename;
+    if ($('#tblmasterlist').is(':visible')) {
+        table = document.getElementById('tblmasterlist');
+        filename = 'MasterList';
 
-        // Check visibility of each table (assuming they have `display: none` when hidden)
-        if (tblmasterlist && tblmasterlist.style.display !== "none") {
-            // If masterlist is visible, export it but exclude the "Edit" column (assumed to be the last column)
-            var masterlistSheet = tableToSheetWithoutEdit(tblmasterlist);
-            var masterlistWorkbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(masterlistWorkbook, masterlistSheet, "Master List");
-            XLSX.writeFile(masterlistWorkbook, 'Master_List.xlsx');
-        } else if (tblstudentlist && tblstudentlist.style.display !== "none") {
-            // If studentlist is visible, export it as is
-            var studentlistSheet = XLSX.utils.table_to_sheet(tblstudentlist);
-            var studentlistWorkbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(studentlistWorkbook, studentlistSheet, "Student List");
-            XLSX.writeFile(studentlistWorkbook, 'Student_List.xlsx');
-        } else {
-            alert("No table is visible for export.");
-        }
+        // Clone the table and remove the 'Edit' column (last column)
+        let clonedTable = table.cloneNode(true);
+        removeColumn(clonedTable, clonedTable.rows[0].cells.length - 1); // Remove the last column (Edit column)
+        table = clonedTable; // Use cloned table without the Edit column
+
+    } else if ($('#tblstudentlist').is(':visible')) {
+        table = document.getElementById('tblstudentlist');
+        filename = 'StudentList';
     }
 
-    // Function to exclude the last column (Edit column) from the tblmasterlist export
-    function tableToSheetWithoutEdit(table) {
-        var tableCopy = table.cloneNode(true); // Clone the table to manipulate without affecting the original
+    // Initialize the workbook and worksheet
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.table_to_sheet(table);
 
-        // Get the number of rows and columns
-        var rows = tableCopy.rows;
-        for (var i = 0; i < rows.length; i++) {
-            var row = rows[i];
-            // Remove the last cell in each row (assumed to be the "Edit" column)
-            row.deleteCell(-1);
-        }
-
-        // Convert the modified table to a sheet
-        return XLSX.utils.table_to_sheet(tableCopy);
+    // Adjust the column widths to fit the content
+    let wscols = [];
+    let colCount = table.rows[0].cells.length;
+    for (let i = 0; i < colCount; i++) {
+        wscols.push({ wpx: 150 }); // Set each column to 150 pixels wide (adjust as needed)
     }
+    ws['!cols'] = wscols; // Apply the column widths to the worksheet
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // Write the workbook to a file
+    XLSX.writeFile(wb, `${filename}.xlsx`);
+}
+
+// Function to remove a specific column from a table
+function removeColumn(table, columnIndex) {
+    for (let row of table.rows) {
+        row.deleteCell(columnIndex); // Delete the cell at the given column index
+    }
+}
 </script>
 
 <script>
+//print function
+
 $(document).ready(function() {
     // Trigger the print function on button click
     $('.btn-print').click(function() {
@@ -493,7 +519,6 @@ $(document).ready(function() {
             <style>
                 @page { 
                     size: A4 landscape; /* Set to landscape orientation */
-                    margin: 10mm; 
                 }
                 body {
                     font-family: Arial, sans-serif; /* Set a readable font */
