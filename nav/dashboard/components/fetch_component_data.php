@@ -24,6 +24,7 @@ try {
         )
     ");
 
+
     $query->execute([
         'selectedYear' => $selectedYear,
         'semester' => $selectedSemester
@@ -42,15 +43,59 @@ try {
             ['CWTS Total', $cwts_total]
         ];
 
+    // Bind parameters for academic year and semester
+    $query->bindParam(':academicYear', $academicYear);
+    $query->bindParam(':semester', $semester);
+< downloadslip
+    
+    // Execute the query and handle errors
+    try {
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        return [
+            'error' => 'Database error: ' . $e->getMessage()
+        ];
+    }
+
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+> main
+}
+
+
         // Return the data as JSON
         echo json_encode($data);
     } else {
         echo json_encode(['error' => 'No data found for the selected academic year and semester.']);
     }
 
+
 } catch (PDOException $e) {
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
 } catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
+
+< downloadslip
+// Validate parameters
+if ($academicYear && ($semester === 'First' || $semester === 'Second')) {
+
+// If parameters are provided, fetch the totals; otherwise, return an error message
+if ($academicYear && $semester) {
+> main
+    $result = getRotcCwtsTotals($conn, $academicYear, $semester);
+    echo json_encode([
+        'total_rotc' => $result['total_rotc'] ?? 0,
+        'total_cwts' => $result['total_cwts'] ?? 0
+    ]);
+} else {
+    echo json_encode([
+< downloadslip
+        'error' => 'Missing or invalid academic year or semester parameter'
+
+        'error' => 'Missing academic year or semester parameter'
+> main
+    ]);
+
 }
 ?>
