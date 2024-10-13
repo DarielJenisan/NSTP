@@ -261,7 +261,7 @@
       .done(function(response) {
           alert('Student information updated successfully!');
           $('#updateStudentModal').modal('hide');
-          loadStudentTable();  // Ensure this function is defined elsewhere
+          loadMasterList();  // Ensure this function is defined elsewhere
       })
       .fail(function(xhr, status, error) {
           alert('An error occurred: ' + xhr.responseText);
