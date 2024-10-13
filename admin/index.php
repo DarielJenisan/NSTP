@@ -378,6 +378,7 @@ function drawDonutChart(data, academicYear, semester) {
     const options = {
         title: `Department ROTC vs CWTS - ${academicYear} - ${semester} Semester`, // Fixed title
         pieHole: 0.2,
+        
     };
 
     const chart = new google.visualization.PieChart(document.getElementById('donutchart'));

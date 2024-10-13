@@ -31,12 +31,15 @@
                                 <th>Password</th>
                                 <th>Role</th>
                                 <th>Created At</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- LOAD COMPONENTS -->
-                        </tbody>
+                        <tbody id="adminTableBody">
+        <?php 
+        // Your existing code for fetching and displaying rows goes here
+        ?>
+    </tbody>
                     </table>
                 </form>
             </div>
@@ -159,118 +162,129 @@
 </div>
 
 <script>
-    //ADD USER FUNCTION
-    $(document).ready(function() { //The ready() method specifies what happens when a ready event occurs. Meaning, the statement under the scope will be only called once the document or file is already loaded in the browser.
-        loaduserreg_userlist() // call this functions once ready
+    $(document).ready(function() { 
+        loaduserreg_userlist(); // Load user list on page ready
 
-        $('#frmmdl_adduser').submit(function (e) {  //The submit() method triggers the submit event, or attaches a function to run when a submit event occurs.
-            e.preventDefault(); // The preventDefault() method cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur. by default in form, it will prevent the page from refreshing
-            // the purpose of this submit is to validated the input like required, min, max, step and etc.
-            // Once the input is validated under the  #frmmdl_adduser form, it then call the adduser() function/method
-            adduser(); 
+        $('#frmmdl_adduser').submit(function (e) {  
+            e.preventDefault(); // Prevent page refresh
+            adduser(); // Call add user function
+        });
+
+        $('#frmmdl_updateuser').submit(function (e) {
+            e.preventDefault(); // Prevent page refresh
+            updateUser(); // Call update user function
         });
     });
 
-    // COMPONENTS
-    function loaduserreg_userlist() { //load components
-        $.post("../nav/userreg/components/userreg_userlist.php", // http request
-            function(data) { //data = result after calling the request file
-                $('#tbluserreg_userlist tbody').html(data); // data will be then put under the #tbluserreg_userlist tbody
-                // the jquery html() method sets or returns the content (innerHTML) of the selected elements.
-            }
-        );
+    // Toggle user active/inactive status
+    function toggleActive(button, adminId) {
+        let currentStatus = button.getAttribute('data-status');
+
+        if (currentStatus === 'active') {
+            button.style.backgroundColor = 'red';
+            button.textContent = 'Inactive';
+            button.setAttribute('data-status', 'inactive');
+            updateAdminStatus(adminId, 0); // Set admin as inactive
+        } else {
+            button.style.backgroundColor = 'green';
+            button.textContent = 'Active';
+            button.setAttribute('data-status', 'active');
+            updateAdminStatus(adminId, 1); // Set admin as active
+        }
+
+        console.log("Button toggled to", button.getAttribute('data-status'));
     }
 
-    // ACTIONS
-    function adduser() { // add user function/method
+    // Update admin status in the database
+    function updateAdminStatus(adminId, status) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "../nav/userreg/components/update_admin_status.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText); // Log response
+                loaduserreg_userlist(); // Refresh user list after update
+            }
+        };
+        xhr.send("admin_id=" + adminId + "&is_active=" + status);
+    }
+
+    // Load user registration list
+    function loaduserreg_userlist() {
+        $.post("../nav/userreg/components/userreg_userlist.php", function(data) {
+            $('#tbluserreg_userlist tbody').html(data); // Update table body with fetched data
+        });
+    }
+
+    // Add user function
+    function adduser() {
         $.post("../nav/userreg/actions/add_user.php", {
-            school_id : $('#inuserreg_school_id').val(), //The val() method returns or sets the value attribute of the selected elements.
-            firstname : $('#inuserreg_firstname').val(), //The val() method returns or sets the value attribute of the selected elements.
-            middlename : $('#inuserreg_middlename').val(), //The val() method returns or sets the value attribute of the selected elements.
-            lastname : $('#inuserreg_lastname').val(), //The val() method returns or sets the value attribute of the selected elements.
-            email : $('#inuserreg_email').val(), //The val() method returns or sets the value attribute of the selected elements.
-            role : $('#inuserreg_role').val(), //The val() method returns or sets the value attribute of the selected elements.
-            username : $('#inuserreg_username').val(), //The val() method returns or sets the value attribute of the selected elements.
-            password : $('#inuserreg_password').val(), //The val() method returns or sets the value attribute of the selected elements.
+            school_id: $('#inuserreg_school_id').val(),
+            firstname: $('#inuserreg_firstname').val(),
+            middlename: $('#inuserreg_middlename').val(),
+            lastname: $('#inuserreg_lastname').val(),
+            email: $('#inuserreg_email').val(),
+            role: $('#inuserreg_role').val(),
+            username: $('#inuserreg_username').val(),
+            password: $('#inuserreg_password').val(),
         }, function(data) {
-            if (data == 'succces') {
-                $('#mdladduser').modal('hide') // hide input modal
-                modal_alert('Added user successfully', "success", 3000) // toast success notification
-                loaduserreg_userlist() //call the function again to refresh the table tbody
+            if (data == 'success') {
+                $('#mdladduser').modal('hide'); // Hide modal
+                modal_alert('Added user successfully', "success", 3000); // Show success alert
+                loaduserreg_userlist(); // Refresh user list
             } else {
-                modal_alert(data, "danger", 3000) // toast danger notification
+                modal_alert(data, "danger", 3000); // Show error alert
             }
         });
     }
 
-    //DELETE USER FUNCTION
-    function deleteuser(userid) { // delete user function/method
+    // Delete user function
+    function deleteuser(userid) {
         $.post("../nav/userreg/actions/delete_user.php", {
-            xxxx: userid // transfer the userid variable to the delete_user.php file as xxxx parameter
+            xxxx: userid // Send user ID to delete_user.php
         }, function(data) {
-            if (data == 'succces') {
-                modal_alert('Deleted user successfully', "success", 3000) // toast success notification
-                loaduserreg_userlist() //call the function again to refresh the table tbody
+            if (data == 'success') {
+                modal_alert('Deleted user successfully', "success", 3000); // Show success alert
+                loaduserreg_userlist(); // Refresh user list
             } else {
-                modal_alert(data, "danger", 3000) // toast danger notification
+                modal_alert(data, "danger", 3000); // Show error alert
             }
         });
     }
 
-    //UPDATE USER FUNCTION
+    // Load user data for updating
     function loadUserData(admin_id, school_id, firstname, middlename, lastname, email, role, username) {
-    $('#update_userid').val(admin_id);
-    $('#upduserreg_school_id').val(school_id);
-    $('#upduserreg_firstname').val(firstname);
-    $('#upduserreg_middlename').val(middlename);
-    $('#upduserreg_lastname').val(lastname);
-    $('#upduserreg_email').val(email);
-    $('#upduserreg_role').val(role);
-    $('#upduserreg_username').val(username);
-    $('#mdlupdateuser').modal('show');
-}
+        $('#update_userid').val(admin_id);
+        $('#upduserreg_school_id').val(school_id);
+        $('#upduserreg_firstname').val(firstname);
+        $('#upduserreg_middlename').val(middlename);
+        $('#upduserreg_lastname').val(lastname);
+        $('#upduserreg_email').val(email);
+        $('#upduserreg_role').val(role);
+        $('#upduserreg_username').val(username);
+        $('#mdlupdateuser').modal('show'); // Show update modal
+    }
 
-$('#frmmdl_updateuser').submit(function (e) {
-    e.preventDefault();
-    updateUser();
-});
-
-function updateUser() {
-    $.post("../nav/userreg/actions/update_user.php", {
-        admin_id: $('#update_userid').val(),
-        school_id: $('#upduserreg_school_id').val(),
-        firstname: $('#upduserreg_firstname').val(),
-        middlename: $('#upduserreg_middlename').val(),
-        lastname: $('#upduserreg_lastname').val(),
-        email: $('#upduserreg_email').val(),
-        role: $('#upduserreg_role').val(),
-        username: $('#upduserreg_username').val(),
-        password: $('#upduserreg_password').val(),
-    }, function(data) {
-        if (data == 'succces') {
-            $('#mdlupdateuser').modal('hide');
-            modal_alert('Updated user successfully', "success", 3000);
-            loaduserreg_userlist();
-        } else {
-            modal_alert(data, "danger", 3000);
-        }
-    });
-}
-
-function toggleUserStatus(userId, currentStatus) {
-    let newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-    
-    $.post("../nav/userreg/actions/toggle_user_status.php", {
-        admin_id: userId,
-        status: newStatus
-    }, function(data) {
-        if (data == 'success') {
-            modal_alert('User status updated successfully', "success", 3000);
-            loaduserreg_userlist(); // Reload the user list to reflect the updated status
-        } else {
-            modal_alert(data, "danger", 3000);
-        }
-    });
-}
-
+    // Update user function
+    function updateUser() {
+        $.post("../nav/userreg/actions/update_user.php", {
+            admin_id: $('#update_userid').val(),
+            school_id: $('#upduserreg_school_id').val(),
+            firstname: $('#upduserreg_firstname').val(),
+            middlename: $('#upduserreg_middlename').val(),
+            lastname: $('#upduserreg_lastname').val(),
+            email: $('#upduserreg_email').val(),
+            role: $('#upduserreg_role').val(),
+            username: $('#upduserreg_username').val(),
+            password: $('#upduserreg_password').val(),
+        }, function(data) {
+            if (data == 'success') {
+                $('#mdlupdateuser').modal('hide'); // Hide update modal
+                modal_alert('Updated user successfully', "success", 3000); // Show success alert
+                loaduserreg_userlist(); // Refresh user list
+            } else {
+                modal_alert(data, "danger", 3000); // Show error alert
+            }
+        });
+    }
 </script>
