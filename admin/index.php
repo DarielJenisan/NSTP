@@ -196,9 +196,14 @@ function populateAcademicYears() {
         .then(data => {
             const selectAY = document.getElementById('selectAY');
             const selectSemester = document.getElementById('selectSemester');
+< importexcel
 
             selectAY.innerHTML = ''; // Clear existing options
 
+=======
+
+            selectAY.innerHTML = ''; // Clear existing options
+> main
             // Populate the academic years dropdown
             data.academic_years.forEach(year => {
                 const option = document.createElement('option');
@@ -350,21 +355,38 @@ function drawEnrollmentPieChart(enrollmentData, academicYear, semester) {
 
 /// Function to draw the ROTC vs CWTS component pie chart
 function drawComponentPieChart(data, academicYear, semester) {
+
+< importexcel
+    var data = google.visualization.arrayToDataTable([
     // Ensure the data has the expected structure
+
     var chartData = google.visualization.arrayToDataTable([
+> main
         ['Components', 'Total Students'],
         ['ROTC', data[0] ? data[0][1] : 0], // Ensure data is accessed correctly
         ['CWTS', data[1] ? data[1][1] : 0] // Ensure data is accessed correctly
     ]);
 
     var options = {
+
+        title: `ROTC vs CWTS Enrollment - ${academicYear} - ${semester} Semester`, // Fixed title
+<< importexcel
+        is3D: true,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
+    chart.draw(data, options);
+
+
         title: `ROTC vs CWTS Enrollment - ${academicYear} - ${semester} Semester`, // Title for the chart
         is3D: true, // Optional: if you want a 3D effect
         colors: ['#1E5128', '#DE970B'], // Colors for ROTC and CWTS
+ main
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
     chart.draw(chartData, options);
+> main
 }
 
 

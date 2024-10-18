@@ -30,6 +30,8 @@
             <label for="selectDepartment" style="margin: 5px;">
                 <h6>Department: </h6>
             </label>
+            <select class="select-year-center" id="selectProgram" style="width: 150px; height: 30px;">
+                <option class="text-center">--All Program--</option>
             <select class="select-year-center" id="selectDepartment" style="width: 150px; height: 30px;">
                 <option class="text-center">--All Department--</option>
                 <option>Bachelor of Science in Information Technology</option>
@@ -66,6 +68,37 @@
 
                         <thead>
                             <tr>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">No.</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Student ID</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Last Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">First Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Middle Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Name Extension</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Gender</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">NSTP1</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School Year Taken</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Section Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">NSTP2</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School Year Taken</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Section Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Serial Number</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Remarks</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Award Year</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Component</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Date of Birth</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Barangay </th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Municipality</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Provice</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">HEI Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Institution Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Type of Agency</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Program</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Major</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Main Program</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Email</th>
+                                <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Contact Number</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">No.</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Student ID</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Last Name</th>

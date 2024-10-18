@@ -39,6 +39,9 @@
             
      
             <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
+            <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
+        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
+    </button>
 < downloadslip
             <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
         <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
@@ -51,11 +54,9 @@
     <!-- Print Button -->
     <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;" onclick="printTable()">
         <i class="fas fa-print" style="font-size: 1.5em;"></i> Print
-=======
     <!-- Print Button -->
     <button id="printButton" class="btn btn-outline-primary" style="margin-left: 20px;" onclick="printTable()">
         <i class="fas fa-print"></i> Print
-> main
     </button>
 </div>
 
@@ -106,6 +107,7 @@
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Serial Number</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Remarks</th>
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Edit</th>
+                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Import</th>
 
                             <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Import</th>
 
@@ -372,6 +374,7 @@ function removeColumn(table, columnIndex) {
 $(document).ready(function() {
     // Trigger the print function on button click
     $('.btn-print').click(function() {
+        openPrintWindow(); // Call the function to open the print window
         if ($('#tblmasterlist').is(':visible')) {
             printMasterList(); // Call the function to print the master list
         } else {
@@ -493,12 +496,23 @@ $(document).ready(function() {
     // Create updated headers excluding "No." and "Edit" columns
     var headerCells = document.querySelectorAll('#tblstudentlist thead th');
     headerCells.forEach((cell, index) => {
-<downloadslip
         if (index > 1 && index < headerCells.length - 1) { // Skip the "No.", "Edit" columns
             headerHtml += cell.outerHTML;
         }
     });
 
+    /// Create updated body with row numbers excluding "Edit" column
+rows.forEach((row, rowIndex) => {
+    var cells = row.children;
+    newTableBody += `<tr>`;
+    newTableBody += `<td style="border: 1px solid black; padding: 8px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
+    for (var i = 2; i < cells.length; i++) { // Iterate through all cells
+        if (i !== cells.length - 1) { // Skip only the "Edit" column
+            newTableBody += `<td style="border: 1px solid black; padding: 8px;">${cells[i].innerHTML}</td>`;
+        }
+    }
+    newTableBody += `</tr>`;
+});
     // Create updated body with row numbers excluding "Edit" column
     rows.forEach((row, rowIndex) => {
         var cells = row.children;
@@ -515,6 +529,11 @@ $(document).ready(function() {
     // Prepare the content to be printed
     var printContents = `
        <head>
+            <title>Print NSTP Master List</title>
+            <style>
+                @page { 
+                    size: portrait; 
+                    margin: 10mm; 
             <title>Print NSTP Student List</title>
             <style>
                 @page { 
@@ -529,6 +548,8 @@ $(document).ready(function() {
                     border-collapse: collapse; 
                 }
                 th, td { 
+                    border: 1px solid black; 
+                    padding: 8px; 
                     border: 0.5px solid black; /* Ensure all borders are visible */
                     padding: 4px; /* Reduced padding for compactness */
                     text-align: left; 
@@ -560,12 +581,15 @@ $(document).ready(function() {
 
         <body>
             <div style="text-align: center;">
+                <h2>NSTP Master List</h2>
                 <h2>NSTP Student List</h2>
             </div>
             <button onclick="window.print()" class="print-button">🖨️ Print Report</button>
             <table>
                 <thead>
                     <tr>
+                        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2; text-align: center;">No.</th>
+                        ${headerHtml} <!-- Updated headers without "No.", "Edit", and "Import" columns -->
                         <th style="border: 0.5px solid black; padding: 4px; background-color: #f2f2f2; text-align: center;">No.</th>
                         ${headerHtml} <!-- Updated headers without "No." and "Edit" columns -->
                     </tr>
@@ -590,7 +614,6 @@ $(document).ready(function() {
 }
 
 });
-=======
         if (index > 1 && index < headerCells.length - 2) { // Skip the "No.", "Edit", and "Import" columns
             headerHtml += cell.outerHTML;
         }
@@ -676,5 +699,4 @@ $(document).ready(function() {
 }
 
 });
-> main
 </script>
