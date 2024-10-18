@@ -1,6 +1,18 @@
 <?php 
 require_once '../../../connection.php';
 
+// Function to determine completion status based on grade
+function getGradeStatus($grade) {
+    if ($grade == 0.99 || $grade === null || $grade === '') {
+        return 'Drop';
+    } elseif ($grade > 3.00) {
+        return 'Failed';
+    } elseif ($grade >= 1.00 && $grade <= 3.00) {
+        return 'Complete';
+    }
+    return 'Unknown'; // In case there's an unexpected value
+}
+
 // Retrieve filter values from POST request
 $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : 'All';
 $component = isset($_POST['component']) ? $_POST['component'] : 'All';
@@ -59,23 +71,23 @@ $counter = 1;
 
 foreach ($stmt->fetchAll() as $row): ?>
     <tr>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;" class="text-center"><?php echo $counter++; ?></td>
+    <td style="border: 0.5px solid black; padding: 4px;" class="text-center"><?php echo $counter++; ?></td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['student_id']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['lastname']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['lastname']?></td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['firstname']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['middlename']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['middlename']?></td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['suffixname']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['gender']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['gender']?></td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['semester1']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['school1']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school1']?></td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['academicyear1']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['sectioncode1']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode1']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"> <small><?php echo getGradeStatus($row['grade1']); ?></small> </td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['semester2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['school2']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['academicyear2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['sectioncode2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['serialnumber']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;"><?php echo $row['remarks']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode2']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;">  <small><?php echo getGradeStatus($row['grade2']); ?></small> </td>
         <td style="border: 0.5px solid black; padding: 4px; background-color: ;" class="btn-group dropstart">
            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
          <i class="fas fa-user-edit"></i>
