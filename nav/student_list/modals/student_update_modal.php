@@ -66,8 +66,12 @@
                 <input type="text" class="form-control" id="province" name="province">
               </div>
               <div class="form-group">
-                <label for="program">Program</label>
-                <input type="text" class="form-control" id="program" name="program">
+                <label for="yearlevel">Year Level</label>
+                <input type="text" class="form-control" id="yearlevel" name="yearlevel">
+              </div>
+              <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" class="form-control" id="department" name="department">
               </div>
               <div class="form-group">
                 <label for="major">Major</label>
@@ -87,6 +91,7 @@
                 <select class="form-control" id="nstp1" name="nstp1">
                   <option value="ROTC1">ROTC1</option>
                   <option value="CWTS1">CWTS1</option>
+                  <option value="">N/A</option>
                 </select>
               </div>
               <div class="form-group">
@@ -111,6 +116,7 @@
                 <select class="form-control" id="nstp2" name="nstp2">
                   <option value="ROTC2">ROTC2</option>
                   <option value="CWTS2">CWTS2</option>
+                  <option value="">N/A</option>
                 </select>
               </div>
               <div class="form-group">
@@ -140,6 +146,7 @@
                 <select class="form-control" id="component" name="component">
                   <option value="ROTC">ROTC</option>
                   <option value="CWTS">CWTS</option>
+                  <option value="">N/A</option>
                 </select>
               </div>
               <div class="form-group">
@@ -153,6 +160,10 @@
               <div class="form-group">
                 <label for="agencyType">Agency Type</label>
                 <input type="text" class="form-control" id="agencyType" name="agencyType">
+              </div>
+              <div class="form-group">
+                <label for="program">Program</label>
+                <input type="text" class="form-control" id="program" name="program">
               </div>
             </div>
           </div>
@@ -170,37 +181,39 @@
      // Function to load student data into the modal
   function loadUpdateStudent(student_id, lastname, firstname, middlename, suffixname, gender, semester1, school1,
       academicyear1, sectioncode1, semester2, school2, academicyear2, sectioncode2, serialnumber, remarks, awardyear,
-      component, birthday, barangay, municipality, province, institutioncode, agencytype, program, major, 
+      component, birthday, barangay, municipality, province, institutioncode, agencytype, department, yearlevel, major, program, 
       email, contactnumber) {
       
-      $('#studentID').val(student_id);
-      $('#lastname').val(lastname);
-      $('#firstname').val(firstname);
-      $('#middlename').val(middlename);
-      $('#nameExtension').val(suffixname);
-      $('#gender').val(gender);
-      $('#nstp1').val(semester1);
-      $('#school1').val(school1);
-      $('#academicyear1').val(academicyear1);
-      $('#sectionCode1').val(sectioncode1);
-      $('#nstp2').val(semester2);
-      $('#school2').val(school2);
-      $('#academicyear2').val(academicyear2);
-      $('#sectionCode2').val(sectioncode2);
-      $('#serialNumber').val(serialnumber);
-      $('#remarks').val(remarks);
-      $('#awardyear').val(awardyear);
-      $('#dateOfBirth').val(birthday);
-      $('#barangay').val(barangay);
-      $('#municipality').val(municipality);
-      $('#province').val(province);
-      $('#institutionCode').val(institutioncode);
-      $('#agencyType').val(agencytype);
-      $('#program').val(program);
-      $('#major').val(major);
-      $('#component').val(component);
-      $('#email').val(email);
-      $('#contactNumber').val(contactnumber);
+        $('#studentID').val(student_id);
+    $('#lastname').val(lastname);
+    $('#firstname').val(firstname);
+    $('#middlename').val(middlename);
+    $('#nameExtension').val(suffixname);
+    $('#gender').val(gender);
+    $('#nstp1').val(semester1);
+    $('#school1').val(school1);
+    $('#academicyear1').val(academicyear1);
+    $('#sectionCode1').val(sectioncode1);
+    $('#nstp2').val(semester2);
+    $('#school2').val(school2);
+    $('#academicyear2').val(academicyear2);
+    $('#sectionCode2').val(sectioncode2);
+    $('#serialNumber').val(serialnumber);
+    $('#remarks').val(remarks);
+    $('#awardyear').val(awardyear);
+    $('#component').val(component);
+    $('#dateOfBirth').val(birthday);
+    $('#barangay').val(barangay);
+    $('#municipality').val(municipality);
+    $('#province').val(province);
+    $('#institutionCode').val(institutioncode);
+    $('#agencyType').val(agencytype);
+    $('#yearlevel').val(yearlevel);
+    $('#department').val(department);
+    $('#major').val(major);
+    $('#program').val(program);
+    $('#email').val(email);
+    $('#contactNumber').val(contactnumber);
       
       $('#updateStudentModal').modal('show');
   }
@@ -238,15 +251,17 @@
           province: $('#province').val(),
           institutioncode: $('#institutionCode').val(),
           agencytype: $('#agencyType').val(),
-          program: $('#program').val(),
+          yearlevel: $('#yearlevel').val(),
+          department: $('#department').val(),
           major: $('#major').val(),
+          program: $('#program').val(),
           email: $('#email').val(),
           contactnumber: $('#contactNumber').val()
       })
       .done(function(response) {
           alert('Student information updated successfully!');
           $('#updateStudentModal').modal('hide');
-          loadStudentTable();  // Ensure this function is defined elsewhere
+          loadMasterList();  // Ensure this function is defined elsewhere
       })
       .fail(function(xhr, status, error) {
           alert('An error occurred: ' + xhr.responseText);

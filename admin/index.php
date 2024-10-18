@@ -353,19 +353,22 @@ function drawEnrollmentPieChart(enrollmentData, academicYear, semester) {
     chart.draw(data, options);
 }
 
-// Function to draw the ROTC vs CWTS component pie chart
+/// Function to draw the ROTC vs CWTS component pie chart
 function drawComponentPieChart(data, academicYear, semester) {
+
 < importexcel
     var data = google.visualization.arrayToDataTable([
-=======
+    // Ensure the data has the expected structure
+
     var chartData = google.visualization.arrayToDataTable([
 > main
         ['Components', 'Total Students'],
-        ['ROTC', data.total_rotc || 0],
-        ['CWTS', data.total_cwts || 0]
+        ['ROTC', data[0] ? data[0][1] : 0], // Ensure data is accessed correctly
+        ['CWTS', data[1] ? data[1][1] : 0] // Ensure data is accessed correctly
     ]);
 
     var options = {
+
         title: `ROTC vs CWTS Enrollment - ${academicYear} - ${semester} Semester`, // Fixed title
 << importexcel
         is3D: true,
@@ -373,13 +376,19 @@ function drawComponentPieChart(data, academicYear, semester) {
 
     var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
     chart.draw(data, options);
-=======
+
+
+        title: `ROTC vs CWTS Enrollment - ${academicYear} - ${semester} Semester`, // Title for the chart
+        is3D: true, // Optional: if you want a 3D effect
+        colors: ['#1E5128', '#DE970B'], // Colors for ROTC and CWTS
+ main
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('cakechart'));
     chart.draw(chartData, options);
 > main
 }
+
 
 // Function to draw the Department ROTC vs CWTS donut chart
 function drawDonutChart(data, academicYear, semester) {
@@ -390,7 +399,8 @@ function drawDonutChart(data, academicYear, semester) {
 
     const options = {
         title: `Department ROTC vs CWTS - ${academicYear} - ${semester} Semester`, // Fixed title
-        pieHole: 0.4,
+        pieHole: 0.2,
+        
     };
 
     const chart = new google.visualization.PieChart(document.getElementById('donutchart'));

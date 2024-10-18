@@ -1,43 +1,31 @@
 <?php
-require_once '../../connection.php';
 session_start();
+require_once '../../connection.php';
 
-// Check if an admin is logged in
-if (isset($_SESSION['admin_id'])) {
-    // Fetch admin details
-    $query = $conn->prepare("SELECT firstname, lastname, middlename, school_id FROM tbladmin WHERE admin_id = ?");
-    $query->execute([$_SESSION['admin_id']]);
-    $admin = $query->fetch();
+// Initialize a response array
+$response = ['status' => 'error', 'message' => 'User not logged in'];
 
-    if ($admin) {
-        echo json_encode([
-            'name' => $admin['lastname'] . ', ' . $admin['firstname'] . ' ' . $admin['middlename'], 
-            'schoolId' => $admin['school_id'],
-            'role' => 'admin'
-        ]);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Admin not found']);
+// Check user role and fetch details accordingly
+if (isset($_SESSION['user_role'])) {
+    if ($_SESSION['user_role'] === 'admin' && isset($_SESSION['admin_id'])) {
+        // Admin user
+        $response = [
+            'status' => 'success',
+            'role' => 'admin',
+            'name' => $_SESSION['user_name'], // Get full name (Firstname Middlename Lastname Suffixname)
+            'schoolId' => $_SESSION['school_id']
+        ];
+    } elseif ($_SESSION['user_role'] === 'student' && isset($_SESSION['student_id'])) {
+        // Student user
+        $response = [
+            'status' => 'success',
+            'role' => 'student',
+            'name' => $_SESSION['user_name'], // Get full name (Lastname, Firstname Middlename Suffixname)
+            'schoolId' => $_SESSION['student_id']
+        ];
     }
-} 
-// Check if a student is logged in
-elseif (isset($_SESSION['student_id'])) {
-    // Fetch student details
-    $query = $conn->prepare("SELECT firstname, lastname, middlename, student_id FROM tblstudent WHERE student_id = ?");
-    $query->execute([$_SESSION['student_id']]);
-    $student = $query->fetch();
-
-    if ($student) {
-        echo json_encode([
-            'name' => $student['lastname'] . ', ' . $student['firstname'] . ' ' . $student['middlename'],
-            'schoolId' => $student['student_id'],
-            'role' => 'student'
-        ]);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Student not found']);
-    }
-} 
-// No user logged in
-else {
-    echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
 }
+
+// Output the JSON response
+echo json_encode($response);
 ?>

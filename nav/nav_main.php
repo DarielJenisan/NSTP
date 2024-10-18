@@ -13,11 +13,10 @@
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/userreg/userreg_main.php')">Manage User</a>
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/student_list/student_list.php')">Student List</a>
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/create_masterlist/list_columns.php')">Create Master List</a>
-<importexcel
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/summary_report/summary_report.php')">Summary Report</a>
-=======
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/analytic_report/summary_report.php')">Summary Report</a>
-              > main
+                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/summary_report/summary_report.php')">Summary Report</a>
+                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/analytic_report/summary_report.php')">Summary Report</a>
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/certificate/certificates.php')">Certificates</a>
 
                 </div>
@@ -36,14 +35,14 @@
             </div>
         </div>
     </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" active="false" aria-selected="false">
+    <li class="nav-item dropdown" onclick="clickSubModule('../nav/Approval/approval_request.php')">
+        <a class="nav-link">
             Approval
         </a>
     </li>
 
     <li class="nav-item dropdown" style="padding-top: 0px;">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li>
                 <div class="dropdown-account" id="userName">SAMPLE NAME</div>
@@ -74,23 +73,26 @@
         // console.log(1)
     }
 
-   // Fetch logged-in user details from the backend
-   function fetchUserDetails() {
-        fetch('../assets/components/get_user_details.php') // Replace with the correct path
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status === 'error') {
-                    console.error(data.message);
-                    return;
-                }
+ // Fetch logged-in user details from the backend
+function fetchUserDetails() {
+    fetch('../assets/components/get_user_details.php') // Make sure the path is correct
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'error') {
+                console.error(data.message);
+                // Optionally handle UI for logged-out state or show error message
+                return;
+            }
 
-                // Update the dropdown with the fetched user details
-                document.getElementById('userName').textContent = data.name;
-                document.getElementById('userSchoolId').textContent = `ID: ${data.schoolId}`;
-            })
-            .catch((error) => console.error('Error fetching user details:', error));
-    }
+            // Update the dropdown with the fetched user details
+            document.getElementById('userName').textContent = data.name;
+            document.getElementById('userSchoolId').textContent = `ID: ${data.schoolId}`;
+        })
+        .catch((error) => console.error('Error fetching user details:', error));
+}
 
-    // Call the function when the page loads
-    document.addEventListener('DOMContentLoaded', fetchUserDetails);
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', fetchUserDetails);
+
+
 </script>

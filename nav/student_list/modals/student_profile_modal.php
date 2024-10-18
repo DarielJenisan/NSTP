@@ -110,6 +110,25 @@ th, td {
     border: 1px solid #ccc;
 }
 
+.qr-code-box {
+    margin-top: 10px;
+}
+
+.qr-box {
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 140px;
+    height: 140px;
+    padding: 10px;
+}
+
+.qr-box img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
 .footer {
     text-align: center;
     margin-top: 100px;
@@ -144,7 +163,7 @@ th, td {
     </style>
 <!-- Modal structure -->
 <div class="modal fade" id="studentProfileModal" tabindex="-1" aria-labelledby="studentProfileModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" style="max-width: 720px;">
+  <div class="modal-dialog modal-xl" style="max-width: 820px;">
     <div class="modal-content" style="background-color: transparent; border: none; box-shadow: none;">
       <div class="modal-header" style="background-color: transparent; border: none; box-shadow: none;">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border: none; box-shadow: none; filter: invert(1);"></button>
@@ -175,7 +194,7 @@ th, td {
               <div id="StudentID" class="static-text">123456</div>
             </div>
             <div class="photo-box border p-3 text-center">
-              <img id="studentPhoto" src="../assets/img/default-photo.png" alt="Student Photo">
+              <img id="studentPhoto" src="../assets/img/nstplogo.png" alt="Student Photo">
             </div>
           </div>
 
@@ -264,6 +283,14 @@ th, td {
             </table>
           </div>
 
+          <!-- QR Code Box -->
+<div class="qr-code-box text-center mt-3">
+  <label for="qrCode" class="d-block">QR Code:</label>
+  <div class="qr-box">
+    <img id="qrCode" src="../assets/img/qrcode.jpg" alt="QR Code">
+  </div>
+</div>
+
         </div>
       </div>
 
@@ -281,7 +308,7 @@ th, td {
 <script>
     // Function to load student data into the modal
     function loadStudentProfile(student_id, firstname, middlename, lastname, suffixname, serialnumber, birthday, gender, barangay, municipality, province,
-      program, major, contactnumber, email, semester1, academicyear1, school1, semester2, academicyear2, school2) {
+      department, major, contactnumber, email, semester1, academicyear1, school1, semester2, academicyear2, school2) {
 
     $('#StudentID').text(student_id);
     $('#fullname').text(firstname + ' ' + (middlename ? middlename + ' ' : '') + lastname + ' ' + suffixname);
@@ -289,7 +316,7 @@ th, td {
     $('#serialNo').text(serialnumber);
     $('#sex').text(gender);
     $('#address').text(barangay + ', ' + municipality + ', ' + province);
-    $('#course').text(program);
+    $('#course').text(department);
     $('#coursemajor').text(major);
     $('#contactNo').text(contactnumber);
     $('#emailAddress').text(email);
@@ -334,69 +361,131 @@ function printStudentProfile() {
               justify-content: center;
               align-items: center;
             }
-            .container {
-              width: 794px; /* A4 width at 96 DPI */
-              height: auto;
-              margin: 20px;
-              padding: 20px;
-              background-color: white;
-              border-radius: 10px;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-            .header {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin-bottom: 20px;
-            }
-            .header-text {
-              text-align: center;
-              flex-grow: 1;
-            }
-            .header-text h5, .header-text h6, .header-text p {
-              margin: 0;
-              line-height: 1;
-              font-size: 14px;
-            }
-            h2 {
-              font-size: 20px;
-              margin-bottom: 10px;
-            }
-            .form-row {
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 15px;
-            }
-            .form-group-2 {
-              width: 45%;
-            }
-            .static-text {
-              font-size: 12px;
-              font-weight: bold;
-              width: 100%;
-              padding: 5px;
-              box-sizing: border-box;
-              background-color: #f8f9fa;
-            }
-            .photo-box {
-              width: 144px;
-              height: 144px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              border: 1px solid #ccc;
-              margin: 0 auto;
-            }
-            .table {
-              width: 100%;
-              margin-top: 20px;
-              border-collapse: collapse;
-            }
-            table th, table td {
-              padding: 8px;
-              border: 1px solid #ccc;
-              text-align: center;
-            }
+           .container {
+    width: 794px; /* A4 paper width in pixels at 96 DPI */
+    height: 1123px; /* A4 paper height in pixels at 96 DPI */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-left {
+    width: 70px;
+    height: auto;
+    margin-left: 25px;
+}
+
+.logo-right {
+    width: 100px;
+    height: auto;
+    margin-right: 25px;
+}
+
+.header-text {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header-text h5,
+.header-text h6 {
+    margin: 0;
+    line-height: 1;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+}
+
+.header-text p {
+    margin: 5px 0;
+    line-height: 1;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group-2 {
+    width: 45%;
+}
+
+.form-group-2 label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.static-text {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: justify;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    appearance: none;
+}
+
+.photo-box {
+    border: 1px solid #ccc;
+    width: 144px;
+    height: 144px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.photo-box img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+}
+
+.table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.signature-line {
+    margin-top: 0;
+    text-align: center;
+    border-top: 1px solid #000;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+}
             .print-button {
               position: fixed;
               top: 20px;
@@ -422,6 +511,9 @@ function printStudentProfile() {
               .print-button {
                 display: none;
               }
+                 .qr-code-box {
+        display: none;
+    }
             }
           </style>
         </head>

@@ -69,6 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 if (($programIndex = array_search('program', $headers)) !== false) {
                     $updateData['program'] = $row[$programIndex];
+                if (($yearlevelIndex = array_search('yearlevel', $headers)) !== false) {
+                    $updateData['yearlevel'] = $row[$yearlevelIndex];
                 }
                 if (($majorIndex = array_search('major', $headers)) !== false) {
                     $updateData['major'] = $row[$majorIndex];
@@ -84,6 +86,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $updateFields[] = "$key = :$key";
                     }
                     $updateQuery = "UPDATE tblstudent SET " . implode(', ', $updateFields) . " WHERE student_id = :student_id";
+                 if (($departmentIndex = array_search('department', $headers)) !== false) {
+                $updateData['department'] = $row[$departmentIndex];
+                }
+ 
+                // Check if student already exists in the database
+                $checkQuery = "SELECT COUNT(*) FROM tblstudent WHERE student_id = :student_id";
+                $checkStmt = $conn->prepare($checkQuery);
+                $checkStmt->bindValue(':student_id', $student_id);
+                $checkStmt->execute();
+                $studentExists = $checkStmt->fetchColumn() > 0;
+
+                if (!empty($updateData)) {
+                    if ($studentExists) {
+                        // Update the existing record if the student exists
+                        $updateFields = [];
+                        foreach ($updateData as $key => $value) {
+                            $updateFields[] = "$key = :$key";
+                        }
+                        $updateQuery = "UPDATE tblstudent SET " . implode(', ', $updateFields) . " WHERE student_id = :student_id";
+                    } else {
+                        // Insert a new record if the student does not exist
+                        $fields = implode(', ', array_keys($updateData));
+                        $placeholders = implode(', ', array_map(fn($key) => ":$key", array_keys($updateData)));
+                        $updateQuery = "INSERT INTO tblstudent (student_id, $fields) VALUES (:student_id, $placeholders)";
+                    }
+
                     $updateStmt = $conn->prepare($updateQuery);
 
                     // Bind the parameters dynamically
@@ -95,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 // Now handle tblnstp updates similarly
+                // Now handle tblnstp updates similarly (Check for existing record, update or insert)
                 $updateNstpData = [];
                 if (($semester1Index = array_search('semester1', $headers)) !== false) {
                     $updateNstpData['semester1'] = $row[$semester1Index];
@@ -146,6 +175,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateStmtNstp = $conn->prepare($updateQueryNstp);
 
                     // Bind the parameters dynamically
+                if (($programIndex = array_search('program', $headers)) !== false) {
+                    $updateData['program'] = $row[$programIndex];
+                }
+
+                // Dynamically build the query for tblnstp
+                if (!empty($updateNstpData)) {
+                    $checkQueryNstp = "SELECT COUNT(*) FROM tblnstp WHERE student_id = :student_id";
+                    $checkStmtNstp = $conn->prepare($checkQueryNstp);
+                    $checkStmtNstp->bindValue(':student_id', $student_id);
+                    $checkStmtNstp->execute();
+                    $nstpExists = $checkStmtNstp->fetchColumn() > 0;
+
+                    if ($nstpExists) {
+                        $updateFieldsNstp = [];
+                        foreach ($updateNstpData as $key => $value) {
+                            $updateFieldsNstp[] = "$key = :$key";
+                        }
+                        $updateQueryNstp = "UPDATE tblnstp SET " . implode(', ', $updateFieldsNstp) . " WHERE student_id = :student_id";
+                    } else {
+                        $fieldsNstp = implode(', ', array_keys($updateNstpData));
+                        $placeholdersNstp = implode(', ', array_map(fn($key) => ":$key", array_keys($updateNstpData)));
+                        $updateQueryNstp = "INSERT INTO tblnstp (student_id, $fieldsNstp) VALUES (:student_id, $placeholdersNstp)";
+                    }
+
+                    $updateStmtNstp = $conn->prepare($updateQueryNstp);
+
                     foreach ($updateNstpData as $key => $value) {
                         $updateStmtNstp->bindValue(":$key", $value);
                     }
@@ -163,5 +218,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo json_encode(['success' => false, 'message' => 'File upload error. Please ensure a valid file is selected.']);
     }
+            }
+
+            echo json_encode(['status' => 'success', 'message' => 'Data updated/inserted successfully.']);
+        } catch (Exception $e) {
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No file uploaded.']);
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
 }
 ?>

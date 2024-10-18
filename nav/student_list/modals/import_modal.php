@@ -1,17 +1,13 @@
 <!-- Import Modal -->
 <div class="modal fade" id="ImportModal" tabindex="-1" aria-labelledby="ImportModalLabel" aria-hidden="true">
-< importexcel
     <div class="modal-dialog modal-lg"> <!-- modal-lg for landscape view -->
-=======
     <div class="modal-dialog">
-> main
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ImportModalLabel">Import Student Data</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-< importexcel
                   <!--Import Button-->
             <form id="importForm" enctype="multipart/form-data">
     <div class="d-flex align-items-end mb-3">
@@ -34,6 +30,7 @@
                                 <li><strong>lastname</strong> (Last Name)</li>
                                 <li><strong>suffixname</strong> (Suffix/Extension Name)</li>
                                 <li><strong>birthday</strong> (Date of Birth)</li>
+                                <li><strong>birthday</strong> (Date of Birth (YYYY-MM-DD))</li>
                             </ol>
                         </div>
                         <div class="col-md-4">
@@ -50,6 +47,7 @@
                             <ol start="13">
                                 <li><strong>contactnumber</strong> (Contact Number)</li>
                                 <li><strong>program</strong> (Program)</li>
+                                <li><strong>department</strong> (Department)</li>
                                 <li><strong>major</strong> (Major)</li>
                                 <li><strong>serialnumber</strong> (Serial Number)</li>
                                 <li><strong>semester1</strong> (NSTP 1)</li>
@@ -73,6 +71,8 @@
                                 <li><strong>institutioncode</strong> (Institution Code)</li>
                                 <li><strong>agencytype</strong> (Type of Agency)</li>
                                 <li><strong>remarks</strong> (Remarks)</li>
+                                <li><strong>yearlevel</strong> (Year Level)</li>
+                                <li><strong>program</strong> (Program)</li>
                             </ol>
                         </div>
                         <br> <h6>Example: </h6>
@@ -86,7 +86,6 @@
                          </div>
                     </div>
                 </div>
-=======
                 <form id="importForm" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="fileInput" class="form-label">Select File</label>
@@ -94,7 +93,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Import</button>
                 </form>
-> main
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -102,8 +100,6 @@
         </div>
     </div>
 </div>
-
-< importexcel
 
 <script>
 document.getElementById('importForm').addEventListener('submit', function (e) {
@@ -118,9 +114,17 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
     var fileInput = document.getElementById('fileInput');
     var file = fileInput.files[0];
 
-    // Validate file type
     if (!file) {
         alert("Please select a file.");
+        importButton.disabled = false;
+        importButton.textContent = 'Import';
+        return;
+    }
+
+    // Validate file type (optional, depending on the format you accept)
+    var validFileTypes = ['application/vnd.ms-excel', 'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+    if (!validFileTypes.includes(file.type)) {
+        alert("Invalid file type. Please select a CSV or Excel file.");
         importButton.disabled = false;
         importButton.textContent = 'Import';
         return;
@@ -147,6 +151,7 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
     })
     .then(data => {
         if (data.success) {
+        if (data.status === 'success') {
             alert('Student data imported successfully.');
             $('#ImportModal').modal('hide'); // Close the modal on success
             // Optionally, you can reload the page or update the UI to reflect the changes
@@ -163,7 +168,6 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
         importButton.disabled = false;
         importButton.textContent = 'Import';
     });
-=======
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
 <script>

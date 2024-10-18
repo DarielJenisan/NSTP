@@ -4,7 +4,7 @@ require_once '../../../connection.php';
 // Retrieve filter values from POST request
 $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : 'All';
 $component = isset($_POST['component']) ? $_POST['component'] : 'All';
-$program = isset($_POST['program']) ? $_POST['program'] : 'All';
+$department = isset($_POST['department']) ? $_POST['department'] : 'All';
 
 // Build the query with filters
 $query = "SELECT * FROM studentInformation_view WHERE 1=1";
@@ -22,9 +22,9 @@ if ($component !== 'All') {
     }
 }
 
-// Adjust program filter to handle multiple possible values
-if ($program !== 'All') {
-    $query .= " AND (program = :programFull OR program = :programShort)";
+// Adjust department filter to handle multiple possible values
+if ($department !== 'All') {
+    $query .= " AND (department = :departmentFull OR department = :departmentShort)";
 }
 
 // Add the ORDER BY clause for sorting by academic year, last name, and first name
@@ -37,19 +37,19 @@ if ($academicYear !== 'All') {
     $stmt->bindParam(':academicYear', $academicYear);
 }
 
-if ($program !== 'All') {
-    // Define program mappings
-    $programMap = [
+if ($department !== 'All') {
+    // Define department mappings
+    $departmentMap = [
         'BSIT' => 'Bachelor of Science in Information Technology',
         'BSBA' => 'Bachelor of Science in Business Administration',
         'TEP' => 'Teacher Education Program'
     ];
 
-    $programFull = isset($programMap[$program]) ? $programMap[$program] : $program;
-    $programShort = array_search($programFull, $programMap) ?: $program;
+    $departmentFull = isset($departmentMap[$department]) ? $departmentMap[$department] : $department;
+    $departmentShort = array_search($departmentFull, $departmentMap) ?: $department;
 
-    $stmt->bindParam(':programFull', $programFull);
-    $stmt->bindParam(':programShort', $programShort);
+    $stmt->bindParam(':departmentFull', $departmentFull);
+    $stmt->bindParam(':departmentShort', $departmentShort);
 }
 
 $stmt->execute();
@@ -108,12 +108,30 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['province'] ?>',
             '<?php echo $row['institutioncode'] ?>',
             '<?php echo $row['agencytype'] ?>',
-            '<?php echo $row['program'] ?>',
+            '<?php echo $row['department'] ?>',
+            '<?php echo $row['yearlevel'] ?>',
             '<?php echo $row['major'] ?>',
+            '<?php echo $row['program'] ?>',
             '<?php echo $row['email'] ?>',
             '<?php echo $row['contactnumber'] ?>'
         )">
         <i class="fa fa-edit"></i> Edit</a></li>
+
+        <li>
+            <a class="dropdown-item" onclick="loadSlip(
+            '<?php echo $row['semester1']; ?>',
+            '<?php echo $row['semester2']; ?>',
+            '<?php echo $row['student_id']; ?>',
+            '<?php echo $row['firstname']; ?>',
+            '<?php echo $row['middlename']; ?>',
+            '<?php echo $row['lastname']; ?>',
+            '<?php echo $row['suffixname']; ?>',
+            '<?php echo $row['yearlevel']; ?>',
+            '<?php echo $row['department']; ?>',
+            '<?php echo $row['academicyear1']; ?>',
+            '<?php echo $row['academicyear2']; ?>'
+        )">
+        <i class="fas fa-file-alt"></i> Slip</a></li>
 
            <li>
             <a class="dropdown-item" onclick="loadCertificate(
@@ -144,7 +162,7 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['barangay']; ?>',
             '<?php echo $row['municipality']; ?>',
             '<?php echo $row['province']; ?>',
-            '<?php echo $row['program']; ?>',
+            '<?php echo $row['department']; ?>',
             '<?php echo $row['major']; ?>',
             '<?php echo $row['contactnumber']; ?>',
             '<?php echo $row['email']; ?>',

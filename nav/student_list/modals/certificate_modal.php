@@ -164,9 +164,10 @@
         </div>
       </div>
       <div class="modal-footer" style="background-color: transparent; border: none; box-shadow: none;">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Edit</button>
-        <button type="button" class="btn btn-primary print-certificate-btn" data-certificate="cwts">Print Certificate</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+        <button type="button" class="btn btn-light"><i class="fa fa-edit"></i> Edit</button>
+        <button type="button" class="btn btn-success"><i class="fa fa-download"></i> Download as PNG</button>
+        <button type="button" class="btn btn-primary print-certificate-btn" data-certificate="cwts"><i class="fa fa-print"></i> Print Certificate</button>
       </div>
     </div>
   </div>
@@ -225,9 +226,10 @@
         </div>
       </div>
       <div class="modal-footer" style="background-color: transparent; border: none; box-shadow: none;">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Edit</button>
-        <button type="button" class="btn btn-primary print-certificate-btn" data-certificate="rotc">Print Certificate</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+        <button type="button" class="btn btn-light"><i class="fa fa-edit"></i> Edit</button>
+        <button type="button" class="btn btn-success"><i class="fa fa-download"></i> Download as PNG</button>
+        <button type="button" class="btn btn-primary print-certificate-btn" data-certificate="rotc"><i class="fa fa-print"></i> Print Certificate</button>
       </div>
     </div>
   </div>
@@ -260,6 +262,9 @@
     </div>
   </div>
 </div>
+
+
+<<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
     // Function to format date into "29th day of May, 2024"
@@ -299,7 +304,7 @@
             $('#cwts_coordinator').text(coordinator);
             $('#cwtscertificateModal').modal('show');
 
-            $('#cwtscertificateModal .btn-success').off('click').on('click', function () {
+            $('#cwtscertificateModal .btn-light').off('click').on('click', function () {
                 openEditModal();
             });
         } else if (semester1 === 'ROTC1' && semester2 === 'ROTC2') {
@@ -310,7 +315,7 @@
             $('#rotc_coordinator').text(coordinator);
             $('#rotccertificateModal').modal('show');
 
-            $('#rotccertificateModal .btn-success').off('click').on('click', function () {
+            $('#rotccertificateModal .btn-light').off('click').on('click', function () {
                 openEditModal();
             });
         } else if (semester1 === 'CWTS1' && semester2 !== 'CWTS2') {
@@ -321,7 +326,7 @@
             $('#cwts_coordinator').text(coordinator);
             $('#cwtscertificateModal').modal('show');
 
-            $('#cwtscertificateModal .btn-success').off('click').on('click', function () {
+            $('#cwtscertificateModal .btn-light').off('click').on('click', function () {
                 openEditModal();
             });
         } else if (semester1 === 'ROTC1' && semester2 !== 'ROTC2') {
@@ -332,7 +337,7 @@
             $('#rotc_coordinator').text(coordinator);
             $('#rotccertificateModal').modal('show');
 
-            $('#rotccertificateModal .btn-success').off('click').on('click', function () {
+            $('#rotccertificateModal .btn-light').off('click').on('click', function () {
                 openEditModal();
             });
         }
@@ -399,6 +404,43 @@
             alert('Please fill in all required fields.');
         }
     });
+
+
+    // Function to download the Certificate as a PNG
+document.querySelectorAll('.btn-success').forEach(button => {
+    button.addEventListener('click', function () {
+        const modal = this.closest('.modal');
+        let certificateContainer;
+
+        // Check which modal the button belongs to and set the correct Certificate container
+        if (modal.querySelector('#modalCWTSCertificate')) {
+            certificateContainer = modal.querySelector('#modalCWTSCertificate'); // CWTS Certificate
+        } else if (modal.querySelector('#modalROTCCertificate')) {
+            certificateContainer = modal.querySelector('#modalROTCCertificate'); // ROTC Certificate
+        }
+
+        // Use html2canvas to capture the correct Certificate container
+        if (certificateContainer) {
+            html2canvas(certificateContainer, { scale: 2 }).then(function (canvas) {
+                const imageData = canvas.toDataURL("image/png");
+
+                // Create a temporary link element for download
+                const link = document.createElement('a');
+                link.href = imageData;
+
+                // Check if it's CWTS or ROTC and set the appropriate filename
+                if (certificateContainer.id === 'modalCWTSCertificate') {
+                    link.download = 'CWTS_Certificate.png'; // File name for CWTS Certificate
+                } else if (certificateContainer.id === 'modalROTCCertificate') {
+                    link.download = 'ROTC_Certificate.png'; // File name for ROTC Certificate
+                }
+
+                // Trigger the download by simulating a click
+                link.click();
+            });
+        }
+    });
+});
 </script>
 
 <script>

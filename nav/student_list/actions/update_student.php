@@ -38,6 +38,8 @@ try {
     $province        = isset($_POST['province']) ? sanitize($_POST['province']) : '';
     $institutioncode = isset($_POST['institutioncode']) ? sanitize($_POST['institutioncode']) : '';
     $agencytype      = isset($_POST['agencytype']) ? sanitize($_POST['agencytype']) : '';
+    $yearlevel       = isset($_POST['yearlevel']) ? sanitize($_POST['yearlevel']) : '';
+    $department         = isset($_POST['department']) ? sanitize($_POST['department']) : '';
     $program         = isset($_POST['program']) ? sanitize($_POST['program']) : '';
     $major           = isset($_POST['major']) ? sanitize($_POST['major']) : '';
     $email           = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : '';
@@ -61,7 +63,8 @@ try {
             barangay = :barangay,
             municipality = :municipality,
             province = :province,
-            program = :program,
+            yearlevel = :yearlevel,
+            department = :department,
             major = :major,
             serialnumber = :serialnumber,
             contactnumber = :contactnumber
@@ -78,15 +81,16 @@ try {
         ':barangay'      => $barangay,
         ':municipality'  => $municipality,
         ':province'      => $province,
-        ':program'       => $program,
+        ':yearlevel'     => $yearlevel,
+        ':department'       => $department,
         ':major'         => $major,
         ':serialnumber'  => $serialnumber,
-        ':contactnumber'  => $contactnumber,
+        ':contactnumber' => $contactnumber,
         ':student_id'    => $student_id
     ]);
 
-    // 2. Update tblnstp for Semester 1
-    $updateNstp1Qry = $conn->prepare("
+    // 2. Update tblnstp for Semester 1 and Semester 2 (Update single record for both semesters)
+    $updateNstpQry = $conn->prepare("
         UPDATE tblnstp SET
             semester1 = :semester1,
             sectioncode1 = :sectioncode1,
@@ -104,8 +108,11 @@ try {
         WHERE student_id = :student_id AND nstp_id = (
             SELECT nstp_id FROM tblnstp WHERE student_id = :student_id LIMIT 1
         )
+            program = :program,
+            remarks = :remarks
+        WHERE student_id = :student_id
     ");
-    $updateNstp1Qry->execute([
+    $updateNstpQry->execute([
         ':semester1'     => $semester1,
         ':sectioncode1'  => $sectioncode1,
         ':school1'       => $school1,
@@ -123,6 +130,15 @@ try {
     ]);
 
     
+
+        ':awardyear'     => $awardyear,
+        ':component'     => $component,
+        ':institutioncode' => $institutioncode,
+        ':agencytype'    => $agencytype,
+        ':program'    => $program,
+        ':remarks'       => $remarks,
+        ':student_id'    => $student_id
+    ]);
 
     // Commit Transaction
     $conn->commit();

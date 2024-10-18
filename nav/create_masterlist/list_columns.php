@@ -27,11 +27,13 @@
                 <option>CWTS</option>
             </select>
 
-            <label for="selectProgram" style="margin: 5px;">
+            <label for="selectDepartment" style="margin: 5px;">
                 <h6>Department: </h6>
             </label>
             <select class="select-year-center" id="selectProgram" style="width: 150px; height: 30px;">
                 <option class="text-center">--All Program--</option>
+            <select class="select-year-center" id="selectDepartment" style="width: 150px; height: 30px;">
+                <option class="text-center">--All Department--</option>
                 <option>Bachelor of Science in Information Technology</option>
                 <option>Bachelor of Science in Business Administration</option>
                 <option>Teacher Education Program</option>
@@ -97,6 +99,39 @@
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Main Program</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Email</th>
                                 <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Contact Number</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">No.</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Student ID</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Last Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">First Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Middle Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Name Extension</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Gender</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">NSTP1</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">NSTP2</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Serial Number</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Remarks</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Award Year</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Component</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Date of Birth</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Barangay </th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Municipality</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Provice</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">HEI Name</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Institution Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Type of Agency</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Year Level</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Department</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Major</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Program</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Main Program</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Email</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Contact Number</th>
                             
                                 
                             </tr>
@@ -160,12 +195,14 @@
                             <label><input type="checkbox" class="column-checkbox" value="24"> Institution Code</label>
 
                             <label><input type="checkbox" class="column-checkbox" value="25"> Type of Agency</label>
-                            <label><input type="checkbox" class="column-checkbox" value="26"> Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="27"> Major</label>
-                            <label><input type="checkbox" class="column-checkbox" value="28"> Main Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="29"> Email</label>
-
-                            <label><input type="checkbox" class="column-checkbox" value="30"> Contact Number</label>
+                            <label><input type="checkbox" class="column-checkbox" value="26"> Year Level</label>
+                            <label><input type="checkbox" class="column-checkbox" value="27"> Department</label>
+                            <label><input type="checkbox" class="column-checkbox" value="28"> Major</label>
+                            <label><input type="checkbox" class="column-checkbox" value="29"> Program</label>
+                            
+                            <label><input type="checkbox" class="column-checkbox" value="30"> Main Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="31"> Email</label>
+                            <label><input type="checkbox" class="column-checkbox" value="32"> Contact Number</label>
                         </div>
                     </div>
                 </form>
@@ -288,13 +325,13 @@ $(document).ready(function() {
     function applyFilters() {
         var academicYear = $('#selectAY').val();
         var component = $('#selectComponent').val();
-        var program = $('#selectProgram').val();
+        var department = $('#selectDepartment').val();
 
         // Adjusting filter values based on user selection
         var filters = {
             academicYear: academicYear === '-All Academic Year-' ? 'All' : academicYear,
             component: component === '--All Component--' ? 'All' : component,
-            program: program === '--All Program--' ? 'All' : program
+            department: department === '--All Department--' ? 'All' : department
         };
 
         // Reload the master list based on applied filters
@@ -339,12 +376,11 @@ $(document).ready(function() {
     });
 
     // Trigger filter application on dropdown change
-    $('#selectAY, #selectComponent, #selectProgram').change(function() {
+    $('#selectAY, #selectComponent, #selectDepartment').change(function() {
         applyFilters();
     });
 });
 </script>
-
 
 <!-- Script Function for Printing-->
 <script>
