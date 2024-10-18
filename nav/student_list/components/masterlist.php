@@ -188,5 +188,10 @@ foreach ($stmt->fetchAll() as $row): ?>
         <i class="fa fa-user"></i> View Profile</a></li>
          </ul>
          </td>
+         <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;">
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#ImportModal">
+        <i class="fas fa-file-import"></i>
+    </button>
+</td>
     </tr>
 <?php endforeach; ?>

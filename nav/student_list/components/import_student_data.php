@@ -67,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (($contactnumberIndex = array_search('contactnumber', $headers)) !== false) {
                     $updateData['contactnumber'] = $row[$contactnumberIndex];
                 }
+                if (($programIndex = array_search('program', $headers)) !== false) {
+                    $updateData['program'] = $row[$programIndex];
                 if (($yearlevelIndex = array_search('yearlevel', $headers)) !== false) {
                     $updateData['yearlevel'] = $row[$yearlevelIndex];
                 }
@@ -76,6 +78,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (($serialnumberIndex = array_search('serialnumber', $headers)) !== false) {
                     $updateData['serialnumber'] = $row[$serialnumberIndex];
                 }
+
+                // Dynamically build the query for tblstudent
+                if (!empty($updateData)) {
+                    $updateFields = [];
+                    foreach ($updateData as $key => $value) {
+                        $updateFields[] = "$key = :$key";
+                    }
+                    $updateQuery = "UPDATE tblstudent SET " . implode(', ', $updateFields) . " WHERE student_id = :student_id";
                  if (($departmentIndex = array_search('department', $headers)) !== false) {
                 $updateData['department'] = $row[$departmentIndex];
                 }
@@ -112,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateStmt->execute();
                 }
 
+                // Now handle tblnstp updates similarly
                 // Now handle tblnstp updates similarly (Check for existing record, update or insert)
                 $updateNstpData = [];
                 if (($semester1Index = array_search('semester1', $headers)) !== false) {
@@ -153,6 +164,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (($remarksIndex = array_search('remarks', $headers)) !== false) {
                     $updateNstpData['remarks'] = $row[$remarksIndex];
                 }
+
+                // Dynamically build the query for tblnstp
+                if (!empty($updateNstpData)) {
+                    $updateFieldsNstp = [];
+                    foreach ($updateNstpData as $key => $value) {
+                        $updateFieldsNstp[] = "$key = :$key";
+                    }
+                    $updateQueryNstp = "UPDATE tblnstp SET " . implode(', ', $updateFieldsNstp) . " WHERE student_id = :student_id";
+                    $updateStmtNstp = $conn->prepare($updateQueryNstp);
+
+                    // Bind the parameters dynamically
                 if (($programIndex = array_search('program', $headers)) !== false) {
                     $updateData['program'] = $row[$programIndex];
                 }
@@ -185,6 +207,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updateStmtNstp->bindValue(':student_id', $student_id);
                     $updateStmtNstp->execute();
                 }
+
+            }
+
+            echo json_encode(['success' => true, 'message' => 'Student data imported successfully.']);
+
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error reading the file: ' . $e->getMessage()]);
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'File upload error. Please ensure a valid file is selected.']);
+    }
             }
 
             echo json_encode(['status' => 'success', 'message' => 'Data updated/inserted successfully.']);

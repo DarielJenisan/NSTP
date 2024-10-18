@@ -104,6 +104,10 @@ try {
             component = :component,
             institutioncode = :institutioncode,
             agencytype = :agencytype,
+            remarks = :remarks
+        WHERE student_id = :student_id AND nstp_id = (
+            SELECT nstp_id FROM tblnstp WHERE student_id = :student_id LIMIT 1
+        )
             program = :program,
             remarks = :remarks
         WHERE student_id = :student_id
@@ -117,6 +121,16 @@ try {
         ':sectioncode2'  => $sectioncode2,
         ':school2'       => $school2,
         ':academicyear2' => $academicyear2,
+        ':awardyear'       => $awardyear,
+        ':component'       => $component,
+        ':institutioncode' => $institutioncode,
+        ':agencytype'      => $agencytype,
+        ':remarks'         => $remarks,
+        ':student_id'    => $student_id
+    ]);
+
+    
+
         ':awardyear'     => $awardyear,
         ':component'     => $component,
         ':institutioncode' => $institutioncode,
