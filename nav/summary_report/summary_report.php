@@ -17,7 +17,7 @@
         }
 
         .header {
-            background-color: #0066cc;
+            background-color: #002d54;
             color: white;
             padding: 20px;
             text-align: center;
@@ -302,7 +302,6 @@ $(document).ready(function() {
 });
 </script>
 
-
 <script>
 $(document).ready(function() {
     // Trigger the print function on button click
@@ -312,9 +311,9 @@ $(document).ready(function() {
 
     // Function to open the print window with formatted content
     function openPrintWindow() {
-        // Gather the content for printing
+        // Gather the content for printing exactly as it is on the screen
         var headerHtml = `
-            <div class="header" style="background-color: #0066cc; color: white; padding: 20px; text-align: center;">
+            <div class="header" style="background-color: #002d54; color: white; padding: 20px; text-align: center; position: relative;">
                 <img src="../assets/img/nbsclogo.png" alt="Left Logo" class="left-logo" style="height: auto; width: 110px; margin-top: 10px; position: absolute; left: 100px; top: 20px;">
                 <h2>Republic of the Philippines</h2>
                 <h3>NORTHERN BUKIDNON STATE COLLEGE</h3>
@@ -325,6 +324,7 @@ $(document).ready(function() {
                 <img src="../assets/img/nstplogo.png" alt="Right Logo" class="right-logo" style="height: auto; width: 150px; position: absolute; right: 100px; top: 20px;">
             </div>
             <div class="main-title" style="margin: 20px 0; text-align: center; font-weight: bold; font-size: 24px;">SUMMARY OF ENROLLMENT AND GRADUATES</div>
+            <div class="main-title" style="margin: 10px 0; text-align: center; font-size: 20px;">SY: ${$('#selectAY').val()}</div>
         `;
 
         var enrollmentTableHtml = document.getElementById('tblEnrollment').outerHTML;
@@ -336,19 +336,21 @@ $(document).ready(function() {
                 <title>Print NSTP Summary Report</title>
                 <style>
                     @page { 
-                        size: portrait; 
+                        size: A4; 
                         margin: 10mm; 
                     }
                     body {
                         font-family: Arial, sans-serif;
                         margin: 0;
                         padding: 0;
+                        background-color: #f4f4f4;
                     }
                     .header {
-                        background-color: #0066cc;
+                        background-color: #002d54;
                         color: white;
                         padding: 20px;
                         text-align: center;
+                        position: relative;
                     }
                     .header img {
                         position: absolute;
@@ -425,4 +427,5 @@ $(document).ready(function() {
     // Attach the function to the global window object to be accessible
     window.openPrintWindow = openPrintWindow;
 });
+
 </script>
