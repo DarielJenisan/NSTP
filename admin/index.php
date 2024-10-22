@@ -205,7 +205,6 @@
     }
 </script>
 
-<!--Fetches all the Enrolled student in the nstp according to the Program and Semester year-->
 <!-- Fetches all the Enrolled students in the NSTP according to the Program and Semester year -->
 <script>
     // Load Google Charts for Bar, Pie, and Donut charts

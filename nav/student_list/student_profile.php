@@ -24,7 +24,7 @@ body {
 
 
 .logo-left {
-    width: 70px; /* Set logo width */
+    width: 100px; /* Set logo width */
     height: auto; /* Maintain aspect ratio */
     margin-left: 50px; /* Space between images and text */
 }

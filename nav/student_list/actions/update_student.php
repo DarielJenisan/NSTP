@@ -24,10 +24,12 @@ try {
     $school1         = isset($_POST['school1']) ? sanitize($_POST['school1']) : '';
     $academicyear1   = isset($_POST['academicyear1']) ? sanitize($_POST['academicyear1']) : '';
     $sectioncode1    = isset($_POST['sectioncode1']) ? sanitize($_POST['sectioncode1']) : '';
+    $grade1          = isset($_POST['grade1']) ? sanitize($_POST['grade1']) : '';
     $semester2       = isset($_POST['semester2']) ? sanitize($_POST['semester2']) : '';
     $school2         = isset($_POST['school2']) ? sanitize($_POST['school2']) : '';
     $academicyear2   = isset($_POST['academicyear2']) ? sanitize($_POST['academicyear2']) : '';
     $sectioncode2    = isset($_POST['sectioncode2']) ? sanitize($_POST['sectioncode2']) : '';
+    $grade2          = isset($_POST['grade2']) ? sanitize($_POST['grade2']) : '';
     $serialnumber    = isset($_POST['serialnumber']) ? sanitize($_POST['serialnumber']) : '';
     $remarks         = isset($_POST['remarks']) ? sanitize($_POST['remarks']) : '';
     $awardyear       = isset($_POST['awardyear']) ? sanitize($_POST['awardyear']) : '';
@@ -36,10 +38,11 @@ try {
     $barangay        = isset($_POST['barangay']) ? sanitize($_POST['barangay']) : '';
     $municipality    = isset($_POST['municipality']) ? sanitize($_POST['municipality']) : '';
     $province        = isset($_POST['province']) ? sanitize($_POST['province']) : '';
+    $region        = isset($_POST['region']) ? sanitize($_POST['region']) : '';
     $institutioncode = isset($_POST['institutioncode']) ? sanitize($_POST['institutioncode']) : '';
     $agencytype      = isset($_POST['agencytype']) ? sanitize($_POST['agencytype']) : '';
     $yearlevel       = isset($_POST['yearlevel']) ? sanitize($_POST['yearlevel']) : '';
-    $department         = isset($_POST['department']) ? sanitize($_POST['department']) : '';
+    $department      = isset($_POST['department']) ? sanitize($_POST['department']) : '';
     $program         = isset($_POST['program']) ? sanitize($_POST['program']) : '';
     $major           = isset($_POST['major']) ? sanitize($_POST['major']) : '';
     $email           = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_SANITIZE_EMAIL) : '';
@@ -63,6 +66,7 @@ try {
             barangay = :barangay,
             municipality = :municipality,
             province = :province,
+            region = :region,
             yearlevel = :yearlevel,
             department = :department,
             major = :major,
@@ -81,8 +85,9 @@ try {
         ':barangay'      => $barangay,
         ':municipality'  => $municipality,
         ':province'      => $province,
+        ':region'        => $region,
         ':yearlevel'     => $yearlevel,
-        ':department'       => $department,
+        ':department'    => $department,
         ':major'         => $major,
         ':serialnumber'  => $serialnumber,
         ':contactnumber' => $contactnumber,
@@ -96,10 +101,12 @@ try {
             sectioncode1 = :sectioncode1,
             school1 = :school1,
             academicyear1 = :academicyear1,
+            grade1 = :grade1,
             semester2 = :semester2,
             sectioncode2 = :sectioncode2,
             school2 = :school2,
             academicyear2 = :academicyear2,
+            grade2 = :grade2,
             awardyear = :awardyear,
             component = :component,
             institutioncode = :institutioncode,
@@ -113,15 +120,17 @@ try {
         ':sectioncode1'  => $sectioncode1,
         ':school1'       => $school1,
         ':academicyear1' => $academicyear1,
+        ':grade1'        => $grade1,
         ':semester2'     => $semester2,
         ':sectioncode2'  => $sectioncode2,
         ':school2'       => $school2,
         ':academicyear2' => $academicyear2,
+        ':grade2'        => $grade2,
         ':awardyear'     => $awardyear,
         ':component'     => $component,
         ':institutioncode' => $institutioncode,
         ':agencytype'    => $agencytype,
-        ':program'    => $program,
+        ':program'       => $program,
         ':remarks'       => $remarks,
         ':student_id'    => $student_id
     ]);

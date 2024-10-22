@@ -4,6 +4,18 @@
         <div class="ml-auto">
         <button type="button" class="btn btn-secondary">Sheet 1</button>
         <button type="button" class="btn btn-secondary">Sheet 2</button>
+        <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
+        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
+    </button>
+<!-- Export Button -->
+<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
+    onclick="exportVisibleTableToExcel()">
+    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
+</button>
+    <!-- Print Button -->
+    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;" onclick="printTable()">
+        <i class="fas fa-print" style="font-size: 1.5em;"></i> Print
+    </button>
         </div>
         </div>
     <div class="card shadow" style="max-height: 100vh; overflow: hidden;"> <!-- Set max height for the card -->
@@ -39,18 +51,14 @@
             
      
             <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
-            <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
-        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
-    </button>
-<!-- Export Button -->
-<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
-    onclick="exportVisibleTableToExcel()">
-    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
-</button>
-    <!-- Print Button -->
-    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;" onclick="printTable()">
-        <i class="fas fa-print" style="font-size: 1.5em;"></i> Print
-    </button>
+            <label for="selectStatus" style="margin: 5px;">Status:</label>
+<select id="selectStatus" name="selectStatus" style="width: 150px; height: 30px;">
+    <option value="All">All</option>
+    <option value="COMPLETE">Complete</option>
+    <option value="FAILED">Failed</option>
+    <option value="DROP">Drop</option>
+    <option value="MISALIGNED">Misaligned</option>
+</select>
 </div>
 
         </div>
@@ -79,6 +87,7 @@
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Status</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Alignment</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Edit</th>
                             
                         </tr>
@@ -273,11 +282,14 @@ $(document).ready(function() {
         var academicYear = $('#selectAY').val();
         var component = $('#selectComponent').val();
         var department = $('#selectDepartment').val();
+        var status = $('#selectStatus').val(); // Get selected status
 
+        // Prepare filters object
         var filters = {
             academicYear: academicYear === '-All Academic Year-' ? 'All' : academicYear,
             component: component === '--All Component--' ? 'All' : component,
-            department: department === '--All Program--' ? 'All' : department
+            department: department === '--All Program--' ? 'All' : department,
+            status: status === '--All Status--' ? 'All' : status // Include status in filters
         };
 
         loadMasterList(filters); // Reload the master list
@@ -285,11 +297,12 @@ $(document).ready(function() {
     }
 
     // Trigger filter application on dropdown change
-    $('#selectAY, #selectComponent, #selectDepartment').change(function() {
+    $('#selectAY, #selectComponent, #selectDepartment, #selectStatus').change(function() {
         applyFilters();
     });
 });
-    </script>
+</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script>

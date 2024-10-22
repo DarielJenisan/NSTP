@@ -39,6 +39,11 @@
             
      
             <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
+<!-- Export Button -->
+<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
+    onclick="exportVisibleTableToExcel()">
+    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
+</button>
     <!-- Print Button -->
     <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;"  onclick="printTable()">
         <i class="fas fa-print" style="font-size: 1.5em;"></i>
@@ -63,7 +68,6 @@
 
                     <button type="submit" id="save_positionButton" class="btn btn-primary" hidden=""></button>
                     <table id="tblmasterlist" class="table table-sm" style="font-size: 10px; table-layout: fixed;">
-
                         <thead>
                             <tr>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">No.</th>
@@ -77,10 +81,14 @@
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Grades</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Status</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">NSTP2</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Grades</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Status</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Serial Number</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Remarks</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Award Year</th>
@@ -89,6 +97,7 @@
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Barangay </th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Municipality</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Provice</th>
+                                <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Region</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">HEI Name</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Institution Code</th>
                                 <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Type of Agency</th>
@@ -144,32 +153,36 @@
                             <label><input type="checkbox" class="column-checkbox" value="9"> School Year Taken (NSTP1)</label>
 
                             <label><input type="checkbox" class="column-checkbox" value="10"> Section Code (NSTP1)</label>
-                            <label><input type="checkbox" class="column-checkbox" value="11"> NSTP2</label>
-                            <label><input type="checkbox" class="column-checkbox" value="12"> School (NSTP2)</label>
-                            <label><input type="checkbox" class="column-checkbox" value="13"> School Year Taken (NSTP2)</label>
-                            <label><input type="checkbox" class="column-checkbox" value="14"> Section Code (NSTP2)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="11"> Grades (NSTP1)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="12"> Status (NSTP1)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="13"> NSTP2</label>
+                            <label><input type="checkbox" class="column-checkbox" value="14"> School (NSTP2)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="15"> School Year Taken (NSTP2)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="16"> Section Code (NSTP2)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="17"> Grades (NSTP2)</label>
+                            <label><input type="checkbox" class="column-checkbox" value="18"> Status (NSTP2)</label>
 
-                            <label><input type="checkbox" class="column-checkbox" value="15"> Serial Number</label>
-                            <label><input type="checkbox" class="column-checkbox" value="16"> Remarks</label>
-                            <label><input type="checkbox" class="column-checkbox" value="17"> Award Year</label>
-                            <label><input type="checkbox" class="column-checkbox" value="18"> Component</label>
-                            <label><input type="checkbox" class="column-checkbox" value="19"> Date of Birth</label>
+                            <label><input type="checkbox" class="column-checkbox" value="19"> Serial Number</label>
+                            <label><input type="checkbox" class="column-checkbox" value="20"> Remarks</label>
+                            <label><input type="checkbox" class="column-checkbox" value="21"> Award Year</label>
+                            <label><input type="checkbox" class="column-checkbox" value="22"> Component</label>
+                            <label><input type="checkbox" class="column-checkbox" value="23"> Date of Birth</label>
 
-                            <label><input type="checkbox" class="column-checkbox" value="20"> Barangay</label>
-                            <label><input type="checkbox" class="column-checkbox" value="21"> Municipality</label>
-                            <label><input type="checkbox" class="column-checkbox" value="22"> Province</label>
-                            <label><input type="checkbox" class="column-checkbox" value="23"> HEI Name</label>
-                            <label><input type="checkbox" class="column-checkbox" value="24"> Institution Code</label>
-
-                            <label><input type="checkbox" class="column-checkbox" value="25"> Type of Agency</label>
-                            <label><input type="checkbox" class="column-checkbox" value="26"> Year Level</label>
-                            <label><input type="checkbox" class="column-checkbox" value="27"> Department</label>
-                            <label><input type="checkbox" class="column-checkbox" value="28"> Major</label>
-                            <label><input type="checkbox" class="column-checkbox" value="29"> Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="24"> Barangay</label>
+                            <label><input type="checkbox" class="column-checkbox" value="25"> Municipality</label>
+                            <label><input type="checkbox" class="column-checkbox" value="26"> Province</label>
+                            <label><input type="checkbox" class="column-checkbox" value="27"> Region</label>
+                            <label><input type="checkbox" class="column-checkbox" value="28"> HEI Name</label>
+                            <label><input type="checkbox" class="column-checkbox" value="29"> Institution Code</label>
+                            <label><input type="checkbox" class="column-checkbox" value="30"> Type of Agency</label>
+                            <label><input type="checkbox" class="column-checkbox" value="31"> Year Level</label>
+                            <label><input type="checkbox" class="column-checkbox" value="32"> Department</label>
+                            <label><input type="checkbox" class="column-checkbox" value="33"> Major</label>
+                            <label><input type="checkbox" class="column-checkbox" value="34"> Program</label>
                             
-                            <label><input type="checkbox" class="column-checkbox" value="30"> Main Program</label>
-                            <label><input type="checkbox" class="column-checkbox" value="31"> Email</label>
-                            <label><input type="checkbox" class="column-checkbox" value="32"> Contact Number</label>
+                            <label><input type="checkbox" class="column-checkbox" value="35"> Main Program</label>
+                            <label><input type="checkbox" class="column-checkbox" value="36"> Email</label>
+                            <label><input type="checkbox" class="column-checkbox" value="37"> Contact Number</label>
                         </div>
                     </div>
                 </form>
@@ -348,6 +361,55 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script>
+function exportVisibleTableToExcel() {
+    const wb = XLSX.utils.book_new();
+    const wsData = [];
+    const colWidths = []; // Array to store the maximum width of each column
+    
+    // Get the header row
+    const headers = [];
+    const headerCells = document.querySelectorAll('#tblmasterlist th');
+    headerCells.forEach((th, index) => {
+        if (th.querySelector('input:checked') || !th.querySelector('input')) {
+            headers.push(th.innerText);
+            colWidths[index] = th.innerText.length; // Initialize width with header length
+        }
+    });
+    wsData.push(headers);
+    
+    // Get each row of the table
+    const rows = document.querySelectorAll('#tblmasterlist tbody tr');
+    rows.forEach(row => {
+        const rowData = [];
+        const cells = row.querySelectorAll('td');
+        cells.forEach((td, index) => {
+            const th = headerCells[index];
+            if (th.querySelector('input:checked') || !th.querySelector('input')) {
+                rowData.push(td.innerText);
+                // Update the column width if the current cell's length is greater
+                if (td.innerText.length > (colWidths[index] || 0)) {
+                    colWidths[index] = td.innerText.length;
+                }
+            }
+        });
+        wsData.push(rowData);
+    });
+    
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    
+    // Set column widths
+    const wscols = colWidths.map(width => ({ wch: width + 2 })); // Add some padding
+    ws['!cols'] = wscols; // Assign column widths to the worksheet
+
+    XLSX.utils.book_append_sheet(wb, ws, 'Master List');
+    XLSX.writeFile(wb, 'MasterList.xlsx');
+}
+
+</script>
+
 
 <!-- Script Function for Printing-->
 <script>

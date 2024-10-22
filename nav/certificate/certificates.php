@@ -101,33 +101,54 @@
         line-height: 1; /* Adjust line height for spacing */
     }
 
-    .coordinator {
+    .coordinator-section {
         position: absolute;
-        bottom: 60px;
-        left: 95px;
-        font-family: "Times New Roman", Times, serif;
-        font-size: 16px;
-        color: #002F6C;
+        bottom: 65px;
+        left: 40px;
+        width: 60%;
+        display: flex;
+        justify-content: space-around; /* Spread the coordinator and commandant evenly */
         text-align: center;
+    }
+
+    .coordinator, .commandant1, .commandant2 {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12px;
+        color: #002F6C;
+    }
+
+    .commandant2-container {
+        position: absolute;
+        bottom: 10px; /* Adjust the position slightly lower than Coordinator and Commandant 1 */
+        left: 35%;
+        transform: translateX(-50%); /* Center between Coordinator and Commandant 1 */
+        text-align: center;
+        width: 50%;
+    }
+
+    .coordinator-name, .commandant1-name, .commandant2-name {
+        text-decoration: underline;
+        font-size: 14px;
+        font-weight: bold;
     }
 </style>
 
 
 <div class="row">
-<div class="col-md-2" style="flex: 0 0 auto; width: 350px; height: 100hv; position: fixed; top: 100px;">
+<div class="col-md-2" style="flex: 0 0 auto; width: 350px; height: 100hv; position: fixed; top: 70px;">
     <!-- Sidebar Filter -->
-    <div class="card shadow">
-        <div class="card-body">
+    <div class="card shadow" style="max-height: 85vh; overflow-y: auto;">
+        <div class="card-body" style="padding: 10px;">
             <h5 class="card-title text-center">NSTP <br>Certificates</h5>
             <div class="form-group">
                 <label for="selectAY">Select AY</label>
-                <select class="form-control" id="selectAY" onchange="filterData()">
+                <select class="form-control form-control-sm" id="selectAY" onchange="filterData()">
                     <!--Academic year-->
                 </select>
             </div>
             <div class="form-group">
                 <label for="components">Components</label>
-                <select class="form-control" id="components" onchange="filterData()">
+                <select class="form-control form-control-sm" id="components" onchange="filterData()">
                     <option value="All">--All Components--</option>
                     <option value="ROTC">ROTC</option>
                     <option value="CWTS">CWTS</option>
@@ -135,7 +156,7 @@
             </div>
             <div class="form-group">
                 <label for="department">Program</label>
-                <select class="form-control" id="department" onchange="filterData()">
+                <select class="form-control form-control-sm" id="department" onchange="filterData()">
                     <option value="All">--All Program--</option>
                     <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
                     <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
@@ -144,27 +165,70 @@
             </div>
             <div class="form-group">
                 <label for="daterelease" class="form-label">Date of Release</label>
-                <input type="date" class="form-control" id="daterelease" name="daterelease" required 
+                <input type="date" class="form-control form-control-sm" id="daterelease" name="daterelease" required 
                     value="2024-05-29" 
                     onchange="generateCertificates()" 
                     onfocus="clearDefaultDate()" 
                     onblur="resetDefaultDate()">
             </div>
             <div class="form-group">
-                <label for="coordinator" class="form-label">Coordinator</label>
-                <input type="text" class="form-control" id="coordinator" name="coordinator" required 
-                    value="JOHN MARK L. BOYONAS, MAEng" 
-                    oninput="generateCertificates()" 
-                    onfocus="clearDefaultCoordinator()" 
-                    onblur="resetDefaultCoordinator()">
-            </div>
+    <label for="coordinator" class="form-label">Coordinator</label>
+    <input type="text" class="form-control form-control-sm" id="coordinator" name="coordinator" required 
+        value="JOHN MARK L. BOYONAS, MAEng" 
+        oninput="generateCertificates()" 
+        onfocus="clearDefaultCoordinator()" 
+        onblur="resetDefaultCoordinator()">
+</div>
+
+<div class="form-group">
+    <label for="coor_position" class="form-label">Coordinator Position</label>
+    <input type="text" class="form-control form-control-sm" id="coor_position" name="coor_position" required 
+       value="Coordinator, National Service Training Program" 
+       onfocus="clearDefaultCoordinatorPosition()" 
+       onblur="resetDefaultCoordinatorPosition()">
+</div>
+
+<div class="form-group">
+    <label for="commandant1" class="form-label">Commandant 1</label>
+    <input type="text" class="form-control form-control-sm" id="commandant1" name="commandant1" required 
+        value="Dariel S. Jenisan" 
+        oninput="generateCertificates()" 
+        onfocus="clearDefaultCommandant1()" 
+        onblur="resetDefaultCommandant1()">
+</div>
+
+<div class="form-group">
+    <label for="commandant_position1" class="form-label">Commandant 1 Position</label>
+    <input type="text" class="form-control form-control-sm" id="commandant_position1" name="commandant_position1" required 
+        value="Commandant 1" 
+        oninput="generateCertificates()" 
+        onfocus="clearDefaultCommandant1Position()" 
+        onblur="resetDefaultCommandant1Position()">
+</div>
+
+<div class="form-group">
+    <label for="commandant2" class="form-label">Commandant 2</label>
+    <input type="text" class="form-control form-control-sm" id="commandant2" name="commandant2" required 
+        value="" 
+        oninput="generateCertificates()" 
+        onfocus="clearDefaultCommandant2()" 
+        onblur="resetDefaultCommandant2()">
+</div>
+
+<div class="form-group">
+    <label for="commandant_position2" class="form-label">Commandant 2 Position</label>
+    <input type="text" class="form-control form-control-sm" id="commandant_position2" name="commandant_position2" required 
+        value="" 
+        oninput="generateCertificates()" 
+        onfocus="clearDefaultCommandant2Position()" 
+        onblur="resetDefaultCommandant2Position()">
+</div>
             <div class="d-flex flex-column align-items-center">
                 <button class="btn btn-primary w-100 btn-block mt-2"><i class="fa fa-print"></i> Print</button>
             </div>
         </div>
     </div>
 </div>
-
             <div class="certificates" style="margin-left: 150px;">
     <div id="certificates-container"></div> <!-- Container for multiple certificates -->
 </div>
@@ -250,6 +314,77 @@ function resetDefaultCoordinator() {
     }
 }
 
+function clearDefaultCoordinatorPosition() {
+    const coorPositionInput = document.getElementById("coor_position");
+    if (coorPositionInput.value === "Coordinator, National Service Training Program") {
+        coorPositionInput.value = ""; // Clear the default coordinator position
+    }
+}
+
+function resetDefaultCoordinatorPosition() {
+    const coorPositionInput = document.getElementById("coor_position");
+    if (coorPositionInput.value === "") {
+        coorPositionInput.value = "Coordinator, National Service Training Program"; // Reset to default if empty
+    }
+}
+
+function clearDefaultCommandant1() {
+    const commandant1Input = document.getElementById("commandant1");
+    if (commandant1Input.value === "Dariel S. Jenisan") {
+        commandant1Input.value = ""; // Clear the default commandant 1
+    }
+}
+
+function resetDefaultCommandant1() {
+    const commandant1Input = document.getElementById("commandant1");
+    if (commandant1Input.value === "") {
+        commandant1Input.value = "Dariel S. Jenisan"; // Reset to default if empty
+    }
+}
+
+function clearDefaultCommandant1Position() {
+    const commandant1PositionInput = document.getElementById("commandant_position1");
+    if (commandant1PositionInput.value === "Commandant 1") {
+        commandant1PositionInput.value = ""; // Clear the default commandant 1 position
+    }
+}
+
+function resetDefaultCommandant1Position() {
+    const commandant1PositionInput = document.getElementById("commandant_position1");
+    if (commandant1PositionInput.value === "") {
+        commandant1PositionInput.value = "Commandant 1"; // Reset to default if empty
+    }
+}
+
+function clearDefaultCommandant2() {
+    const commandant2Input = document.getElementById("commandant2");
+    if (commandant2Input.value === "") {
+        commandant2Input.value = ""; // Clear the default commandant 2
+    }
+}
+
+function resetDefaultCommandant2() {
+    const commandant2Input = document.getElementById("commandant2");
+    if (commandant2Input.value === "") {
+        commandant2Input.value = ""; // Reset to default if empty
+    }
+}
+
+function clearDefaultCommandant2Position() {
+    const commandant2PositionInput = document.getElementById("commandant_position2");
+    if (commandant2PositionInput.value === "") {
+        commandant2PositionInput.value = ""; // Clear the default commandant 2 position
+    }
+}
+
+function resetDefaultCommandant2Position() {
+    const commandant2PositionInput = document.getElementById("commandant_position2");
+    if (commandant2PositionInput.value === "") {
+        commandant2PositionInput.value = ""; // Reset to default if empty
+    }
+}
+
+
 // generateCertificates function here
 async function generateCertificates() {
     const container = document.getElementById("certificates-container");
@@ -263,6 +398,11 @@ async function generateCertificates() {
     // Get the date of release and coordinator from the inputs
     const dateOfReleaseInput = document.getElementById("daterelease").value;
     const coordinatorInput = document.getElementById("coordinator").value;
+    const coorPositionInput = document.getElementById("coor_position").value;
+    const commandant1Input = document.getElementById("commandant1").value;
+    const commandant1PositionInput = document.getElementById("commandant_position1").value;
+    const commandant2Input = document.getElementById("commandant2").value;
+    const commandant2PositionInput = document.getElementById("commandant_position2").value;
 
     // Format the date of release for display
     const formattedDate = dateOfReleaseInput ? formatDate(dateOfReleaseInput) : '';
@@ -308,13 +448,29 @@ async function generateCertificates() {
                                 <strong style="color: #cc0000; font-size: 20px font-weight: bold;">NATIONAL SERVICE TRAINING PROGRAM</strong><br>
                                 <i style="color: #cc0000; font-size: 17px font-weight: bold;">Civic Welfare Training Service</i><br>
                                 for the academic year <i style="font-weight: bold;">${student.academicyear2}</i>.
+              <br> <br>
+              <p>Given this <i style="font-weight: bold;">${formattedDate}</i>  at Northern Bukidnon State College,<br>
+              Kihare, Manolo Fortich, Bukidnon.<br><br>
+              </p>
                             </div>
-                            <div class="coordinator">
-                                Given this <i style="font-weight: bold;">${formattedDate}</i> at Northern Bukidnon State College,<br>
-                                Kihare, Manolo Fortich, Bukidnon.<br><br>
-                                <strong style="text-decoration: underline; font-size: 22px;">${coordinatorInput}</strong><br>
-                                Coordinator, National Service Training Program
-                            </div>
+
+                            <div class="coordinator-section">
+    <div class="coordinator">
+        <strong class="coordinator-name" id="cwts_coordinator">${coordinatorInput}</strong><br>
+         <p id="cwts_coor_position">${coorPositionInput}</p>
+    </div>
+    <div class="commandant1">
+        <strong class="commandant1-name" id="cwts_commandant1">${commandant1Input}</strong><br>
+        <p id="cwts_command_position1">${commandant1PositionInput}</p>
+    </div>
+</div>
+<div class="commandant2-container">
+    <div class="commandant2">
+        <strong class="commandant2-name" id="cwts_commandant2">${commandant2Input}</strong><br>
+        <p id="cwts_command_position2">${commandant2PositionInput}</p>
+    </div>
+</div>
+
                         </div>
                     </div>`;
                 }
@@ -354,13 +510,27 @@ async function generateCertificates() {
                                 <strong style="color: #cc0000; font-size: 20px font-weight: bold;">NATIONAL SERVICE TRAINING PROGRAM</strong><br>
                                 <i style="color: #cc0000; font-size: 17px font-weight: bold;">Reserve Officers Training Corps</i><br>
                                 for the academic year <i style="font-weight: bold;">${student.academicyear2}</i>.
+              <br> <br>
+              <p>Given this <i style="font-weight: bold;">${formattedDate}</i>  at Northern Bukidnon State College,<br>
+              Kihare, Manolo Fortich, Bukidnon.<br><br>
+              </p>
                             </div>
-                            <div class="coordinator">
-                                Given this <i style="font-weight: bold;">${formattedDate}</i> at Northern Bukidnon State College,<br>
-                                Kihare, Manolo Fortich, Bukidnon.<br><br>
-                                <strong style="text-decoration: underline; font-size: 22px;">${coordinatorInput}</strong><br>
-                                Coordinator, National Service Training Program
-                            </div>
+                            <div class="coordinator-section">
+    <div class="coordinator">
+        <strong class="coordinator-name" id="rotc_coordinator">${coordinatorInput}</strong><br>
+         <p id="rotc_coor_position">${coorPositionInput}</p>
+    </div>
+    <div class="commandant1">
+        <strong class="commandant1-name" id="rotc_commandant1">${commandant1Input}</strong><br>
+        <p id="rotc_command_position1">${commandant1PositionInput}</p>
+    </div>
+</div>
+<div class="commandant2-container">
+    <div class="commandant2">
+        <strong class="commandant2-name" id="rotc_commandant2">${commandant2Input}</strong><br>
+        <p id="rotc_command_position2">${commandant2PositionInput}</p>
+    </div>
+</div>
                         </div>
                     </div>`;
                 }
@@ -407,13 +577,7 @@ generateCertificates();
                         -webkit-print-color-adjust: exact; /* Ensure that background colors/images are printed */
                         print-color-adjust: exact;
                     }
-                    .certificate-wrapper {
-                        width: 100%;
-                        page-break-inside: avoid; /* Prevents splitting certificates across pages */
-                        margin-bottom: 0;
-                        padding: 0;
-                        box-sizing: border-box;
-                    }
+                    
 
                     .certificate-container {
                         width: 900px; /* Adjust the width */
@@ -490,7 +654,7 @@ generateCertificates();
                     }
 
                     .serial-number {
-                        top: 305px;
+                        top: 300px;
                         font-family: "Times New Roman", Times, serif;
                         font-size: 16px;
                         font-weight: bold;
@@ -498,24 +662,49 @@ generateCertificates();
                         text-align: center;
                     }
 
-                    .details {
-                        top: 340px;
-                        font-family: "Times New Roman", Times, serif;
-                        font-size: 16px;
-                        color: #002F6C;
-                        text-align: center;
-                        line-height: 1; /* Adjust line height for spacing */
-                    }
+               .details {
+        top: 328px;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 16px;
+        color: #002F6C;
+        text-align: center;
+        line-height: 1; /* Adjust line height for spacing */
+    }
 
-                    .coordinator {
-                        position: absolute;
-                        bottom: 60px;
-                        left: 95px;
-                        font-family: "Times New Roman", Times, serif;
-                        font-size: 16px;
-                        color: #002F6C;
-                        text-align: center;
-                    }
+    .details p {
+     margin-top: -1;
+    }
+
+    .coordinator-section {
+        position: absolute;
+        bottom: 65px;
+        left: 40px;
+        width: 60%;
+        display: flex;
+        justify-content: space-around; /* Spread the coordinator and commandant evenly */
+        text-align: center;
+    }
+
+    .coordinator, .commandant1, .commandant2 {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12px;
+        color: #002F6C;
+    }
+
+    .commandant2-container {
+        position: absolute;
+        bottom: 10px; /* Adjust the position slightly lower than Coordinator and Commandant 1 */
+        left: 35%;
+        transform: translateX(-50%); /* Center between Coordinator and Commandant 1 */
+        text-align: center;
+        width: 50%;
+    }
+
+    .coordinator-name, .commandant1-name, .commandant2-name {
+        text-decoration: underline;
+        font-size: 14px;
+        font-weight: bold;
+    }
 
                     .print-button {
                         position: fixed;

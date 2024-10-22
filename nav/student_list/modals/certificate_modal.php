@@ -100,14 +100,35 @@
         line-height: 1; /* Adjust line height for spacing */
     }
 
-    .coordinator {
+    .coordinator-section {
         position: absolute;
-        bottom: 60px;
-        left: 95px;
-        font-family: "Times New Roman", Times, serif;
-        font-size: 16px;
-        color: #002F6C;
+        bottom: 65px;
+        left: 40px;
+        width: 60%;
+        display: flex;
+        justify-content: space-around; /* Spread the coordinator and commandant evenly */
         text-align: center;
+    }
+
+    .coordinator, .commandant1, .commandant2 {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12px;
+        color: #002F6C;
+    }
+
+    .commandant2-container {
+        position: absolute;
+        bottom: 10px; /* Adjust the position slightly lower than Coordinator and Commandant 1 */
+        left: 35%;
+        transform: translateX(-50%); /* Center between Coordinator and Commandant 1 */
+        text-align: center;
+        width: 50%;
+    }
+
+    .coordinator-name, .commandant1-name, .commandant2-name {
+        text-decoration: underline;
+        font-size: 14px;
+        font-weight: bold;
     }
 </style>
 
@@ -153,20 +174,43 @@
               <strong style="color: #cc0000; font-size: 20px font-weight: bold;">NATIONAL SERVICE TRAINING PROGRAM</strong><br>
               <i style="color: #cc0000; font-size: 17px font-weight: bold;">Civic Welfare Training Service</i><br>
               for the academic year <i style="font-weight: bold;" id="cwts_academicyear">2023-2024</i>.
+              <br> <br>
+              <p>Given this <i style="font-weight: bold;" id="cwts_daterelease">29th day of May, 2024</i>  at Northern Bukidnon State College,<br>
+              Kihare, Manolo Fortich, Bukidnon.<br><br>
+              </p>
           </div>
 
-          <div class="coordinator">
-              Given this <i style="font-weight: bold;" id="cwts_daterelease">29th day of May, 2024</i>  at Northern Bukidnon State College,<br>
-              Kihare, Manolo Fortich, Bukidnon.<br><br>
-              <strong style="text-decoration: underline; font-size: 22px;" id="cwts_coordinator">JOHN MARK L. BOYONAS, MAEng</strong><br>
-              Coordinator, National Service Training Program
-          </div>
+          <div class="coordinator-section">
+    <div class="coordinator">
+        <strong class="coordinator-name" id="cwts_coordinator" placeholder="adsdsfsfdsfsd">JOHN MARK L. BOYONAS, MAEng</strong><br>
+        <p  id="cwts_coor_position">Coordinator, National Service Training Program</p>
+    </div>
+    <div class="commandant1">
+        <strong class="commandant1-name" id="cwts_commandant1">JANE DOE, PhD</strong><br>
+        <p  id="cwts_command_position1">Commandant 1 </p>
+    </div>
+</div>
+<div class="commandant2-container">
+    <div class="commandant2">
+        <strong class="commandant2-name" id="cwts_commandant2">MICHAEL SMITH, MA</strong><br>
+        <p  id="cwts_command_position2">Commandant 2 </p>
+    </div>
+</div>
+
         </div>
       </div>
       <div class="modal-footer" style="background-color: transparent; border: none; box-shadow: none;">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
         <button type="button" class="btn btn-light"><i class="fa fa-edit"></i> Edit</button>
-        <button type="button" class="btn btn-success"><i class="fa fa-download"></i> Download as PNG</button>
+        <div class="dropup profile-button-container">
+    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+       <i class="fa fa-download"></i> Download
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#" id="png"><i class="fa fa-image"></i> as PNG</a></li>
+        <li><a class="dropdown-item" href="#" id="pdf"><i class="fa fa-file-pdf"></i> as PDF</a></li>
+    </ul>
+</div>
         <button type="button" class="btn btn-primary print-certificate-btn" data-certificate="cwts"><i class="fa fa-print"></i> Print Certificate</button>
       </div>
     </div>
@@ -215,20 +259,43 @@
               <strong style="color: #cc0000; font-size: 20px font-weight: bold;">NATIONAL SERVICE TRAINING PROGRAM</strong><br>
               <i style="color: #cc0000; font-size: 17px font-weight: bold;">Reserve Officers Training Corps</i><br>
               for the academic year <i style="font-weight: bold;" id="rotc_academicyear">2023-2024</i>.
+              <br> <br>
+              <p>Given this <i style="font-weight: bold;" id="rotc_daterelease">29th day of May, 2024</i>  at Northern Bukidnon State College,<br>
+              Kihare, Manolo Fortich, Bukidnon.<br><br>
+              </p>
           </div>
 
-          <div class="coordinator">
-              Given this <i style="font-weight: bold;" id="rotc_daterelease">29th day of May, 2024</i> at Northern Bukidnon State College,<br>
-              Kihare, Manolo Fortich, Bukidnon.<br><br>
-              <strong style="text-decoration: underline; font-size: 22px;" id="rotc_coordinator">JOHN MARK L. BOYONAS, MAEng</strong><br>
-              Coordinator, National Service Training Program
-          </div>
+          <div class="coordinator-section">
+    <div class="coordinator">
+        <strong class="coordinator-name" id="rotc_coordinator">JOHN MARK L. BOYONAS, MAEng</strong><br>
+        <p id="rotc_coor_position">Coordinator, National Service Training Program </p>
+    </div>
+    <div class="commandant1">
+        <strong class="commandant1-name" id="rotc_commandant1">JANE DOE, PhD</strong><br>
+        <p id="rotc_command_position1"> Commandant 1 </p>
+    </div>
+</div>
+<div class="commandant2-container">
+    <div class="commandant2">
+        <strong class="commandant2-name" id="rotc_commandant2">MICHAEL SMITH, MA</strong><br>
+        <p id="rotc_command_position2">Commandant 2 </p>
+    </div>
+</div>
+
         </div>
       </div>
       <div class="modal-footer" style="background-color: transparent; border: none; box-shadow: none;">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
         <button type="button" class="btn btn-light"><i class="fa fa-edit"></i> Edit</button>
-        <button type="button" class="btn btn-success"><i class="fa fa-download"></i> Download as PNG</button>
+        <div class="dropup profile-button-container">
+    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa fa-download"></i>  Download
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#" id="png"><i class="fa fa-image"></i> as PNG</a></li>
+        <li><a class="dropdown-item" href="#" id="pdf"><i class="fa fa-file-pdf"></i> as PDF</a></li>
+    </ul>
+  </div>
         <button type="button" class="btn btn-primary print-certificate-btn" data-certificate="rotc"><i class="fa fa-print"></i> Print Certificate</button>
       </div>
     </div>
@@ -253,6 +320,26 @@
             <label for="edit_coordinator" class="form-label">Coordinator</label>
             <input type="text" class="form-control" id="edit_coordinator" name="coordinator" required>
           </div>
+          <div class="mb-3">
+            <label for="edit_coor_position" class="form-label">Coordinator Position</label>
+            <input type="text" class="form-control" id="edit_coor_position" name="coordinator" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit_commandant1" class="form-label">Commandant 1</label>
+            <input type="text" class="form-control" id="edit_commandant1" name="coordinator" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit_command_position1" class="form-label">Commandant 1 Position</label>
+            <input type="text" class="form-control" id="edit_command_position1" name="coordinator" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit_commandant2" class="form-label">Commandant 2</label>
+            <input type="text" class="form-control" id="edit_commandant2" name="coordinator" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit_command_position2" class="form-label">Commandant 2 Position</label>
+            <input type="text" class="form-control" id="edit_command_position2" name="coordinator" required>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -264,9 +351,35 @@
 </div>
 
 
-<<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
+
+  // Function to set default names and positions for the certificate modals
+function setDefaultNames() {
+    // Default names and positions
+    const defaultNames = {
+        coordinator: { name: "JOHN MARK L. BOYONAS, MAEng", position: "Coordinator, National Service Training Program" },
+        commandant1: { name: "Dariel S. Jenisan", position: "Commandant 1" },
+    };
+
+    // Set the default values for CWTS certificate
+    document.getElementById("cwts_coordinator").textContent = defaultNames.coordinator.name;
+    document.getElementById("cwts_coor_position").textContent = defaultNames.coordinator.position;
+    document.getElementById("cwts_commandant1").textContent = defaultNames.commandant1.name;
+    document.getElementById("cwts_command_position1").textContent = defaultNames.commandant1.position;
+
+    // Set the default values for ROTC certificate
+    document.getElementById("rotc_coordinator").textContent = defaultNames.coordinator.name;
+    document.getElementById("rotc_coor_position").textContent = defaultNames.coordinator.position;
+    document.getElementById("rotc_commandant1").textContent = defaultNames.commandant1.name;
+    document.getElementById("rotc_command_position1").textContent = defaultNames.commandant1.position;
+}
+
+// Call the function when the modals are opened
+document.getElementById("cwtscertificateModal").addEventListener('show.bs.modal', setDefaultNames);
+document.getElementById("rotccertificateModal").addEventListener('show.bs.modal', setDefaultNames);
+
     // Function to format date into "29th day of May, 2024"
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -290,7 +403,8 @@
         return `${dayWithSuffix} day of ${month}, ${year}`;
     }
 
-    function loadCertificate(lastname, firstname, middlename, suffixname, serialnumber, academicyear2, semester1, semester2, daterelease, coordinator) {
+    function loadCertificate(lastname, firstname, middlename, suffixname, serialnumber, academicyear2, semester1, semester2,
+     daterelease, coordinator, coor_position, command1, command_position1, command2, command_position2) {
         const studentName = firstname + ' ' + (middlename ? middlename + ' ' : '') + lastname + ' ' + (suffixname ? suffixname : '');
 
         // Format the dateRelease using the formatDate function
@@ -302,6 +416,11 @@
             $('#cwts_academicyear').text(academicyear2);
             $('#cwts_daterelease').text(formattedDateRelease);
             $('#cwts_coordinator').text(coordinator);
+            $('#cwts_coor_position').text(coor_position);
+            $('#cwts_commandant1').text(command1);
+            $('#cwts_command_position1').text(command_position1);
+            $('#cwts_commandant2').text(command2);
+            $('#cwts_command_position2').text(command_position2);
             $('#cwtscertificateModal').modal('show');
 
             $('#cwtscertificateModal .btn-light').off('click').on('click', function () {
@@ -313,6 +432,11 @@
             $('#rotc_academicyear').text(academicyear2);
             $('#rotc_daterelease').text(formattedDateRelease);
             $('#rotc_coordinator').text(coordinator);
+            $('#rotc_coor_position').text(coor_position);
+            $('#rotc_commandant1').text(command1);
+            $('#rotc_command_position1').text(command_position1);
+            $('#rotc_commandant2').text(command2);
+            $('#rotc_command_position2').text(command_position2);
             $('#rotccertificateModal').modal('show');
 
             $('#rotccertificateModal .btn-light').off('click').on('click', function () {
@@ -324,6 +448,11 @@
             $('#cwts_academicyear').text(academicyear2);
             $('#cwts_daterelease').text(formattedDateRelease);
             $('#cwts_coordinator').text(coordinator);
+            $('#cwts_coor_position').text(coor_position);
+            $('#cwts_commandant1').text(command1);
+            $('#cwts_command_position1').text(command_position1);
+            $('#cwts_commandant2').text(command2);
+            $('#cwts_command_position2').text(command_position2);
             $('#cwtscertificateModal').modal('show');
 
             $('#cwtscertificateModal .btn-light').off('click').on('click', function () {
@@ -335,6 +464,11 @@
             $('#rotc_academicyear').text(academicyear2);
             $('#rotc_daterelease').text(formattedDateRelease);
             $('#rotc_coordinator').text(coordinator);
+            $('#rotc_coor_position').text(coor_position);
+            $('#rotc_commandant1').text(command1);
+            $('#rotc_command_position1').text(command_position1);
+            $('#rotc_commandant2').text(command2);
+            $('#rotc_command_position2').text(command_position2);
             $('#rotccertificateModal').modal('show');
 
             $('#rotccertificateModal .btn-light').off('click').on('click', function () {
@@ -345,31 +479,59 @@
 
     // Function to open the edit modal and populate it with the existing data
     function openEditModal() {
-        const currentDateReleaseCWTS = $('#cwts_daterelease').text();
-        const currentCoordinatorCWTS = $('#cwts_coordinator').text();
-        const currentDateReleaseROTC = $('#rotc_daterelease').text();
-        const currentCoordinatorROTC = $('#rotc_coordinator').text();
+        const currentDateReleaseCWTS        = $('#cwts_daterelease').text();
+        const currentCoordinatorCWTS        = $('#cwts_coordinator').text();
+        const currentCoorPositionCWTS       = $('#cwts_coor_position').text();
+        const currentCommandant1CWTS        = $('#cwts_commandant1').text();
+        const currentCommandPosition1CWTS   = $('#cwts_command_position1').text();
+        const currentCommandant2CWTS        = $('#cwts_commandant2').text();
+        const currentCommandPosition2CWTS   = $('#cwts_command_position2').text();
+        
+        const currentDateReleaseROTC       = $('#rotc_daterelease').text();
+        const currentCoordinatorROTC       = $('#rotc_coordinator').text();
+        const currentCoorPositionROTC      = $('#rotc_coor_position').text();
+        const currentCommandant1ROTC       = $('#rotc_commandant1').text();
+        const currentCommandPosition1ROTC  = $('#rotc_command_position1').text();
+        const currentCommandant2ROTC       = $('#rotc_commandant2').text();
+        const currentCommandPosition2ROTC  = $('#rotc_command_position2').text();
 
         if ($('#cwtscertificateModal').hasClass('show')) {
             $('#edit_daterelease').val(currentDateReleaseCWTS);
             $('#edit_coordinator').val(currentCoordinatorCWTS);
+            $('#edit_coor_position').val(currentCoorPositionCWTS);
+            $('#edit_commandant1').val(currentCommandant1CWTS);
+            $('#edit_command_position1').val(currentCommandPosition1CWTS);
+            $('#edit_commandant2').val(currentCommandant2CWTS);
+            $('#edit_command_position2').val(currentCommandPosition2CWTS);
         } else if ($('#rotccertificateModal').hasClass('show')) {
             $('#edit_daterelease').val(currentDateReleaseROTC);
             $('#edit_coordinator').val(currentCoordinatorROTC);
+            $('#edit_coor_position').val(currentCoorPositionROTC);
+            $('#edit_commandant1').val(currentCommandant1ROTC);
+            $('#edit_command_position1').val(currentCommandPosition1ROTC);
+            $('#edit_commandant2').val(currentCommandant2ROTC);
+            $('#edit_command_position2').val(currentCommandPosition2ROTC);
         }
         
         $('#editModal').modal('show');
     }
 
     // Function to handle the update process
-    function updateCertificate(serialnumber, newDateRelease, newCoordinator) {
+    function updateCertificate(serialnumber, newDateRelease, newCoordinator, newCoorPosition, newCommand1, newCommandPosition1,
+                                newCommnad2, newCommandPosition2)
+       {
         $.ajax({
             url: '../nav/student_list/actions/update_certificate.php',  // Replace with your server-side update URL
             type: 'POST',
             data: {
                 student_id: serialnumber, // Ensure this matches your database's structure
                 daterelease: newDateRelease,
-                coordinator: newCoordinator
+                coordinator: newCoordinator,
+                coor_position: newCoorPosition,
+                command1: newCommand1,
+                command_position1: newCommandPosition1,
+                command2: newCommnad2,
+                command_position2: newCommandPosition2
             },
             success: function(response) {
                 alert('Certificate updated successfully.');
@@ -381,9 +543,19 @@
                 if ($('#cwtscertificateModal').hasClass('show')) {
                     $('#cwts_daterelease').text(formattedNewDateRelease);
                     $('#cwts_coordinator').text(newCoordinator);
+                    $('#cwts_coor_position').text(newCoorPosition);
+                    $('#cwts_commandant1').text(newCommand1);
+                    $('#cwts_command_position1').text(newCommandPosition1);
+                    $('#cwts_commandant2').text(newCommnad2);
+                    $('#cwts_command_position2').text(newCommandPosition2);
                 } else if ($('#rotccertificateModal').hasClass('show')) {
                     $('#rotc_daterelease').text(formattedNewDateRelease);
                     $('#rotc_coordinator').text(newCoordinator);
+                    $('#rotc_coor_position').text(newCoorPosition);
+                    $('#rotc_commandant1').text(newCommand1);
+                    $('#rotc_command_position1').text(newCommandPosition1);
+                    $('#rotc_commandant2').text(newCommnad2);
+                    $('#rotc_command_position2').text(newCommandPosition2);
                 }
             },
             error: function(xhr, status, error) {
@@ -396,10 +568,16 @@
     $('#saveChangesBtn').on('click', function() {
         var newDateRelease = $('#edit_daterelease').val();
         var newCoordinator = $('#edit_coordinator').val();
+        var newCoorPosition = $('#edit_coor_position').val();
+        var newCommand1 = $('#edit_commandant1').val();
+        var newCommandPosition1 = $('#edit_command_position1').val();
+        var newCommnad2 = $('#edit_commandant2').val();
+        var newCommandPosition2 = $('#edit_command_position2').val();
         var serialnumber = $('#cwts_serialnumber').text() || $('#rotc_serialnumber').text();
 
         if (newDateRelease && newCoordinator) {
-            updateCertificate(serialnumber, newDateRelease, newCoordinator);
+            updateCertificate(serialnumber, newDateRelease, newCoordinator, newCoorPosition, newCommand1, newCommandPosition1, 
+            newCommnad2, newCommandPosition2);
         } else {
             alert('Please fill in all required fields.');
         }
@@ -407,7 +585,7 @@
 
 
     // Function to download the Certificate as a PNG
-document.querySelectorAll('.btn-success').forEach(button => {
+document.querySelectorAll('#png').forEach(button => {
     button.addEventListener('click', function () {
         const modal = this.closest('.modal');
         let certificateContainer;
@@ -442,6 +620,35 @@ document.querySelectorAll('.btn-success').forEach(button => {
     });
 });
 </script>
+
+<!-- Include the html2pdf.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+ // Function to download the CWTS certificate as a PDF
+function downloadCertificateAsPDF(certificateId) {
+    var certificate = document.getElementById(certificateId); // Select the certificate container
+    var opt = {
+        margin:       0.5,
+        filename:     'NSTP-Certificate.pdf', // Filename for the downloaded PDF
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'A4', orientation: 'landscape' }
+    };
+    html2pdf().from(certificate).set(opt).save();
+}
+
+// Event listeners for downloading the certificates as PDF
+document.getElementById('pdf').addEventListener('click', function() {
+    var activeModal = document.querySelector('.modal.show'); // Get the currently active modal
+    if (activeModal.id === 'cwtscertificateModal') {
+        downloadCertificateAsPDF('modalCWTSCertificate'); // Download CWTS certificate
+    } else if (activeModal.id === 'rotccertificateModal') {
+        downloadCertificateAsPDF('modalROTCCertificate'); // Download ROTC certificate
+    }
+});
+</script>
+
 
 <script>
   // Function to print the certificate with a preview and a Print button

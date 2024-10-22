@@ -1,6 +1,25 @@
 <?php 
 require_once '../../../connection.php';
 
+// Function to determine completion status based on grade
+function getGradeStatus($grade) {
+    if ($grade == 0.00) {
+        return 'Drop';
+    } elseif ($grade > 3.00) {
+        return 'Failed';
+    } elseif ($grade >= 1.00 && $grade <= 3.00) {
+        return 'Complete';
+    }
+}
+
+// Function to determine enrollment status
+function getEnrollmentStatus($grade, $sectionCode) {
+    if (empty($grade) && !empty($sectionCode)) {
+        return 'Enrolled';
+    }
+    return ''; // Return empty if conditions aren't met
+}
+
 // Retrieve filter values from POST request
 $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : 'All';
 $component = isset($_POST['component']) ? $_POST['component'] : 'All';
@@ -71,10 +90,20 @@ foreach ($stmt->fetchAll() as $row): ?>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school1']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['academicyear1']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode1']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['grade1']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;">  <small><?php 
+                echo getGradeStatus($row['grade1']); // Existing function to get grade status
+                echo getEnrollmentStatus($row['grade1'], $row['sectioncode1']); // New function to check enrollment status
+                ?></small> </td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['semester2']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['academicyear2']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode2']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['grade2']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;">  <small><?php 
+                echo getGradeStatus($row['grade2']); // Existing function for grade
+                echo getEnrollmentStatus($row['grade2'], $row['sectioncode2']); // Check for enrollment status
+                ?></small> </td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['serialnumber']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['remarks']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['awardyear']?></td>
@@ -83,6 +112,7 @@ foreach ($stmt->fetchAll() as $row): ?>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['barangay']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['municipality']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['province']?></td>
+        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['region']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['institutioncode']?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['agencytype']?></td>
