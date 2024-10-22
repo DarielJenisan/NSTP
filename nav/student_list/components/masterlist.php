@@ -3,20 +3,36 @@ require_once '../../../connection.php';
 
 // Function to determine completion status based on grade
 function getGradeStatus($grade) {
-    if ($grade == 0.99 || $grade === null || $grade === '') {
-        return 'Drop';
+    if ($grade == 0.00) {
+        return 'DROP';
     } elseif ($grade > 3.00) {
-        return 'Failed';
+        return 'FAILED';
     } elseif ($grade >= 1.00 && $grade <= 3.00) {
-        return 'Complete';
+        return 'COMPLETE';
     }
-    return 'Unknown'; // In case there's an unexpected value
+}
+
+// Function to determine enrollment status
+function getEnrollmentStatus($grade, $sectionCode) {
+    if (empty($grade) && !empty($sectionCode)) {
+        return ' ENROLLED';
+    }
+    return ''; // Return empty if conditions aren't met
+}
+
+// Function to check alignment of semester components
+function checkAlignment($semester1, $semester2) {
+    if (($semester1 === 'CWTS1' && $semester2 === 'ROTC2') || ($semester1 === 'ROTC1' && $semester2 === 'CWTS2')) {
+        return 'MISALIGNED';
+    }
+    return ''; // Return empty for other cases
 }
 
 // Retrieve filter values from POST request
 $academicYear = isset($_POST['academicYear']) ? $_POST['academicYear'] : 'All';
 $component = isset($_POST['component']) ? $_POST['component'] : 'All';
 $department = isset($_POST['department']) ? $_POST['department'] : 'All';
+$status = isset($_POST['status']) ? $_POST['status'] : 'All'; // New status filter
 
 // Build the query with filters
 $query = "SELECT * FROM studentInformation_view WHERE 1=1";
@@ -39,8 +55,21 @@ if ($department !== 'All') {
     $query .= " AND (department = :departmentFull OR department = :departmentShort)";
 }
 
+// Adjust status filter based on selected status
+if ($status !== 'All') {
+    if ($status === 'MISALIGNED') {
+        $query .= " AND (semester1 = 'CWTS1' AND semester2 = 'ROTC2' OR semester1 = 'ROTC1' AND semester2 = 'CWTS2')";
+    } elseif ($status === 'COMPLETE') {
+        $query .= " AND (grade1 >= 1.00 AND grade1 <= 3.00 OR grade2 >= 1.00 AND grade2 <= 3.00)";
+    } elseif ($status === 'FAILED') {
+        $query .= " AND (grade1 > 3.00 OR grade2 > 3.00)";
+    } elseif ($status === 'DROP') {
+        $query .= " AND (grade1 = 0.00 OR grade2 = 0.00)";
+    }
+}
+
 // Add the ORDER BY clause for sorting by academic year, last name, and first name
-$query .= " ORDER BY academicyear2 DESC, lastname ASC, firstname ASC";
+$query .= " ORDER BY academicyear1 DESC, academicyear2 DESC, lastname ASC, firstname ASC";
 
 // Prepare the statement
 $stmt = $conn->prepare($query);
@@ -69,28 +98,48 @@ $stmt->execute();
 // Initialize counter for sequential numbering
 $counter = 1;
 
-foreach ($stmt->fetchAll() as $row): ?>
-    <tr>
+foreach ($stmt->fetchAll() as $row):
+    // Check if the current row is misaligned
+    $misalignment = checkAlignment($row['semester1'], $row['semester2']);
+    // Set the background color of the row based on the misalignment
+    $rowStyle = $misalignment === 'MISALIGNED' ? 'background-color: red;' : ''; 
+?>
+<tr style="<?php echo $rowStyle; ?>">
     <td style="border: 0.5px solid black; padding: 4px;" class="text-center"><?php echo $counter++; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['student_id']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['lastname']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['firstname']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['middlename']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['suffixname']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['gender']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['semester1']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school1']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['academicyear1']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode1']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"> <small><?php echo getGradeStatus($row['grade1']); ?></small> </td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['semester2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['academicyear2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode2']?></td>
-        <td style="border: 0.5px solid black; padding: 4px;">  <small><?php echo getGradeStatus($row['grade2']); ?></small> </td>
-        <td style="border: 0.5px solid black; padding: 4px; background-color: ;" class="btn-group dropstart">
-           <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-         <i class="fas fa-user-edit"></i>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['student_id']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['lastname']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['firstname']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['middlename']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['suffixname']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['gender']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['semester1']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school1']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['academicyear1']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode1']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;">
+        <strong>
+            <?php 
+            echo getGradeStatus($row['grade1']); // Existing function to get grade status
+            echo getEnrollmentStatus($row['grade1'], $row['sectioncode1']); // New function to check enrollment status
+            ?>
+        </strong>
+    </td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['semester2']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['academicyear2']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['sectioncode2']?></td>
+    <td style="border: 0.5px solid black; padding: 4px;">
+        <strong>
+            <?php 
+            echo getGradeStatus($row['grade2']); // Existing function for grade
+            echo getEnrollmentStatus($row['grade2'], $row['sectioncode2']); // Check for enrollment status
+            ?>
+        </strong>
+    </td>
+    <td style="border: 0.5px solid black; padding: 4px;"><strong style="font-size: 9px;"><?php echo checkAlignment($row['semester1'], $row['semester2']);?></strong></td>
+    <td style="border: 0.5px solid black; padding: 4px; background-color: white;" class="btn-group dropstart">
+            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user-edit"></i>
             </button>
             <ul class="dropdown-menu">
 
@@ -106,10 +155,12 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['school1'] ?>',
             '<?php echo $row['academicyear1'] ?>',
             '<?php echo $row['sectioncode1'] ?>',
+            '<?php echo $row['grade1'] ?>',
             '<?php echo $row['semester2'] ?>',
             '<?php echo $row['school2'] ?>',
             '<?php echo $row['academicyear2'] ?>',
             '<?php echo $row['sectioncode2'] ?>',
+            '<?php echo $row['grade2'] ?>',
             '<?php echo $row['serialnumber'] ?>',
             '<?php echo $row['remarks'] ?>',
             '<?php echo $row['awardyear'] ?>',
@@ -118,6 +169,7 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['barangay'] ?>',
             '<?php echo $row['municipality'] ?>',
             '<?php echo $row['province'] ?>',
+            '<?php echo $row['region'] ?>',
             '<?php echo $row['institutioncode'] ?>',
             '<?php echo $row['agencytype'] ?>',
             '<?php echo $row['department'] ?>',
@@ -156,7 +208,12 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['semester1']; ?>',
             '<?php echo $row['semester2']; ?>',
             '<?php echo $row['daterelease']; ?>',
-            '<?php echo $row['coordinator']; ?>'
+            '<?php echo $row['coordinator']; ?>',
+            '<?php echo $row['coor_position']; ?>',
+            '<?php echo $row['command1']; ?>',
+            '<?php echo $row['command_position1']; ?>',
+            '<?php echo $row['command2']; ?>',
+            '<?php echo $row['command_position2']; ?>'
         )">
         <i class="fa fa-qrcode"></i> Certificate</a></li>
             <li><hr class="dropdown-divider"></li>
@@ -181,9 +238,17 @@ foreach ($stmt->fetchAll() as $row): ?>
             '<?php echo $row['semester1']; ?>',
             '<?php echo $row['academicyear1']; ?>',
             '<?php echo $row['school1']; ?>',
+            ' <?php 
+                echo getGradeStatus($row['grade1']); // Existing function for grade
+                echo getEnrollmentStatus($row['grade1'], $row['sectioncode1']); // Check for enrollment status
+                ?>',
             '<?php echo $row['semester2']; ?>',
             '<?php echo $row['academicyear2']; ?>',
-            '<?php echo $row['school2']; ?>'
+            '<?php echo $row['school2']; ?>',
+            ' <?php 
+                echo getGradeStatus($row['grade2']); // Existing function for grade
+                echo getEnrollmentStatus($row['grade2'], $row['sectioncode2']); // Check for enrollment status
+                ?>'
         )">
         <i class="fa fa-user"></i> View Profile</a></li>
          </ul>

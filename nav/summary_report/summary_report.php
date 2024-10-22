@@ -33,7 +33,7 @@
         .header img.left-logo {
             left: 100px;
             height: auto;
-            width: 110px;
+            width: 140px;
             margin-top: 10px;
         }
 

@@ -25,7 +25,7 @@
         }
 
         .left-logo {
-           width: 100px; /* Set logo width */
+           width: 150px; /* Set logo width */
            height: auto; /* Maintain aspect ratio */
            margin-left: 20px; /* Space between images and text */
         }

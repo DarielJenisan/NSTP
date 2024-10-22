@@ -9,7 +9,7 @@ try {
 
     // Prepare the base SQL query
     $sql = "SELECT firstname, middlename, lastname, suffixname, serialnumber, academicyear2, daterelease, 
-            coordinator, semester1, semester2, department 
+            coordinator, coor_position, command1, command_position1, command2, command_position2, semester1, semester2, department 
             FROM studentinformation_view";
 
     // Modify SQL query if a specific department is selected
@@ -39,6 +39,11 @@ try {
             'academicyear2'=> $student['academicyear2'] ?? '',
             'daterelease'  => $student['daterelease'] ?? '',
             'coordinator'  => $student['coordinator'] ?? '',
+            'coor_position'  => $student['coor_position'] ?? '',
+            'command1'=> $student['command1'] ?? '',
+            'command_position1'  => $student['command_position1'] ?? '',
+            'command2'  => $student['command2'] ?? '',
+            'command_position2'  => $student['command_position2'] ?? '',
             'semester1'    => $student['semester1'] ?? '',
             'semester2'    => $student['semester2'] ?? '',
             'department'      => $student['department'] ?? '',

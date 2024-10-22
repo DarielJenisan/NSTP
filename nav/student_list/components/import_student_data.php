@@ -178,6 +178,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (($programIndex = array_search('program', $headers)) !== false) {
                     $updateData['program'] = $row[$programIndex];
                 }
+                if (($grade1Index = array_search('grade1', $headers)) !== false) {
+                    $updateNstpData['grade1'] = $row[$grade1Index];
+                }
+                if (($grade2Index = array_search('grade2', $headers)) !== false) {
+                    $updateNstpData['grade2'] = $row[$grade2Index];
+                }
 
                 // Dynamically build the query for tblnstp
                 if (!empty($updateNstpData)) {

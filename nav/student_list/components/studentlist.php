@@ -68,24 +68,24 @@ $counter = 1;
 foreach ($stmt->fetchAll() as $row): ?>
     <tr>
         <td style="border: 0.5px solid black; padding: 4px;" class="text-center"><?php echo $counter++; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['student_id']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['student_id']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['awardyear']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['component']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['component']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['region']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['serialnumber']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['serialnumber']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['lastname']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['firstname']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['firstname']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['suffixname']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['middlename']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['middlename']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['birthday']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['gender']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['gender']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['barangay']  . ', ' . $row['municipality'] . ', ' . $row['province']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['school2']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['school2']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['institutioncode']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['agencytype']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['agencytype']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['program']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['department'] . ' ' . $row['major']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['department'] . ' ' . $row['major']; ?></td>
         <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['email']; ?></td>
-        <td style="border: 0.5px solid black; padding: 4px;"><?php echo $row['contactnumber']; ?></td>
+        <td style="border: 0.5px solid black; padding: 4px; background-color: #D3D3D3;"><?php echo $row['contactnumber']; ?></td>
     </tr>
 <?php endforeach; ?>

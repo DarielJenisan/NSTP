@@ -66,6 +66,10 @@
                 <input type="text" class="form-control" id="province" name="province">
               </div>
               <div class="form-group">
+                <label for="region">Region</label>
+                <input type="text" class="form-control" id="region" name="region">
+              </div>
+              <div class="form-group">
                 <label for="yearlevel">Year Level</label>
                 <input type="text" class="form-control" id="yearlevel" name="yearlevel">
               </div>
@@ -106,6 +110,10 @@
                 <label for="sectionCode1">Section Code (NSTP1)</label>
                 <input type="text" class="form-control" id="sectionCode1" name="sectionCode1">
               </div>
+              <div class="form-group">
+                <label for="grade1">Grade (NSTP1)</label>
+                <input type="text" class="form-control" id="grade1" name="grade1">
+              </div>
             </div>
 
             <!-- NSTP 2 Information Column -->
@@ -130,6 +138,10 @@
               <div class="form-group">
                 <label for="sectionCode2">Section Code (NSTP2)</label>
                 <input type="text" class="form-control" id="sectionCode2" name="sectionCode2">
+              </div>
+              <div class="form-group">
+                <label for="grade2">Grade (NSTP2)</label>
+                <input type="text" class="form-control" id="grade2" name="grade2">
               </div>
             </div>
 
@@ -180,8 +192,8 @@
 <script>
      // Function to load student data into the modal
   function loadUpdateStudent(student_id, lastname, firstname, middlename, suffixname, gender, semester1, school1,
-      academicyear1, sectioncode1, semester2, school2, academicyear2, sectioncode2, serialnumber, remarks, awardyear,
-      component, birthday, barangay, municipality, province, institutioncode, agencytype, department, yearlevel, major, program, 
+      academicyear1, sectioncode1, grade1, semester2, school2, academicyear2, sectioncode2, grade2, serialnumber, remarks, awardyear,
+      component, birthday, barangay, municipality, province, region, institutioncode, agencytype, department, yearlevel, major, program, 
       email, contactnumber) {
       
         $('#studentID').val(student_id);
@@ -194,10 +206,12 @@
     $('#school1').val(school1);
     $('#academicyear1').val(academicyear1);
     $('#sectionCode1').val(sectioncode1);
+    $('#grade1').val(grade1);
     $('#nstp2').val(semester2);
     $('#school2').val(school2);
     $('#academicyear2').val(academicyear2);
     $('#sectionCode2').val(sectioncode2);
+    $('#grade2').val(grade2);
     $('#serialNumber').val(serialnumber);
     $('#remarks').val(remarks);
     $('#awardyear').val(awardyear);
@@ -206,6 +220,7 @@
     $('#barangay').val(barangay);
     $('#municipality').val(municipality);
     $('#province').val(province);
+    $('#region').val(region);
     $('#institutionCode').val(institutioncode);
     $('#agencyType').val(agencytype);
     $('#yearlevel').val(yearlevel);
@@ -237,10 +252,12 @@
           school1: $('#school1').val(),
           academicyear1: $('#academicyear1').val(),
           sectioncode1: $('#sectionCode1').val(),
+          grade1: $('#grade1').val(),
           semester2: $('#nstp2').val(),
           school2: $('#school2').val(),
           academicyear2: $('#academicyear2').val(),
           sectioncode2: $('#sectionCode2').val(),
+          grade2: $('#grade2').val(),
           serialnumber: $('#serialNumber').val(),
           remarks: $('#remarks').val(),
           awardyear: $('#awardyear').val(),
@@ -249,6 +266,7 @@
           barangay: $('#barangay').val(),
           municipality: $('#municipality').val(),
           province: $('#province').val(),
+          region: $('#region').val(),
           institutioncode: $('#institutionCode').val(),
           agencytype: $('#agencyType').val(),
           yearlevel: $('#yearlevel').val(),
@@ -261,7 +279,7 @@
       .done(function(response) {
           alert('Student information updated successfully!');
           $('#updateStudentModal').modal('hide');
-          loadMasterList();  // Ensure this function is defined elsewhere
+          location.reload();  // Ensure this function is defined elsewhere
       })
       .fail(function(xhr, status, error) {
           alert('An error occurred: ' + xhr.responseText);

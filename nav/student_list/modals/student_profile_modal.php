@@ -266,6 +266,7 @@ th, td {
                   <th>NSTP</th>
                   <th>Academic Year</th>
                   <th>School</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -273,11 +274,13 @@ th, td {
                   <td id="nstpsemester1">ROTC</td>
                   <td id="schoolyear1">2022-2023</td>
                   <td id="schoolname1">Northern Bukidnon State College</td>
+                  <td id="status1">Northern Bukidnon State College</td>
                 </tr>
                 <tr>
                   <td id="nstpsemester2">CWTS</td>
                   <td id="schoolyear2">2023-2024</td>
                   <td id="schoolname2">Northern Bukidnon State College</td>
+                  <td id="status2">Northern Bukidnon State College</td>
                 </tr>
               </tbody>
             </table>
@@ -308,7 +311,7 @@ th, td {
 <script>
     // Function to load student data into the modal
     function loadStudentProfile(student_id, firstname, middlename, lastname, suffixname, serialnumber, birthday, gender, barangay, municipality, province,
-      department, major, contactnumber, email, semester1, academicyear1, school1, semester2, academicyear2, school2) {
+      department, major, contactnumber, email, semester1, academicyear1, school1, grade1, semester2, academicyear2, school2, grade2) {
 
     $('#StudentID').text(student_id);
     $('#fullname').text(firstname + ' ' + (middlename ? middlename + ' ' : '') + lastname + ' ' + suffixname);
@@ -323,9 +326,11 @@ th, td {
     $('#nstpsemester1').text(semester1);
     $('#schoolyear1').text(academicyear1);
     $('#schoolname1').text(school1);
+    $('#status1').text(grade1);
     $('#nstpsemester2').text(semester2);
     $('#schoolyear2').text(academicyear2);
     $('#schoolname2').text(school2);
+    $('#status2').text(grade2);
 
     $('#studentProfileModal').modal('show');
 }

@@ -4,6 +4,18 @@
         <div class="ml-auto">
         <button type="button" class="btn btn-secondary">Sheet 1</button>
         <button type="button" class="btn btn-secondary">Sheet 2</button>
+        <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
+        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
+    </button>
+<!-- Export Button -->
+<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
+    onclick="exportVisibleTableToExcel()">
+    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
+</button>
+    <!-- Print Button -->
+    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;" onclick="printTable()">
+        <i class="fas fa-print" style="font-size: 1.5em;"></i> Print
+    </button>
         </div>
         </div>
     <div class="card shadow" style="max-height: 100vh; overflow: hidden;"> <!-- Set max height for the card -->
@@ -39,25 +51,14 @@
             
      
             <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
-            <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
-        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
-    </button>
-< downloadslip
-            <button type="button" class="btn btn-import" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
-        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
-    </button>
-<!-- Export Button -->
-<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
-    onclick="exportVisibleTableToExcel()">
-    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
-</button>
-    <!-- Print Button -->
-    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;" onclick="printTable()">
-        <i class="fas fa-print" style="font-size: 1.5em;"></i> Print
-    <!-- Print Button -->
-    <button id="printButton" class="btn btn-outline-primary" style="margin-left: 20px;" onclick="printTable()">
-        <i class="fas fa-print"></i> Print
-    </button>
+            <label for="selectStatus" style="margin: 5px;">Status:</label>
+<select id="selectStatus" name="selectStatus" style="width: 150px; height: 30px;">
+    <option value="All">All</option>
+    <option value="COMPLETE">Complete</option>
+    <option value="FAILED">Failed</option>
+    <option value="DROP">Drop</option>
+    <option value="MISALIGNED">Misaligned</option>
+</select>
 </div>
 
         </div>
@@ -69,7 +70,6 @@
                 <table id="tblmasterlist" class="table table-sm" style="font-size: 10px; table-layout: fixed;">
                     <thead>
                         <tr>
-
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">No.</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">ID</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Last Name</th>
@@ -87,30 +87,8 @@
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Status</th>
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Alignment</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Edit</th>
-
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">No.</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">ID</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Last Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">First Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Middle Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Suffix Name</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Gender</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">NSTP1</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School Year Taken</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Section Code</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">NSTP2</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">School Year Taken</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Section Code</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Serial Number</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Remarks</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Edit</th>
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Import</th>
-
-                            <th style="border: 0.5px solid black; padding: 4px; background-color: #83f28f;" class="text-center">Import</th>
-
                             
                         </tr>
                     </thead>
@@ -304,11 +282,14 @@ $(document).ready(function() {
         var academicYear = $('#selectAY').val();
         var component = $('#selectComponent').val();
         var department = $('#selectDepartment').val();
+        var status = $('#selectStatus').val(); // Get selected status
 
+        // Prepare filters object
         var filters = {
             academicYear: academicYear === '-All Academic Year-' ? 'All' : academicYear,
             component: component === '--All Component--' ? 'All' : component,
-            department: department === '--All Program--' ? 'All' : department
+            department: department === '--All Program--' ? 'All' : department,
+            status: status === '--All Status--' ? 'All' : status // Include status in filters
         };
 
         loadMasterList(filters); // Reload the master list
@@ -316,11 +297,12 @@ $(document).ready(function() {
     }
 
     // Trigger filter application on dropdown change
-    $('#selectAY, #selectComponent, #selectDepartment').change(function() {
+    $('#selectAY, #selectComponent, #selectDepartment, #selectStatus').change(function() {
         applyFilters();
     });
 });
-    </script>
+</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 <script>
@@ -374,7 +356,6 @@ function removeColumn(table, columnIndex) {
 $(document).ready(function() {
     // Trigger the print function on button click
     $('.btn-print').click(function() {
-        openPrintWindow(); // Call the function to open the print window
         if ($('#tblmasterlist').is(':visible')) {
             printMasterList(); // Call the function to print the master list
         } else {
@@ -501,18 +482,6 @@ $(document).ready(function() {
         }
     });
 
-    /// Create updated body with row numbers excluding "Edit" column
-rows.forEach((row, rowIndex) => {
-    var cells = row.children;
-    newTableBody += `<tr>`;
-    newTableBody += `<td style="border: 1px solid black; padding: 8px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
-    for (var i = 2; i < cells.length; i++) { // Iterate through all cells
-        if (i !== cells.length - 1) { // Skip only the "Edit" column
-            newTableBody += `<td style="border: 1px solid black; padding: 8px;">${cells[i].innerHTML}</td>`;
-        }
-    }
-    newTableBody += `</tr>`;
-});
     // Create updated body with row numbers excluding "Edit" column
     rows.forEach((row, rowIndex) => {
         var cells = row.children;
@@ -529,11 +498,6 @@ rows.forEach((row, rowIndex) => {
     // Prepare the content to be printed
     var printContents = `
        <head>
-            <title>Print NSTP Master List</title>
-            <style>
-                @page { 
-                    size: portrait; 
-                    margin: 10mm; 
             <title>Print NSTP Student List</title>
             <style>
                 @page { 
@@ -548,8 +512,6 @@ rows.forEach((row, rowIndex) => {
                     border-collapse: collapse; 
                 }
                 th, td { 
-                    border: 1px solid black; 
-                    padding: 8px; 
                     border: 0.5px solid black; /* Ensure all borders are visible */
                     padding: 4px; /* Reduced padding for compactness */
                     text-align: left; 
@@ -581,102 +543,14 @@ rows.forEach((row, rowIndex) => {
 
         <body>
             <div style="text-align: center;">
-                <h2>NSTP Master List</h2>
                 <h2>NSTP Student List</h2>
             </div>
             <button onclick="window.print()" class="print-button">🖨️ Print Report</button>
             <table>
                 <thead>
                     <tr>
-                        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2; text-align: center;">No.</th>
-                        ${headerHtml} <!-- Updated headers without "No.", "Edit", and "Import" columns -->
                         <th style="border: 0.5px solid black; padding: 4px; background-color: #f2f2f2; text-align: center;">No.</th>
                         ${headerHtml} <!-- Updated headers without "No." and "Edit" columns -->
-                    </tr>
-                </thead>
-                <tbody>
-                    ${newTableBody}
-                </tbody>
-            </table>
-        </body>
-    `;
-
-    // Open a new window and write the content to it
-    var printWindow = window.open('', '_blank');
-    printWindow.document.write(printContents);
-    printWindow.document.close();
-    printWindow.focus();
-
-    // Optional: Close the window after printing
-    printWindow.onafterprint = function() {
-        printWindow.close();
-    };
-}
-
-});
-        if (index > 1 && index < headerCells.length - 2) { // Skip the "No.", "Edit", and "Import" columns
-            headerHtml += cell.outerHTML;
-        }
-    });
-
-    // Create updated body with row numbers and excluding "No.", "Edit", and "Import" columns
-    rows.forEach((row, rowIndex) => {
-        var cells = row.children;
-        newTableBody += `<tr>`;
-        newTableBody += `<td style="border: 1px solid black; padding: 8px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
-        for (var i = 2; i < cells.length - 2; i++) { // Skip "No.", "Edit", and "Import" columns
-            newTableBody += `<td style="border: 1px solid black; padding: 8px;">${cells[i].innerHTML}</td>`;
-        }
-        newTableBody += `</tr>`;
-    });
-
-    // Prepare the content to be printed
-    var printContents = `
-       <head>
-            <title>Print NSTP Master List</title>
-            <style>
-                @page { 
-                    size: portrait; 
-                    margin: 10mm; 
-                }
-                table { 
-                    width: 100%; 
-                    border-collapse: collapse; 
-                }
-                th, td { 
-                    border: 1px solid black; 
-                    padding: 8px; 
-                    text-align: left; 
-                }
-                th { 
-                    text-align: center; 
-                }
-                .print-button {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background-color: #28a745;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    font-size: 16px;
-                    cursor: pointer;
-                }
-            </style>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        </head>
-
-        <body>
-            <div style="text-align: center;">
-                <h2>NSTP Master List</h2>
-            </div>
-            <button onclick="window.print()" class="print-button">🖨️ Print Report</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2; text-align: center;">No.</th>
-                        ${headerHtml} <!-- Updated headers without "No.", "Edit", and "Import" columns -->
                     </tr>
                 </thead>
                 <tbody>
