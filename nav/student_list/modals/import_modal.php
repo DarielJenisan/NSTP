@@ -1,6 +1,7 @@
 <!-- Import Modal -->
 <div class="modal fade" id="ImportModal" tabindex="-1" aria-labelledby="ImportModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg"> <!-- modal-lg for landscape view -->
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ImportModalLabel">Import Student Data</h5>
@@ -31,6 +32,7 @@
                                 <li><strong>middlename</strong> (Middle Name)</li>
                                 <li><strong>lastname</strong> (Last Name)</li>
                                 <li><strong>suffixname</strong> (Suffix/Extension Name)</li>
+                                <li><strong>birthday</strong> (Date of Birth)</li>
                                 <li><strong>birthday</strong> (Date of Birth (YYYY-MM-DD))</li>
                             </ol>
                         </div>
@@ -47,6 +49,7 @@
                         <div class="col-md-4">
                             <ol start="13">
                                 <li><strong>contactnumber</strong> (Contact Number)</li>
+                                <li><strong>program</strong> (Program)</li>
                                 <li><strong>department</strong> (Department)</li>
                                 <li><strong>major</strong> (Major)</li>
                                 <li><strong>serialnumber</strong> (Serial Number)</li>
@@ -92,6 +95,13 @@
                          </div>
                     </div>
                 </div>
+                <form id="importForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="fileInput" name="file" accept=".csv, .xlsx" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -99,6 +109,7 @@
         </div>
     </div>
 </div>
+
 
 <table id="exceltemplate" class="table table-sm" style="font-size: 10px; table-layout: fixed;">
                         <thead>
@@ -197,6 +208,8 @@
 </style>
 
 
+
+
 <script>
 document.getElementById('checkAllColumns').addEventListener('change', function() {
     // Get the status of the 'Check All' checkbox (checked or unchecked)
@@ -223,7 +236,6 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
     var fileInput = document.getElementById('fileInput');
     var file = fileInput.files[0];
 
-    // Validate if file is selected
     if (!file) {
         alert("Please select a file.");
         importButton.disabled = false;
@@ -260,6 +272,7 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
         });
     })
     .then(data => {
+        if (data.success) {
         if (data.status === 'success') {
             alert('Student data imported successfully.');
             $('#ImportModal').modal('hide'); // Close the modal on success
@@ -278,11 +291,76 @@ document.getElementById('importForm').addEventListener('submit', function (e) {
         importButton.textContent = 'Import';
     });
 
+
      // Select Column Button click event
      $('#templateButton').click(function() {
         // Show the modal
         $('#templateModal').modal('show');
     });
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script>
+document.getElementById('importForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select a file to upload.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+
+        // Assuming you want to read the first sheet
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        // Prepare the data for sending to the server
+        const studentsData = jsonData.map(row => {
+            return {
+                firstname: row[0], // Adjust indices based on your Excel structure
+                middlename: row[1],
+                lastname: row[2],
+                suffixname: row[3],
+                gender: row[4],
+                email: row[5],
+                // Add other fields based on your Excel structure
+            };
+        });
+
+        // Send the data to your PHP script
+        fetch('../nav/student_list/components/upload_excel.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(studentsData),
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success > 0) {
+        alert(`${data.success} records successfully imported.`);
+    }
+    if (data.errors > 0) {
+        alert(`${data.errors} records failed to import.`);
+    }
+})
+.catch((error) => {
+    console.error('Error:', error);
+    alert('An error occurred during the import process.');
+});
+
+    reader.readAsArrayBuffer(file); // Read the file as an array buffer
+
 
 });
 </script>
