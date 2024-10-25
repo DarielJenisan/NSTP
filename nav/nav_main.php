@@ -13,10 +13,7 @@
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/userreg/userreg_main.php')">Manage User</a>
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/student_list/student_list.php')">Student List</a>
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/create_masterlist/list_columns.php')">Create Master List</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/summary_report/summary_report.php')">Summary Report</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/analytic_report/summary_report.php')">Summary Report</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/summary_report/summary_report.php')">Summary Report</a>
-                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/analytic_report/summary_report.php')">Summary Report</a>
+                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/summary_report/summary_report.php')">Summary Report</a> 
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/certificate/certificates.php')">Certificates</a>
 
                 </div>

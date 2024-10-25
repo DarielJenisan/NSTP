@@ -1,21 +1,17 @@
 <?php 
 require_once '../../../connection.php';
 
-// Function to determine completion status based on grade
-function getGradeStatus($grade) {
-    if ($grade == 0.00) {
-        return 'DROP';
-    } elseif ($grade > 3.00) {
-        return 'FAILED';
-    } elseif ($grade >= 1.00 && $grade <= 3.00) {
-        return 'COMPLETE';
-    }
-}
-
 // Function to determine enrollment status
 function getEnrollmentStatus($grade, $sectionCode) {
-    if (empty($grade) && !empty($sectionCode)) {
-        return ' ENROLLED';
+    if (($grade === null || $grade === '') && !empty($sectionCode)) {
+        return 'ENROLLED'; 
+    }
+    if ($grade == 0.00 && !empty($sectionCode)) {
+        return 'DROP';
+    } elseif ($grade > 3.00) {
+        return 'FAILED'; 
+    } elseif ($grade >= 1.00 && $grade <= 3.00) {
+        return 'COMPLETE';
     }
     return ''; // Return empty if conditions aren't met
 }
@@ -55,16 +51,20 @@ if ($department !== 'All') {
     $query .= " AND (department = :departmentFull OR department = :departmentShort)";
 }
 
-// Adjust status filter based on selected status
+// Adjust status filter based on selected status 
 if ($status !== 'All') {
     if ($status === 'MISALIGNED') {
-        $query .= " AND (semester1 = 'CWTS1' AND semester2 = 'ROTC2' OR semester1 = 'ROTC1' AND semester2 = 'CWTS2')";
+        $query .= " AND ((semester1 = 'CWTS1' AND semester2 = 'ROTC2') OR (semester1 = 'ROTC1' AND semester2 = 'CWTS2'))";
     } elseif ($status === 'COMPLETE') {
-        $query .= " AND (grade1 >= 1.00 AND grade1 <= 3.00 OR grade2 >= 1.00 AND grade2 <= 3.00)";
+        $query .= " AND ((grade1 >= 1.00 AND grade1 <= 3.00) OR (grade2 >= 1.00 AND grade2 <= 3.00))";
     } elseif ($status === 'FAILED') {
-        $query .= " AND (grade1 > 3.00 OR grade2 > 3.00)";
+        $query .= " AND ((grade1 > 3.00) OR (grade2 > 3.00))";
     } elseif ($status === 'DROP') {
-        $query .= " AND (grade1 = 0.00 OR grade2 = 0.00)";
+        // Match records where either grade is 0.00 and sectionCode exists
+        $query .= " AND ((grade1 = 0.00 AND sectionCode1 IS NOT NULL) OR (grade2 = 0.00 AND sectionCode2 IS NOT NULL))";
+    } elseif ($status === 'ENROLLED') {
+        // Match records where grade is NULL/empty but sectionCode exists
+        $query .= " AND ((grade1 IS NULL OR grade1 = '') AND sectionCode1 IS NOT NULL) OR ((grade2 IS NULL OR grade2 = '') AND sectionCode2 IS NOT NULL)";
     }
 }
 
@@ -119,7 +119,6 @@ foreach ($stmt->fetchAll() as $row):
     <td style="border: 0.5px solid black; padding: 4px;">
         <strong>
             <?php 
-            echo getGradeStatus($row['grade1']); // Existing function to get grade status
             echo getEnrollmentStatus($row['grade1'], $row['sectioncode1']); // New function to check enrollment status
             ?>
         </strong>
@@ -131,7 +130,6 @@ foreach ($stmt->fetchAll() as $row):
     <td style="border: 0.5px solid black; padding: 4px;">
         <strong>
             <?php 
-            echo getGradeStatus($row['grade2']); // Existing function for grade
             echo getEnrollmentStatus($row['grade2'], $row['sectioncode2']); // Check for enrollment status
             ?>
         </strong>
@@ -239,14 +237,12 @@ foreach ($stmt->fetchAll() as $row):
             '<?php echo $row['academicyear1']; ?>',
             '<?php echo $row['school1']; ?>',
             ' <?php 
-                echo getGradeStatus($row['grade1']); // Existing function for grade
                 echo getEnrollmentStatus($row['grade1'], $row['sectioncode1']); // Check for enrollment status
                 ?>',
             '<?php echo $row['semester2']; ?>',
             '<?php echo $row['academicyear2']; ?>',
             '<?php echo $row['school2']; ?>',
             ' <?php 
-                echo getGradeStatus($row['grade2']); // Existing function for grade
                 echo getEnrollmentStatus($row['grade2'], $row['sectioncode2']); // Check for enrollment status
                 ?>'
         )">

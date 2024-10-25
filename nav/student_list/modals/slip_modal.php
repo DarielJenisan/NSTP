@@ -25,7 +25,7 @@
         }
 
         .left-logo {
-           width: 150px; /* Set logo width */
+           width: 100px; /* Set logo width */
            height: auto; /* Maintain aspect ratio */
            margin-left: 20px; /* Space between images and text */
         }
@@ -89,7 +89,7 @@
             font-weight: bold;
         }
 
-        .footer {
+        .footer-1 {
             text-align: center;
             margin-top: 30px;
             font-size: 16px;
@@ -109,7 +109,7 @@
             </div>
             <div class="modal-body centered-content" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
 
-            <div class="slip-container" id="cwtsSlipContainer">
+            <div class="slip-container" id="modalCWTSSlip">
             <!-- Header Section -->
             <div class="header">
                 <!-- Left Logo -->
@@ -145,7 +145,7 @@
             </div>
 
             <!-- Footer Section -->
-            <div class="footer">
+            <div class="footer-1">
                 <p>NSTP Office Staff:   <small id="cwts_slipstaff" style="text-decoration: underline; font-size: 22px;"></small></p>
             </div>
         </div>
@@ -153,7 +153,15 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success"><i class="fa fa-download"></i> Download as PNG</button>
+        <div class="dropup profile-button-container">
+    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa fa-download"></i>  Download
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#" id="png"><i class="fa fa-image"></i> as PNG</a></li>
+        <li><a class="dropdown-item" href="#" id="pdf"><i class="fa fa-file-pdf"></i> as PDF</a></li>
+    </ul>
+  </div>
                 <button type="button" class="btn btn-primary" onclick="sendSlipEmail('cwtsSlipContainer')"><i class="fa fa-paper-plane"></i> Send</button>
             </div>
         </div>
@@ -170,7 +178,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body centered-content" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
-                <div class="slip-container" id="rotcSlipContainer" style="background-color: #A8D08D;">
+                <div class="slip-container" id="modalROTCSlip" style="background-color: #A8D08D;">
                     <!-- Header Section -->
                     <div class="header">
                         <!-- Left Logo -->
@@ -200,14 +208,22 @@
                         <p>Year and Department: <small id="rotc_slipyearDepartment" style="text-decoration: underline; font-size: 22px;"></small></p>
                     </div>
                     <!-- Footer Section -->
-                    <div class="footer">
+                    <div class="footer-1">
                         <p>NSTP Office Staff: <small id="rotc_slipstaff" style="text-decoration: underline; font-size: 22px;"></small></p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" id="downloadRotcSlip"><i class="fa fa-download"></i> Download as PNG</button>
+        <div class="dropup profile-button-container">
+    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa fa-download"></i>  Download
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#" id="png"><i class="fa fa-image"></i> as PNG</a></li>
+        <li><a class="dropdown-item" href="#" id="pdf"><i class="fa fa-file-pdf"></i> as PDF</a></li>
+    </ul>
+  </div>
                 <button type="button" class="btn btn-primary" onclick="sendSlipEmail('rotcSlipContainer')"><i class="fa fa-paper-plane"></i> Send</button>
             </div>
         </div>
@@ -308,7 +324,7 @@ function fetchAdminDetails() {
 
 
 // Function to download the slip as a PNG
-document.querySelectorAll('.btn-success').forEach(button => {
+document.querySelectorAll('#png').forEach(button => {
     button.addEventListener('click', function () {
         const modal = this.closest('.modal');
         let slipContainer;
@@ -381,4 +397,32 @@ document.querySelectorAll('.btn-success').forEach(button => {
   //       console.error('html2canvas error:', error);
   //   });
 // }
+</script>
+
+<!-- Include the html2pdf.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+ // Function to download the CWTS Slip as a PDF
+function downloadSlipAsPDF(SlipId) {
+    var Slip = document.getElementById(SlipId); // Select the Slip container
+    var opt = {
+        margin:       0.5,
+        filename:     'NSTP-Slip.pdf', // Filename for the downloaded PDF
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'A4', orientation: 'landscape' }
+    };
+    html2pdf().from(Slip).set(opt).save();
+}
+
+// Event listeners for downloading the Slips as PDF
+document.getElementById('pdf').addEventListener('click', function() {
+    var activeModal = document.querySelector('.modal.show'); // Get the currently active modal
+    if (activeModal.id === 'cwtsSlipModal') {
+        downloadSlipAsPDF('modalCWTSSlip'); // Download CWTS Slip
+    } else if (activeModal.id === 'rotcSlipModal') {
+        downloadSlipAsPDF('modalROTCSlip'); // Download ROTC Slip
+    }
+});
 </script>

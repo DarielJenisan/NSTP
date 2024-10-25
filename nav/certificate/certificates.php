@@ -30,8 +30,8 @@
    
     .qr-code {
         position: absolute;
-        bottom: 40px; /* Position the QR code */
-        right: 60px; 
+        bottom: 50px; /* Position the QR code */
+        right: 55px; 
         width: 100px;
         height: 100px;
     }
@@ -234,7 +234,7 @@
 </div>
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
    $.ajax({
         url: "../nav/certificate/components/fetch_academic_years.php", // Fetch academic years
@@ -417,10 +417,19 @@ async function generateCertificates() {
             // CWTS Certificate Condition
             if (student.semester1 === "CWTS1" && student.semester2 === "CWTS2") {
                 if (selectedComponent === "CWTS" || selectedComponent === "All") {
+                    qrCodeURL = "https://nbsc.edu.ph/sis"; // Update with actual URL
+                    
                     certificateHTML = `
                     <div class="certificate-wrapper">
                         <div class="certificate-container">
-                            <img src="../assets/img/nstplogo.png" alt="QR Code" class="qr-code">
+
+           <div class="qr-code" id="certificate-qrcode-cwts">
+                                <img src="../assets/img/nstplogo.png" alt="Logo" id="qr-logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; z-index: 10;">
+                                <a href="${qrCodeURL}" target="_blank">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=${qrCodeURL}&size=100x100" alt="QR Code">
+                                </a>
+                            </div>
+
                             <div class="text-container title">
                                 Republic of the Philippines<br>
                                 <strong style="font-family: Times New Roman, Times, serif; color:  #002F6C; font-size: 20px;">NORTHERN BUKIDNON STATE COLLEGE</strong><br>
@@ -479,10 +488,19 @@ async function generateCertificates() {
             // ROTC Certificate Condition
             else if (student.semester1 === "ROTC1" && student.semester2 === "ROTC2") {
                 if (selectedComponent === "ROTC" || selectedComponent === "All") {
+                    qrCodeURL = "https://nbsc.edu.ph/sis"; // Update with actual URL
+
                     certificateHTML = `
                     <div class="certificate-wrapper">
                         <div class="certificate-container" style="background-image: url('../assets/img/rotccert.png');">
-                            <img src="../assets/img/nstplogo.png" alt="QR Code" class="qr-code">
+                        
+           <div class="qr-code" id="certificate-qrcode-rotc">
+                                <img src="../assets/img/nstplogo.png" alt="Logo" id="qr-logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; z-index: 10;">
+                                <a href="${qrCodeURL}" target="_blank">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=${qrCodeURL}&size=100x100" alt="QR Code">
+                                </a>
+                            </div>
+
                             <div class="text-container title">
                                 Republic of the Philippines<br>
                                 <strong style="font-family: Times New Roman, Times, serif; color:  #002F6C; font-size: 20px;">NORTHERN BUKIDNON STATE COLLEGE</strong><br>

@@ -29,8 +29,8 @@
 
     .qr-code {
         position: absolute;
-        bottom: 40px; /* Position the QR code */
-        right: 60px; 
+        bottom: 50px; /* Position the QR code */
+        right: 55px; 
         width: 100px;
         height: 100px;
     }
@@ -140,8 +140,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border: none; box-shadow: none; filter: invert(1);"></button>
       </div>
       <div class="modal-body centered-content" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
+
         <div class="certificate-container" id="modalCWTSCertificate" style="background-image: url('../assets/img/cwtscert.png');">
-          <img src="../assets/img/nstplogo.png" alt="QR Code" class="qr-code">
+
+        <div class="qr-code" id="certificate-qrcode-cwts">
+        <img src="../assets/img/nstplogo.png" alt="Logo" id="qr-logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; z-index: 10;">
+        </div>
+
           <div class="text-container title">
               Republic of the Philippines<br>
               <strong style="font-family: Times New Roman, Times, serif; color:  #002F6C; font-size: 20px;">NORTHERN BUKIDNON STATE COLLEGE</strong><br>
@@ -225,8 +230,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border: none; box-shadow: none; filter: invert(1);"></button>
       </div>
       <div class="modal-body centered-content" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
+
         <div class="certificate-container" style="background-image: url('../assets/img/rotccert.png');" id="modalROTCCertificate">
-          <img src="../assets/img/nstplogo.png" alt="QR Code" class="qr-code">
+
+          <div class="qr-code" id="certificate-qrcode-rotc">
+          <img src="../assets/img/nstplogo.png" alt="Logo" id="qr-logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; z-index: 10;">
+          </div>
+
           <div class="text-container title">
               Republic of the Philippines<br>
               <strong style="font-family: Times New Roman, Times, serif; color:  #002F6C; font-size: 20px;">NORTHERN BUKIDNON STATE COLLEGE</strong><br>
@@ -352,6 +362,42 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+  function generateQRCode(containerId, url) {
+    // Ensure the QR code container is empty before generating a new one
+    var qrCodeContainer = document.getElementById(containerId);
+    qrCodeContainer.innerHTML = ""; // Clear any existing QR code
+
+    // Generate a new QR code with the provided URL
+    new QRCode(qrCodeContainer, {
+      text: url, // URL to encode in the QR code
+      width: 100,  // Adjust size as needed
+      height: 100,
+      colorDark: "#000000",  // Dark color of the QR code
+      colorLight: "#ffffff",  // Light background color
+    });
+
+    // Optionally, add the logo back after generating the QR code
+    $('#'+containerId).append('<img src="../assets/img/nstplogo.png" alt="Logo" id="qr-logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; z-index: 10;">');
+  }
+
+  // Call this function when the CWTS modal is opened
+  document.getElementById("cwtscertificateModal").addEventListener("show.bs.modal", function() {
+    // Replace with the actual link you want to encode for CWTS
+    var cwtsCertificateUrl = "https://nbsc.edu.ph/sis"; 
+    generateQRCode("certificate-qrcode-cwts", cwtsCertificateUrl); // Call with the CWTS QR code container ID
+  });
+
+  // Call this function when the ROTC modal is opened
+  document.getElementById("rotccertificateModal").addEventListener("show.bs.modal", function() {
+    // Replace with the actual link you want to encode for ROTC
+    var rotcCertificateUrl = "https://nbsc.edu.ph/sis"; 
+    generateQRCode("certificate-qrcode-rotc", rotcCertificateUrl); // Call with the ROTC QR code container ID
+  });
+</script>
+
 
 <script>
 
