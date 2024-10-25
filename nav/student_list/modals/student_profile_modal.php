@@ -1,7 +1,7 @@
 <style>
 .container {
     width: 794px; /* A4 paper width in pixels at 96 DPI */
-    height: 1123px; /* A4 paper height in pixels at 96 DPI */
+    height: 900px; /* A4 paper height in pixels at 96 DPI */
     margin: 20px auto;
     padding: 20px;
     background-color: white;
@@ -169,133 +169,107 @@ th, td {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border: none; box-shadow: none; filter: invert(1);"></button>
       </div>
       <div class="modal-body" id="studentProfile" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
-        <div class="container">
-          <div class="header d-flex justify-content-between align-items-center">
-            <img src="../assets/img/nbsclogo.png" alt="NSTP Logo" class="logo-left">
-            <div class="header-text text-center">
-              <p>Republic of the Philippines</p>
-              <h5>NORTHERN BUKIDNON STATE COLLEGE</h5>
-              <p>(Formerly Northern Bukidnon State College) R.A. 11284</p>
-              <p>Manolo Fortich Bukidnon • (088)5373185+</p>
-              <h5>NATIONAL SERVICE TRAINING PROGRAM</h5>
-              <h6>ROTC • CWTS</h6>
-            </div>
-            <img src="../assets/img/nstplogo.png" alt="NBSC Logo" class="logo-right">
-          </div>
+      <div class="container">
+    <div class="text-center my-3">
+        <h2>NSTP Student Profile</h2>
+    </div>
 
-          <div class="text-center my-3">
-            <h2>NSTP Student Profile</h2>
-          </div>
-
-          <!-- School ID and Photo -->
-          <div class="form-row">
-            <div class="form-group-2">
-              <label for="StudentID">School ID:</label>
-              <div id="StudentID" class="static-text">123456</div>
-            </div>
-            <div class="photo-box border p-3 text-center">
-              <img id="studentPhoto" src="../assets/img/nstplogo.png" alt="Student Photo">
-            </div>
-          </div>
-
-          <!-- Name and Serial No -->
-          <div class="form-row mt-3">
-            <div class="form-group-2">
-              <label for="fullname">Name:</label>
-              <div id="fullname" class="static-text">John A. Doe</div>
-            </div>
-            <div class="form-group-2">
-              <label for="serialNo">Serial No:</label>
-              <div id="serialNo" class="static-text">78910</div>
-            </div>
-          </div>
-
-          <!-- Birthday and Gender -->
-          <div class="form-row mt-3">
-            <div class="form-group-2">
-              <label for="dateofbirth">Birthday:</label>
-              <div id="dateofbirth" class="static-text">January 1, 2000</div>
-            </div>
-            <div class="form-group-2">
-              <label for="sex">Gender:</label>
-              <div id="sex" class="static-text">Male</div>
-            </div>
-          </div>
-
-          <!-- Course and Major -->
-          <div class="form-row mt-3">
-            <div class="form-group-2">
-              <label for="course">Course:</label>
-              <div id="course" class="static-text">Bachelor of Science</div>
-            </div>
-            <div class="form-group-2">
-              <label for="coursemajor">Major:</label>
-              <div id="coursemajor" class="static-text">Computer Science</div>
-            </div>
-          </div>
-
-          <!-- Address and Contact No -->
-          <div class="form-row mt-3">
-            <div class="form-group-2">
-              <label for="address">Address:</label>
-              <div id="address" class="static-text">Barangay 123, Municipality XYZ, Province ABC</div>
-            </div>
-            <div class="form-group-2">
-              <label for="contactNo">Contact No:</label>
-              <div id="contactNo" class="static-text">09171234567</div>
-            </div>
-          </div>
-
-          <!-- Email Address -->
-          <div class="form-row mt-3">
-            <div class="form-group-2">
-              <label for="emailAddress">Email:</label>
-              <div id="emailAddress" class="static-text">john.doe@example.com</div>
-            </div>
-          </div>
-
-          <!-- NSTP Completed Component -->
-          <div class="text-center mt-5">
-            <h5>NSTP Completed Component</h5>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table table-bordered mt-3">
-              <thead>
-                <tr>
-                  <th>NSTP</th>
-                  <th>Academic Year</th>
-                  <th>School</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="nstpsemester1">ROTC</td>
-                  <td id="schoolyear1">2022-2023</td>
-                  <td id="schoolname1">Northern Bukidnon State College</td>
-                  <td id="status1">Northern Bukidnon State College</td>
-                </tr>
-                <tr>
-                  <td id="nstpsemester2">CWTS</td>
-                  <td id="schoolyear2">2023-2024</td>
-                  <td id="schoolname2">Northern Bukidnon State College</td>
-                  <td id="status2">Northern Bukidnon State College</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- QR Code Box -->
-<div class="qr-code-box text-center mt-3">
-  <label for="qrCode" class="d-block">QR Code:</label>
-  <div class="qr-box">
-    <img id="qrCode" src="../assets/img/qrcode.jpg" alt="QR Code">
-  </div>
-</div>
-
+    <!-- School ID and Photo -->
+    <div class="form-row">
+        <div class="form-group-2">
+            <label for="StudentID">School ID:</label>
+            <div id="StudentID" class="static-text">123456</div>
         </div>
-      </div>
+    </div>
+
+    <!-- Name and Serial No -->
+    <div class="form-row mt-3">
+        <div class="form-group-2">
+            <label for="fullname">Name:</label>
+            <div id="fullname" class="static-text">John A. Doe</div>
+        </div>
+        <div class="form-group-2">
+            <label for="serialNo">Serial No:</label>
+            <div id="serialNo" class="static-text">78910</div>
+        </div>
+    </div>
+
+    <!-- Birthday and Gender -->
+    <div class="form-row mt-3">
+        <div class="form-group-2">
+            <label for="dateofbirth">Birthday:</label>
+            <div id="dateofbirth" class="static-text">January 1, 2000</div>
+        </div>
+        <div class="form-group-2">
+            <label for="sex">Gender:</label>
+            <div id="sex" class="static-text">Male</div>
+        </div>
+    </div>
+
+    <!-- Course and Major -->
+    <div class="form-row mt-3">
+        <div class="form-group-2">
+            <label for="course">Course:</label>
+            <div id="course" class="static-text">Bachelor of Science</div>
+        </div>
+        <div class="form-group-2">
+            <label for="coursemajor">Major:</label>
+            <div id="coursemajor" class="static-text">Computer Science</div>
+        </div>
+    </div>
+
+    <!-- Address and Contact No -->
+    <div class="form-row mt-3">
+        <div class="form-group-2">
+            <label for="address">Address:</label>
+            <div id="address" class="static-text">Barangay 123, Municipality XYZ, Province ABC</div>
+        </div>
+        <div class="form-group-2">
+            <label for="contactNo">Contact No:</label>
+            <div id="contactNo" class="static-text">09171234567</div>
+        </div>
+    </div>
+
+    <!-- Email Address -->
+    <div class="form-row mt-3">
+        <div class="form-group-2">
+            <label for="emailAddress">Email:</label>
+            <div id="emailAddress" class="static-text">john.doe@example.com</div>
+        </div>
+    </div>
+
+    <!-- NSTP Completed Component -->
+    <div class="text-center mt-5">
+        <h5>NSTP Completed Component</h5>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-2 table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>NSTP</th>
+                    <th>Academic Year</th>
+                    <th>School</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="nstpsemester1">ROTC</td>
+                    <td id="schoolyear1">2022-2023</td>
+                    <td id="schoolname1">Northern Bukidnon State College</td>
+                    <td id="status1">Complete</td>
+                </tr>
+                <tr>
+                    <td id="nstpsemester2">CWTS</td>
+                    <td id="schoolyear2">2023-2024</td>
+                    <td id="schoolname2">Northern Bukidnon State College</td>
+                    <td id="status2">Complete</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
       <!-- Modal Footer -->
       <div class="modal-footer" style="background-color: transparent; border: none; box-shadow: none;">
@@ -312,6 +286,7 @@ th, td {
     // Function to load student data into the modal
     function loadStudentProfile(student_id, firstname, middlename, lastname, suffixname, serialnumber, birthday, gender, barangay, municipality, province,
       department, major, contactnumber, email, semester1, academicyear1, school1, grade1, semester2, academicyear2, school2, grade2) {
+      
 
     $('#StudentID').text(student_id);
     $('#fullname').text(firstname + ' ' + (middlename ? middlename + ' ' : '') + lastname + ' ' + suffixname);

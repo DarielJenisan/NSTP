@@ -54,6 +54,7 @@
             <label for="selectStatus" style="margin: 5px;">Status:</label>
 <select id="selectStatus" name="selectStatus" style="width: 150px; height: 30px;">
     <option value="All">All</option>
+    <option value="ENROLLED">Enrolled</option>
     <option value="COMPLETE">Complete</option>
     <option value="FAILED">Failed</option>
     <option value="DROP">Drop</option>
@@ -137,11 +138,11 @@
     </div>
 
  <!--Student Info Update-->
+<?php include '../../nav/student_list/modals/import_modal.php' ?>
 <?php include '../../nav/student_list/modals/student_update_modal.php' ?>
+<?php include '../../nav/student_list/modals/slip_modal.php' ?>
 <?php include '../../nav/student_list/modals/certificate_modal.php' ?>
 <?php include '../../nav/student_list/modals/student_profile_modal.php' ?>
-<?php include '../../nav/student_list/modals/import_modal.php' ?>
-<?php include '../../nav/student_list/modals/slip_modal.php' ?>
 
 
 <script>
