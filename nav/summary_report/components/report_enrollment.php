@@ -10,6 +10,8 @@ $latestAcademicYear = $latestYearRow['latest_year'];
 // Use the academic year provided by the user or the latest year if no input
 $academicYear = $_POST['academicYear'] ?? $latestAcademicYear;
 
+// Mapping program names to abbreviations
+$programMap = [
 // Mapping department names to abbreviations
 $departmentMap = [
     'Bachelor of Science in Information Technology' => 'BSIT',
@@ -25,6 +27,7 @@ $totals = [
 ];
 
 // Query to fetch student data for the selected academic year
+$query = $conn->prepare("SELECT program, gender, semester1, academicyear1, semester2, academicyear2 
 $query = $conn->prepare("SELECT department, gender, semester1, academicyear1, semester2, academicyear2 
                          FROM studentInformation_view
                          WHERE (academicyear1 = :academicYear OR academicyear2 = :academicYear)");
@@ -33,6 +36,14 @@ $query->execute();
 
 // Process the results and update counts
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+    $program = $row['program'];
+    $gender = strtoupper($row['gender']); // Normalize gender to uppercase
+
+    // Check if the program is in the map, then get the abbreviation
+    if (isset($programMap[$program])) {
+        $programAbbr = $programMap[$program];
+    } else {
+        continue; // Skip if the program is not in the mapping
     $department = $row['department'];
     $gender = strtoupper($row['gender']); // Normalize gender to uppercase
 
@@ -45,6 +56,9 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
     // Update counts for 1st Semester (semester1 values: ROTC1, CWTS1 based on academicyear1)
     if ($row['semester1'] == 'ROTC1' && $row['academicyear1'] == $academicYear) {
+        $totals[$programAbbr]['rotc1'][$gender]++;
+    } elseif ($row['semester1'] == 'CWTS1' && $row['academicyear1'] == $academicYear) {
+        $totals[$programAbbr]['cwts1'][$gender]++;
         $totals[$departmentAbbr]['rotc1'][$gender]++;
     } elseif ($row['semester1'] == 'CWTS1' && $row['academicyear1'] == $academicYear) {
         $totals[$departmentAbbr]['cwts1'][$gender]++;
@@ -52,6 +66,9 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
     // Update counts for 2nd Semester (semester2 values: ROTC2, CWTS2 based on academicyear2)
     if ($row['semester2'] == 'ROTC2' && $row['academicyear2'] == $academicYear) {
+        $totals[$programAbbr]['rotc2'][$gender]++;
+    } elseif ($row['semester2'] == 'CWTS2' && $row['academicyear2'] == $academicYear) {
+        $totals[$programAbbr]['cwts2'][$gender]++;
         $totals[$departmentAbbr]['rotc2'][$gender]++;
     } elseif ($row['semester2'] == 'CWTS2' && $row['academicyear2'] == $academicYear) {
         $totals[$departmentAbbr]['cwts2'][$gender]++;
@@ -59,6 +76,9 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 }
 
 // Function to display the counts
+function displayCounts($programAbbr, $component, $totals) {
+    $male = $totals[$programAbbr][$component]['MALE'];
+    $female = $totals[$programAbbr][$component]['FEMALE'];
 function displayCounts($departmentAbbr, $component, $totals) {
     $male = $totals[$departmentAbbr][$component]['MALE'];
     $female = $totals[$departmentAbbr][$component]['FEMALE'];
@@ -100,6 +120,7 @@ function displayCounts($departmentAbbr, $component, $totals) {
         'cwts2' => ['MALE' => 0, 'FEMALE' => 0]
     ];
     
+    foreach ($totals as $programAbbr => $components) {
     foreach ($totals as $departmentAbbr => $components) {
         foreach ($components as $component => $genders) {
             $grandTotals[$component]['MALE'] += $genders['MALE'];
