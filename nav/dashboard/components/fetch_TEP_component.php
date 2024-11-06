@@ -11,18 +11,19 @@ try {
         throw new Exception("Academic year is required.");
     }
 
-    // Modify the query to fetch total students enrolled in ROTC and CWTS for BSIT only
+    // Modify the query to fetch total students enrolled in ROTC and CWTS for Teacher Education Program (TEP) only
     $query = $conn->prepare("
         SELECT 
-            SUM(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
-            SUM(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
-        FROM studentInformation_view
-        WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
+            SUM(CASE WHEN tblnstp.semester1 = 'ROTC1' OR tblnstp.semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
+            SUM(CASE WHEN tblnstp.semester1 = 'CWTS1' OR tblnstp.semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
+        FROM tblnstp
+        JOIN tblstudent ON tblnstp.student_id = tblstudent.student_id
+        WHERE (tblnstp.academicyear1 = :selectedYear OR tblnstp.academicyear2 = :selectedYear)
         AND (
-            (semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
-            (semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
+            (tblnstp.semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
+            (tblnstp.semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
         )
-        AND department IN ('Teacher Education Program', 'TEP')
+        AND tblstudent.department = 'Teacher Education Program'
     ");
 
     $query->execute([

@@ -31,7 +31,52 @@ $department = isset($_POST['department']) ? $_POST['department'] : 'All';
 $status = isset($_POST['status']) ? $_POST['status'] : 'All'; // New status filter
 
 // Build the query with filters
-$query = "SELECT * FROM studentInformation_view WHERE 1=1";
+$query = "SELECT 
+                 tblstudent.student_id,
+                 tblstudent.firstname ,
+                 tblstudent.middlename ,
+                 tblstudent.lastname ,
+                 tblstudent.suffixname,
+                 tblstudent.birthday ,
+                 tblstudent.gender,
+                 tblstudent.email ,
+                 tblstudent.barangay ,
+                 tblstudent.municipality ,
+                 tblstudent.province ,
+                 tblstudent.region ,
+                 tblstudent.contactnumber,
+                 tblstudent.yearlevel ,
+                 tblstudent.department,
+                 tblstudent.major,
+                 tblstudent.serialnumber,
+                 tblnstp.semester1, 
+                 tblnstp.sectioncode1, 
+                 tblnstp.school1,
+                 tblnstp.academicyear1 ,
+                 tblnstp.grade1 ,
+                 tblnstp.semester2 ,
+                 tblnstp.sectioncode2 ,
+                 tblnstp.school2,
+                 tblnstp.academicyear2 ,
+                 tblnstp.grade2 ,
+                 tblnstp.awardyear ,
+                 tblnstp.component ,
+                 tblnstp.institutioncode ,
+                 tblnstp.program,
+                 tblnstp.remarks,
+                 tblnstp.agencytype,
+                 tblcertificate.daterelease,
+                 tblcertificate.coordinator,
+                 tblcertificate.coor_position ,
+                 tblcertificate.command1,
+                 tblcertificate.command_position1, 
+                 tblcertificate.command2, 
+                 tblcertificate.command_position2 
+          FROM tblstudent
+         LEFT JOIN tblnstp ON tblstudent.student_id = tblnstp.student_id
+         LEFT JOIN tblcertificate ON tblstudent.student_id = tblcertificate.student_id
+          WHERE 1=1";
+
 
 if ($academicYear !== 'All') {
     $query .= " AND (academicyear2 = :academicYear)";

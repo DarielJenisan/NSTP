@@ -145,7 +145,8 @@
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">NSTP2</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School NSTP2</th>
                             <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">School Year Taken NSTP2</th>
-                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code NSTP2</th>                            
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Section Code NSTP2</th>       
+                            <th style="border: 0.5px solid black; padding: 4px; color: white; background-color: #002d54;" class="text-center">Grade NSTP2</th>                     
                         </tr>
                         </thead>
                         <tbody>
@@ -155,7 +156,7 @@
                             <td>component</td>
                             <td>region</td>
                             <td>serialnumber</td>
-                            <td>kastname</td>
+                            <td>lastname</td>
                             <td>firstname</td>
                             <td>suffixname</td>
                             <td>middlename</td>
@@ -166,7 +167,7 @@
                             <td>barangay</td>
                             <td>municipality</td>
                             <td>province</td>
-                            <td>shool2</td>
+                            <td>school2</td>
                             <td>institutioncode</td>
                             <td>agencytype</td>
                             <td>program</td>
@@ -174,10 +175,12 @@
                             <td>contactnumber</td>
                             <td>semester1</td>
                             <td>school1</td>
+                            <td>academicyear1</td>
                             <td>sectioncode1</td>
                             <td>grade1</td>
                             <td>semester2</td>
                             <td>school2</td>
+                            <td>academicyear2</td>
                             <td>sectioncode2</td>
                             <td>grade2</td>
                            </tr>
@@ -211,19 +214,6 @@
 
 
 <script>
-document.getElementById('checkAllColumns').addEventListener('change', function() {
-    // Get the status of the 'Check All' checkbox (checked or unchecked)
-    var isChecked = this.checked;
-
-    // Get all the individual column checkboxes
-    var checkboxes = document.querySelectorAll('.column-checkbox');
-
-    // Loop through each checkbox and set its checked property to match the 'Check All' status
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = isChecked;
-    });
-});
-
 document.getElementById('importForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -408,7 +398,7 @@ function exportExcelTemplate() {
     ws['!cols'] = wscols; // Assign column widths to the worksheet
 
     XLSX.utils.book_append_sheet(wb, ws, 'Master List');
-    XLSX.writeFile(wb, 'MasterList.xlsx');
+    XLSX.writeFile(wb, 'MasterList-Template.xlsx');
 }
 
 </script>

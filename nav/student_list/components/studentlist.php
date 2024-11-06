@@ -7,9 +7,13 @@ $component = isset($_POST['component']) ? $_POST['component'] : 'All';
 $department = isset($_POST['department']) ? $_POST['department'] : 'All';
 
 // Build the query with filters
-$query = "SELECT student_id, awardyear, component, region, serialnumber, lastname, firstname, suffixname, middlename, birthday, 
-          gender, barangay, municipality, province, school2, institutioncode, agencytype, program, department, major, email, 
-          contactnumber FROM studentInformation_view WHERE 1=1";
+$query = "SELECT tblstudent.student_id, tblnstp.awardyear, tblnstp.component, tblstudent.region, tblstudent.serialnumber, tblstudent.lastname, 
+          tblstudent.firstname, tblstudent.suffixname, tblstudent.middlename, tblstudent.birthday, 
+          tblstudent.gender, tblstudent.barangay, tblstudent.municipality, tblstudent.province, tblnstp.school2, 
+          tblnstp.institutioncode, tblnstp.agencytype, tblnstp.program, tblstudent.department, tblstudent.major, tblstudent.email, 
+          tblstudent.contactnumber   FROM tblstudent
+         LEFT JOIN tblnstp ON tblstudent.student_id = tblnstp.student_id
+          WHERE 1=1";
 
 // Filter by academic year
 if ($academicYear !== 'All') {

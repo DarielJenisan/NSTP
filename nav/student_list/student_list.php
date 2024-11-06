@@ -397,7 +397,7 @@ $(document).ready(function() {
                 <title>Print NSTP Master List</title>
                 <style>
                     @page { 
-                        size: A4; 
+                        size: A4 landscape; 
                         margin: 10mm; 
                     }
                     body {
@@ -411,7 +411,7 @@ $(document).ready(function() {
                     th, td { 
                         border: 0.5px solid black; 
                         padding: 4px; /* Reduced padding */
-                        text-align: left; 
+                        text-align: center; 
                     }
                     th { 
                         text-align: center; 
@@ -478,7 +478,7 @@ $(document).ready(function() {
     // Create updated headers excluding "No." and "Edit" columns
     var headerCells = document.querySelectorAll('#tblstudentlist thead th');
     headerCells.forEach((cell, index) => {
-        if (index > 1 && index < headerCells.length - 1) { // Skip the "No.", "Edit" columns
+        if (index > 1 && index < headerCells.length - 0) { // Skip the "No.", "Edit" columns
             headerHtml += cell.outerHTML;
         }
     });
@@ -487,10 +487,10 @@ $(document).ready(function() {
     rows.forEach((row, rowIndex) => {
         var cells = row.children;
         newTableBody += `<tr style="page-break-inside: avoid; border: 0.5px solid black;">`; // Prevent breaking inside rows
-        newTableBody += `<td style="border: 0.5px solid black; padding: 4px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
+        newTableBody += `<td style="border: 0.5px solid black; padding: 1px; text-align: center;">${rowIndex + 1}</td>`; // Add row number
         for (var i = 2; i < cells.length; i++) { // Iterate through all cells
-            if (i !== cells.length - 1) { // Skip only the "Edit" column
-                newTableBody += `<td style="border: 0.5px solid black; padding: 4px;">${cells[i].innerHTML}</td>`;
+            if (i !== cells.length - 0) { // Skip only the "Edit" column
+                newTableBody += `<td style="border: 0.5px solid black; padding: 1px; text-align: center;">${cells[i].innerHTML}</td>`;
             }
         }
         newTableBody += `</tr>`;
@@ -503,10 +503,11 @@ $(document).ready(function() {
             <style>
                 @page { 
                     size: A4 landscape; /* Set to landscape orientation */
+                    margin: 5mm;
                 }
                 body {
                     font-family: Arial, sans-serif; /* Set a readable font */
-                    font-size: 10px; /* Base font size for compactness */
+                    font-size: 8px; /* Base font size for compactness */
                 }
                 table { 
                     width: 100%; 
@@ -514,12 +515,16 @@ $(document).ready(function() {
                 }
                 th, td { 
                     border: 0.5px solid black; /* Ensure all borders are visible */
-                    padding: 4px; /* Reduced padding for compactness */
+                    padding: 1px; /* Reduced padding for compactness */
                     text-align: left; 
                 }
                 th { 
                     text-align: center; 
                     background-color: #83f28f;
+                    font-size: 8px;
+                }
+                td {
+                    font-size: 8px;
                 }
                 .print-button {
                     position: fixed;

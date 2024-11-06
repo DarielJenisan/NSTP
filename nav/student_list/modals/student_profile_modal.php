@@ -168,8 +168,8 @@ th, td {
       <div class="modal-header" style="background-color: transparent; border: none; box-shadow: none;">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; border: none; box-shadow: none; filter: invert(1);"></button>
       </div>
-      <div class="modal-body" id="studentProfile" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
-      <div class="container">
+      <div class="modal-body" style="background-color: transparent; border: none; box-shadow: none; padding: 0;">
+      <div class="container" id="studentProfile">
     <div class="text-center my-3">
         <h2>NSTP Student Profile</h2>
     </div>

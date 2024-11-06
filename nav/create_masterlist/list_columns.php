@@ -1,6 +1,29 @@
+<style>
+    .sheet1 {
+        display: none;
+    }
+</style>
 <div class="row justify-content-center my-4">
-<div class="col-7-2">
+<div class="col-7-2 d-flex justify-content-between align-items-center">
         <h1 class="d-inline mb-0">NSTP Create Master List</h1>
+        <div class="ml-auto">
+        <button type="button" class="sheet1">Sheet 1</button>
+        <button type="button" class="sheet1">Sheet 2</button>
+        <button type="button" class="sheet1" style="margin-left: 20px; background: transparent; border: none; color: green;" data-bs-toggle="modal" data-bs-target="#ImportModal">
+        <i class="fas fa-file-import" style="font-size: 1.5em;"></i> Import
+    </button>
+<!-- Export Button -->
+<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
+    onclick="exportVisibleTableToExcel()">
+    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
+</button>
+    <!-- Print Button -->
+    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;" onclick="printTable()">
+        <i class="fas fa-print" style="font-size: 1.5em;"></i> Print
+    </button>
+        </div>
+        </div>
+
         <div class="card shadow" style="max-height: 100vh; overflow: hidden;">
             
         <div colspan="13" class="school-year" style="margin-top: 20px; margin-right: 20px;">
@@ -38,19 +61,6 @@
                 <option>Bachelor of Science in Business Administration</option>
                 <option>Teacher Education Program</option>
             </select>
-            
-     
-            <div class="text-end" style="margin-top: -40px; margin-right: 10px;">
-<!-- Export Button -->
-<button type="button" class="btn btn-export" style="margin-left: 20px; background: transparent; border: none; color: yellowgreen;" 
-    onclick="exportVisibleTableToExcel()">
-    <i class="fas fa-file-export" style="font-size: 1.5em;"></i> Export
-</button>
-    <!-- Print Button -->
-    <button id="printButton" class="btn btn-print" style="margin-left: 20px; background: transparent; border: none; color: blue;"  onclick="printTable()">
-        <i class="fas fa-print" style="font-size: 1.5em;"></i>
-    </button>
-</div>
         </div>
 
             <div class="card-body table-responsive px-2 pt-1" style="overflow-x: auto; overflow-y: auto; max-height: 75vh; margin-top: 10px;">

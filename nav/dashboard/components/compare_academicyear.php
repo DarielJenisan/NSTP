@@ -4,20 +4,22 @@ function fetchGraduatesComparison() {
     include('../../../connection.php'); // Update the connection path if necessary
 
     try {
-        // SQL query to count ROTC and CWTS graduates by academic year
+        // SQL query to count ROTC and CWTS graduates by academic year directly from tblnstp and tblstudent tables
         $sql = "
             SELECT
-                academicyear2 AS academic_year,
-                COUNT(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 END) AS ROTC_graduates,
-                COUNT(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 END) AS CWTS_graduates
+                tblnstp.academicyear2 AS academic_year,
+                COUNT(CASE WHEN tblnstp.semester1 = 'ROTC1' OR tblnstp.semester2 = 'ROTC2' THEN 1 END) AS ROTC_graduates,
+                COUNT(CASE WHEN tblnstp.semester1 = 'CWTS1' OR tblnstp.semester2 = 'CWTS2' THEN 1 END) AS CWTS_graduates
             FROM
-                studentinformation_view
+                tblnstp
+            INNER JOIN
+                tblstudent ON tblnstp.student_id = tblstudent.student_id
             WHERE
-                serialnumber IS NOT NULL
+                tblstudent.serialnumber IS NOT NULL
             GROUP BY
-                academicyear2
+                tblnstp.academicyear2
             ORDER BY
-                academicyear2 ASC;
+                tblnstp.academicyear2 ASC;
         ";
 
         // Prepare and execute the query

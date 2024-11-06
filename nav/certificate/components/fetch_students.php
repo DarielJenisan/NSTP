@@ -10,7 +10,9 @@ try {
     // Prepare the base SQL query
     $sql = "SELECT firstname, middlename, lastname, suffixname, serialnumber, academicyear2, daterelease, 
             coordinator, coor_position, command1, command_position1, command2, command_position2, semester1, semester2, department 
-            FROM studentinformation_view";
+          FROM tblstudent
+         LEFT JOIN tblnstp ON tblstudent.student_id = tblnstp.student_id
+         LEFT JOIN tblcertificate ON tblstudent.student_id = tblcertificate.student_id";
 
     // Modify SQL query if a specific department is selected
     if ($selectedDeparment !== 'All') {

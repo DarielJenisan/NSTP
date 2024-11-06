@@ -187,6 +187,9 @@ th, td {
 
 <!-- Student Profile Content -->
 <div class="container">
+<!--<div class="slip" style="margin-top: 5px; position: fixed; flex: 0 0 auto;">
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#SlipModal">Component Slip</button>
+</div>-->
     <div class="text-center my-3">
         <h2>NSTP Student Profile</h2> 
         <div id="qrcode" style="position: relative; display: inline-block;">
@@ -294,6 +297,7 @@ th, td {
 
 
 
+<?php include '../../nav_student/studentreg/modals/slip_modal.php' ?>
 
 <script>
     function loadStudentProfile() {

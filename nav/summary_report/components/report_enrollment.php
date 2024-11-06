@@ -3,7 +3,7 @@ require_once '../../../connection.php';
 
 // Fetch the latest academic year with data for either 1st or 2nd semester
 $queryLatestYear = $conn->query("SELECT MAX(GREATEST(academicyear1, academicyear2)) AS latest_year 
-                                 FROM studentInformation_view");
+                                 FROM tblnstp");
 $latestYearRow = $queryLatestYear->fetch(PDO::FETCH_ASSOC);
 $latestAcademicYear = $latestYearRow['latest_year'];
 
@@ -29,7 +29,8 @@ $totals = [
 // Query to fetch student data for the selected academic year
 $query = $conn->prepare("SELECT program, gender, semester1, academicyear1, semester2, academicyear2 
 $query = $conn->prepare("SELECT department, gender, semester1, academicyear1, semester2, academicyear2 
-                         FROM studentInformation_view
+                         FROM tblstudent
+                         LEFT JOIN tblnstp ON tblstudent.student_id = tblnstp.student_id
                          WHERE (academicyear1 = :academicYear OR academicyear2 = :academicYear)");
 $query->bindParam(':academicYear', $academicYear);
 $query->execute();

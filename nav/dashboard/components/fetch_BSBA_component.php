@@ -11,18 +11,19 @@ try {
         throw new Exception("Academic year is required.");
     }
 
-    // Modify the query to fetch total students enrolled in ROTC and CWTS for BSIT only
+    // Modify the query to fetch total students enrolled in ROTC and CWTS for BSBA only
     $query = $conn->prepare("
         SELECT 
-            SUM(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
-            SUM(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
-        FROM studentInformation_view
-        WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
+            SUM(CASE WHEN nstp.semester1 = 'ROTC1' OR nstp.semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
+            SUM(CASE WHEN nstp.semester1 = 'CWTS1' OR nstp.semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
+        FROM tblstudent AS student
+        JOIN tblnstp AS nstp ON student.student_id = nstp.student_id
+        WHERE (nstp.academicyear1 = :selectedYear OR nstp.academicyear2 = :selectedYear)
         AND (
-            (semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
-            (semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
+            (nstp.semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
+            (nstp.semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
         )
-        AND department IN ('Bachelor of Science in Business Administration', 'BSBA')
+        AND student.department IN ('Bachelor of Science in Business Administration', 'BSBA')
     ");
 
     $query->execute([
