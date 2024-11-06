@@ -14,48 +14,50 @@ try {
     // Modify the query to fetch the enrolled and completion status (completers, failed, drop) counts
     $query = $conn->prepare("
         SELECT 
-            -- Count students enrolled in ROTC based on sectioncode1 or sectioncode2
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'ROTC1' AND :semester = 'First') 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'ROTC2' AND :semester = 'Second') 
+            -- Count students enrolled in ROTC based on the section codes and selected semester
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'ROTC1' AND :semester = 'First') 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'ROTC2' AND :semester = 'Second') 
                       THEN 1 ELSE 0 END) AS rotc_total_enrolled,
                       
-            -- Count students enrolled in CWTS based on sectioncode1 or sectioncode2
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'CWTS1' AND :semester = 'First') 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'CWTS2' AND :semester = 'Second') 
+
+            -- Count students enrolled in CWTS based on the section codes and selected semester
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'CWTS1' AND :semester = 'First') 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'CWTS2' AND :semester = 'Second') 
                       THEN 1 ELSE 0 END) AS cwts_total_enrolled,
                       
-            -- Count ROTC completers (students with grade1 between 1.00 and 3.00 for first semester)
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'ROTC1' AND :semester = 'First' AND (grade1 BETWEEN 1.00 AND 3.00)) 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'ROTC2' AND :semester = 'Second' AND (grade2 BETWEEN 1.00 AND 3.00)) 
+
+            -- Count ROTC completers (students with grade1 between 1.00 and 3.00)
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'ROTC1' AND :semester = 'First' AND (nstp.grade1 BETWEEN 1.00 AND 3.00)) 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'ROTC2' AND :semester = 'Second' AND (nstp.grade2 BETWEEN 1.00 AND 3.00)) 
                       THEN 1 ELSE 0 END) AS rotc_completers,
                       
-            -- Count CWTS completers (students with grade1 between 1.00 and 3.00 for first semester)
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'CWTS1' AND :semester = 'First' AND (grade1 BETWEEN 1.00 AND 3.00)) 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'CWTS2' AND :semester = 'Second' AND (grade2 BETWEEN 1.00 AND 3.00)) 
+
+            -- Count CWTS completers (students with grade1 between 1.00 and 3.00)
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'CWTS1' AND :semester = 'First' AND (nstp.grade1 BETWEEN 1.00 AND 3.00)) 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'CWTS2' AND :semester = 'Second' AND (nstp.grade2 BETWEEN 1.00 AND 3.00)) 
                       THEN 1 ELSE 0 END) AS cwts_completers,
 
-            -- Count ROTC failed (students with grade1 greater than 3 for first semester)
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'ROTC1' AND :semester = 'First' AND (grade1 > 3.00)) 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'ROTC2' AND :semester = 'Second' AND (grade2 > 3.00)) 
+            -- Count ROTC failed (students with grade1 greater than 3)
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'ROTC1' AND :semester = 'First' AND (nstp.grade1 > 3.00)) 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'ROTC2' AND :semester = 'Second' AND (nstp.grade2 > 3.00)) 
                       THEN 1 ELSE 0 END) AS rotc_failed,
 
-            -- Count CWTS failed (students with grade1 greater than 3 for first semester)
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'CWTS1' AND :semester = 'First' AND (grade1 > 3.00)) 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'CWTS2' AND :semester = 'Second' AND (grade2 > 3.00)) 
+            -- Count CWTS failed (students with grade1 greater than 3)
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'CWTS1' AND :semester = 'First' AND (nstp.grade1 > 3.00)) 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'CWTS2' AND :semester = 'Second' AND (nstp.grade2 > 3.00)) 
                       THEN 1 ELSE 0 END) AS cwts_failed,
 
-            -- Count ROTC drop (students with grade1 being 0.99 or null for first semester)
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'ROTC1' AND :semester = 'First' AND (grade1 = 0.99 OR grade1 IS NULL)) 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'ROTC2' AND :semester = 'Second' AND (grade2 = 0.99 OR grade2 IS NULL)) 
+            -- Count ROTC drop (students with grade1 being 0.99 or null)
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'ROTC1' AND :semester = 'First' AND (nstp.grade1 = 0.99 OR nstp.grade1 IS NULL)) 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'ROTC2' AND :semester = 'Second' AND (nstp.grade2 = 0.99 OR nstp.grade2 IS NULL)) 
                       THEN 1 ELSE 0 END) AS rotc_drop,
 
-            -- Count CWTS drop (students with grade1 being 0.99 or null for first semester)
-            SUM(CASE WHEN (sectioncode1 IS NOT NULL AND semester1 = 'CWTS1' AND :semester = 'First' AND (grade1 = 0.99 OR grade1 IS NULL)) 
-                      OR (sectioncode2 IS NOT NULL AND semester2 = 'CWTS2' AND :semester = 'Second' AND (grade2 = 0.99 OR grade2 IS NULL)) 
+            -- Count CWTS drop (students with grade1 being 0.99 or null)
+            SUM(CASE WHEN (nstp.academicyear1 = :selectedYear AND nstp.semester1 = 'CWTS1' AND :semester = 'First' AND (nstp.grade1 = 0.99 OR nstp.grade1 IS NULL)) 
+                      OR (nstp.academicyear2 = :selectedYear AND nstp.semester2 = 'CWTS2' AND :semester = 'Second' AND (nstp.grade2 = 0.99 OR nstp.grade2 IS NULL)) 
                       THEN 1 ELSE 0 END) AS cwts_drop
-                      
-        FROM studentInformation_view
-        WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
+        FROM tblnstp AS nstp
+        WHERE (nstp.academicyear1 = :selectedYear OR nstp.academicyear2 = :selectedYear)
     ");
 
     $query->execute([

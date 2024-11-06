@@ -190,7 +190,7 @@
         // clickSubModule('nav/purchaserequest/pr_main.php');
         // clickSubModule('nav/purchaserequest/pr_main.php')
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="../js/chart.js"></script>
      <script>
     function clickSubModule(filepath) {
         $.post(filepath, {}, function(data) {

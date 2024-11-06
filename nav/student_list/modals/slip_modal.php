@@ -25,7 +25,7 @@
         }
 
         .left-logo {
-           width: 100px; /* Set logo width */
+           width: 140px; /* Set logo width */
            height: auto; /* Maintain aspect ratio */
            margin-left: 20px; /* Space between images and text */
         }
@@ -232,7 +232,7 @@
 
 
 
-<<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
  function loadSlip(semester1, semester2, student_id, firstname, middlename, lastname, suffixname, yearlevel, department, academicyear1, academicyear2) {

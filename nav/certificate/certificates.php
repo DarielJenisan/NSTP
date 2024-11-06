@@ -235,6 +235,7 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <script>
    $.ajax({
         url: "../nav/certificate/components/fetch_academic_years.php", // Fetch academic years
@@ -616,13 +617,13 @@ generateCertificates();
                         background-image: url('../assets/img/rotccert.png');
                     }
 
-                    .qr-code {
-                        position: absolute;
-                        bottom: 40px;
-                        right: 60px;
-                        width: 100px;
-                        height: 100px;
-                    }
+                     .qr-code {
+        position: absolute;
+        bottom: 50px; /* Position the QR code */
+        right: 55px; 
+        width: 100px;
+        height: 100px;
+    }
 
                     .text-container {
                         position: absolute;

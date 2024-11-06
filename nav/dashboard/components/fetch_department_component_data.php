@@ -14,16 +14,17 @@ try {
     // Modify the query to fetch total students enrolled in ROTC and CWTS for each department based on the selected year and semester
     $query = $conn->prepare("
         SELECT 
-            department, 
-            SUM(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
-            SUM(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
-        FROM studentInformation_view
-        WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
+            s.department, 
+            SUM(CASE WHEN n.semester1 = 'ROTC1' OR n.semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
+            SUM(CASE WHEN n.semester1 = 'CWTS1' OR n.semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
+        FROM tblstudent AS s
+        JOIN tblnstp AS n ON s.student_id = n.student_id
+        WHERE (n.academicyear1 = :selectedYear OR n.academicyear2 = :selectedYear)
         AND (
-            (semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
-            (semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
+            (n.semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
+            (n.semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
         )
-        GROUP BY department
+        GROUP BY s.department
     ");
 
     $query->execute([

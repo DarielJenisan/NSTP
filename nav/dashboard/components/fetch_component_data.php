@@ -16,7 +16,7 @@ try {
         SELECT 
             SUM(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
             SUM(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
-        FROM studentInformation_view
+        FROM tblnstp
         WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
         AND (
             (semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 

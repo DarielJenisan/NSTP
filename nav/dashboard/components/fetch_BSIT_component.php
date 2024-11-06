@@ -16,13 +16,14 @@ try {
         SELECT 
             SUM(CASE WHEN semester1 = 'ROTC1' OR semester2 = 'ROTC2' THEN 1 ELSE 0 END) AS rotc_total,
             SUM(CASE WHEN semester1 = 'CWTS1' OR semester2 = 'CWTS2' THEN 1 ELSE 0 END) AS cwts_total
-        FROM studentInformation_view
-        WHERE (academicyear1 = :selectedYear OR academicyear2 = :selectedYear)
+        FROM tblnstp AS n
+        INNER JOIN tblstudent AS s ON n.student_id = s.student_id
+        WHERE (n.academicyear1 = :selectedYear OR n.academicyear2 = :selectedYear)
         AND (
-            (semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
-            (semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
+            (n.semester1 IN ('ROTC1', 'CWTS1') AND :semester = 'First') OR 
+            (n.semester2 IN ('ROTC2', 'CWTS2') AND :semester = 'Second')
         )
-        AND department IN ('Bachelor of Science in Information Technology', 'BSIT')
+        AND s.department IN ('Bachelor of Science in Information Technology', 'BSIT')
     ");
 
     $query->execute([

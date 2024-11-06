@@ -11,7 +11,7 @@ $selectedSemester = strtolower($data['semester']) ?? null; // 'first' or 'second
 
 // If no academic year is selected, fetch the latest academic year from the database
 if (!$selectedAcademicYear) {
-    $yearQuery = $conn->query("SELECT MAX(academicyear1) AS latest_year FROM studentinformation_view");
+    $yearQuery = $conn->query("SELECT MAX(academicyear1) AS latest_year FROM tblnstp");
     $latestYearRow = $yearQuery->fetch(PDO::FETCH_ASSOC);
     $selectedAcademicYear = $latestYearRow['latest_year'] ?? null;
 }
@@ -40,9 +40,10 @@ $totals = [
 $semesterColumn = $selectedSemester === 'second' ? 'semester2' : 'semester1';
 
 // Query the database for gender counts based on the selected academic year and semester
-$query = $conn->prepare("SELECT department, gender, $semesterColumn AS semester
-                         FROM studentinformation_view
-                         WHERE academicyear1 = :academicYear OR academicyear2 = :academicYear");
+$query = $conn->prepare("SELECT s.department, s.gender, n.$semesterColumn AS semester
+                         FROM tblstudent s
+                         JOIN tblnstp n ON s.student_id = n.student_id
+                         WHERE n.academicyear1 = :academicYear OR n.academicyear2 = :academicYear");
 $query->bindParam(':academicYear', $selectedAcademicYear);
 $query->execute();
 

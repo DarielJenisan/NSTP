@@ -15,6 +15,7 @@
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/create_masterlist/list_columns.php')">Create Master List</a>
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/summary_report/summary_report.php')">Summary Report</a> 
                     <a class="dropdown-item py-0" onclick="clickSubModule('../nav/certificate/certificates.php')">Certificates</a>
+                    <a class="dropdown-item py-0" onclick="clickSubModule('../nav/template/template.php')">Templates</a>
 
                 </div>
                 <!--<div>
@@ -32,11 +33,12 @@
             </div>
         </div>
     </li>
-    <li class="nav-item dropdown" onclick="clickSubModule('../nav/Approval/approval_request.php')">
+    <li class="nav-item dropdown" onclick="clickSubModule('../nav/activity/activity_log.php')">
         <a class="nav-link">
-            Approval
+            Activity logs
         </a>
     </li>
+
 
     <li class="nav-item dropdown" style="padding-top: 0px;">
         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
